@@ -25,11 +25,11 @@ Audio files are read by Csound, hence they don't need and special considerations
     SFileName1 sprintf "%s/%s", chnget:S("CSD_PATH"), SFileName
 ```
 
-#### Quick access to audio input
+<!-- #### Quick access to audio input
 
 Testing arbitrary input signals when working in standalone mode can be cumbersome. The simplest approach is to set up a live microphone input, but this may not always be feasible. If you prefer to route audio files to your standalone plugin, you can do so easily. Right-click the audio file in the VS Code file explorer panel and select the desired channel routing. Once routed, the audio file can be accessed in your code just like any live input, using the inch opcode.
 
-The channel routing will persist across compiles unless manually disabled in the settings. If you'd like to remove all file routing at any time, simply re-select an audio input device.
+The channel routing will persist across compiles unless manually disabled in the settings. If you'd like to remove all file routing at any time, simply re-select an audio input device. -->
 
 ### Bundling Media Files (todo)
 
