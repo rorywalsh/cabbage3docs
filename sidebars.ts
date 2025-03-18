@@ -30,16 +30,18 @@ const sidebars: SidebarsConfig = {
       items: [
         'using_cabbage/overview',
         'using_cabbage/working_with_instruments',
-        'using_cabbage/commands',
-        'using_cabbage/configuration',
+        'using_cabbage/exporting_instruments',
         'using_cabbage/media_files',
-        'using_cabbage/multichannel'
+        'using_cabbage/multichannel',
+        'using_cabbage/commands',
+        'using_cabbage/configuration'
       ],
     },
     {
       type: 'category',
       label: 'Widgets',
       items: ['cabbage_widgets/intro',
+        'cabbage_widgets/form',
         'cabbage_widgets/button',
         'cabbage_widgets/combobox',
         'cabbage_widgets/gentable',
