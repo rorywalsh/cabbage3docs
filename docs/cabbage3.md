@@ -42,7 +42,7 @@ In summary, the changes in Cabbage 3, particularly the shift to using JSON objec
 
 #### 5. Exporting instruments
 
-Although the process of exporting has remained largely unchanged, the sequence of events during export has undergone some updates. The most significant change is that all instrument resources are now automatically exported to default folders. All assets, including images, .csd files, and other related resources, will be placed in the following locations:
+Although the process of exporting has remained largely unchanged, the sequence of events during export has undergone some updates. The most significant change is that all instrument resources are now exported to a set resource folder by default. All assets, including images, .csd files, and other related resources, will be placed in the following locations (unless you enable the 'Bundle Resources' option in the Cabbage Vs-Code settings):
 
 * MacOS
     `/Library/CabbageAudio/PLUGIN_NAME/`
@@ -51,4 +51,4 @@ Although the process of exporting has remained largely unchanged, the sequence o
 
 Cabbage automatically searches these directories when it starts, so it’s essential not to move them to another location.
 
-When sharing plugins, ensure you copy the entire folder along with the plugin binary. On the target machine, restore the folder to its correct location as specified above to ensure proper functionality.
+When sharing plugins, it's probably easier to use the `Bundle Resources` option to keep things self contained. Otherwise, you must ensure you copy the entire folder along with the plugin binary and restore the folder to its correct location as specified above to ensure proper functionality on the target machine.

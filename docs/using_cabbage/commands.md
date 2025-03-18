@@ -4,6 +4,7 @@ description: Available commands in Cabbage 3
 ---
 
 ## Table of Contents
+- [Table of Contents](#table-of-contents)
 - [Command Palette Access](#command-palette-access)
 - [Commands](#commands)
   - [Running](#running)
@@ -60,6 +61,9 @@ Once the command palette is open, you can start typing the name of the command y
 - **Select Buffer Size**
   - Opens a prompt to select the audio buffer size for the project.
 
+- **Select Audio Driver**
+  - Opens a prompt to select the audio driver.
+  
 - **Select Audio Output Device**
   - Opens a prompt to select the audio output device.
 
@@ -94,4 +98,5 @@ Once the command palette is open, you can start typing the name of the command y
 - **Export as AUv2 Synth**
   - Opens a file dialogue and lets users export the current project as an AUv2 synthesizer plugin.
 
-> Exporting creates a new plugin binary and saves it to the specified location. Unlike in Cabbage 2, the .csd file is no longer placed inside the plugin bundle. Instead, it is added to a separate directory along with all the necessary JavaScript, HTML, and CSS files required to support your web-based UI. When the plugin is loaded in a DAW it will serve the contents of the folder using its in-built live server. Each plugin will run on a unique port. 
+- **Bundle Resources**
+  - Tells Cabbage to bundle all resources into the plugin folder, otherwise all resources, including the .csd file will be placed into the CabbageAdio resources directory.  
