@@ -71,7 +71,7 @@ In order to set up custom busing in Cabbage 3 we define a list of available bus 
         "width": 580
     },
     "pluginId": "def1",
-    "channelConfig":"2.1-2 2-2 1-1"
+    "channelConfig":"2.1-2, 2-2, 1-1"
 }
 ```
 
