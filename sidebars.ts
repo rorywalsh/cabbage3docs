@@ -53,7 +53,8 @@ const sidebars: SidebarsConfig = {
         'cabbage_widgets/optionButton',
         'cabbage_widgets/horizontalSlider',
         'cabbage_widgets/verticalSlider',
-        'cabbage_widgets/rotarySlider'],
+        'cabbage_widgets/rotarySlider',
+        'cabbage_widgets/xyPad'],
     },
     {
       type: 'doc',
@@ -67,7 +68,8 @@ const sidebars: SidebarsConfig = {
         'cabbage_opcodes/cabbageDump',
         'cabbage_opcodes/cabbageGetValue',
         'cabbage_opcodes/cabbageGet',
-        'cabbage_opcodes/cabbageSet'],
+        'cabbage_opcodes/cabbageSet',
+        'cabbage_opcodes/cabbageSetValue'],
     },
   ],
 

@@ -1,0 +1,9 @@
+```json
+"channel": {"id": "xyPad1", "x": "channelX", "y": "channelY"}
+```
+Defines the channel configuration for the xyPad widget:
+- **id**: Unique identifier for the xyPad widget itself. Use this channel with `cabbageSet` to update any of the xyPad's attributes. 
+- **x**: Channel name for the X-axis value (used with `cabbageGetValue` to retrieve the horizontal position)
+- **y**: Channel name for the Y-axis value (used with `cabbageGetValue` to retrieve the vertical position)
+
+Both X and Y channels can be read independently in your Csound code using `cabbageGetValue`.

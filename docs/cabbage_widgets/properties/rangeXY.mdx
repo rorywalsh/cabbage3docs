@@ -1,0 +1,14 @@
+```json
+"range": {
+    "x": {"min": 0, "max": 100, "defaultValue": 50, "skew": 1, "increment": 0.1},
+    "y": {"min": 0, "max": 100, "defaultValue": 50, "skew": 1, "increment": 0.1}
+}
+```
+Defines the ranges for both X and Y axes of the xyPad. Each axis has its own independent range with the following parameters:
+- **min**: Minimum value (required)
+- **max**: Maximum value (required)
+- **defaultValue**: Initial value (optional, defaults to min)
+- **skew**: Skew factor for non-linear scaling (optional, default is 1 for linear). A value of 0.5 creates exponential scaling
+- **increment**: Step size for value changes (optional, default is 0.001)
+
+> `range()` cannot be updated or modified once a widget has been declared.
