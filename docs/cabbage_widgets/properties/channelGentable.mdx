@@ -1,18 +1,19 @@
 ````plaintext
 ```json
-"channel": {"id": "genTable1", "start": "region_start", "end": "region_end"}
+"channel": {"id": "genTable1", "start": "region_start", "length": "region_length"}
 ```
 Defines the channel configuration for the genTable widget:
 - **id**: Unique identifier for the genTable widget itself. Use this channel with `cabbageSet` to update any of the genTable's attributes.
 - **start**: Channel name for the selection start position (sample index). This channel is updated when the user selects a region on the waveform (only when `selectableRegions` is enabled)
-- **end**: Channel name for the selection end position (sample index). This channel is updated when the user selects a region on the waveform (only when `selectableRegions` is enabled)
+- **length**: Channel name for the selection length (number of samples). This channel is updated when the user selects a region on the waveform (only when `selectableRegions` is enabled)
 
-The start and end channels are only used when `selectableRegions` is enabled. You can read these values in your Csound code using `cabbageGetValue` to process or analyze the selected region.
+The start and length channels are only used when `selectableRegions` is enabled. You can read these values in your Csound code using `cabbageGetValue` to process or analyze the selected region. The end position can be calculated as `start + length`.
 
 **Example usage in Csound:**
 ```csound
 kRegionStart cabbageGetValue "region_start"
-kRegionEnd cabbageGetValue "region_end"
+kRegionLength cabbageGetValue "region_length"
+kRegionEnd = kRegionStart + kRegionLength
 ; Process the selected region...
 ```
 
