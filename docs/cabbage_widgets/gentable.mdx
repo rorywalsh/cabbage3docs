@@ -1,5 +1,5 @@
 import Font from "./properties/font.mdx";
-import Channel from "./properties/channel.mdx";
+import Channel from "./properties/channelGentable.mdx";
 import Colour from "./properties/colourGentable.mdx";
 import Opacity from "./properties/opacity.mdx";
 import Bounds from "./properties/bounds.mdx";
@@ -9,16 +9,17 @@ import Sample from "./properties/sampleRange.mdx";
 import File from "./properties/file.mdx";
 import TableNumber from "./properties/tableNumber.mdx";
 import Text from "./properties/text.mdx";
+import SelectableRegions from "./properties/selectableRegions.mdx";
 import CodeBlock from '@theme/CodeBlock';
 import widgetCode from '!!raw-loader!../../static/examples/gentable.csd';
 
 
 # GenTable
 
-`genTable` creates a table widget on screen that can be used to display the contents of a function table or the contents of a file. 
+`genTable` creates a table widget on screen that can be used to display the contents of a function table or the contents of a file. When `selectableRegions` is enabled, users can interactively select portions of the waveform by clicking and dragging.
 
 # List of supported properties
-[Active](#active) | [Bounds](#bounds) | [Channel](#channel) | [Colour](#colour) | [Font](#font) | [Opacity](#opacity) |  [Text](#text) | [Visible](#visible) | [Table Number](#tablenumber)
+[Active](#active) | [Bounds](#bounds) | [Channel](#channel) | [Colour](#colour) | [Font](#font) | [Opacity](#opacity) | [Sample Range](#sample) | [Selectable Regions](#selectableregions) | [Table Number](#tablenumber) | [Text](#text) | [Visible](#visible)
 
 
 ### Unique Properties 
@@ -28,8 +29,12 @@ import widgetCode from '!!raw-loader!../../static/examples/gentable.csd';
 <TableNumber />
 
 <a id="sample" class="anchor-target"></a>
-#### Sample
+#### Sample Range
 <Sample />
+
+<a id="selectableregions" class="anchor-target"></a>
+#### Selectable Regions
+<SelectableRegions />
 
 
 ### Common Properties

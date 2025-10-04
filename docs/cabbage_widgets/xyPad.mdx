@@ -19,6 +19,8 @@ import widgetCode from '!!raw-loader!../../static/examples/xyPad.csd';
 
 `xyPad` creates a 2-dimensional X-Y pad controller that allows simultaneous control of two parameters. A draggable ball represents the current position, with independent channels for X and Y axes. The widget features dynamic crosshairs that follow the ball position, value displays for both axes, and customizable ranges with support for non-linear (skewed) scaling. This is ideal for controlling paired parameters like cutoff frequency and resonance, pan and reverb amount, or any two related audio parameters.
 
+In Cabbage 2, if you slung the ball across the XY pad, parameter updates would continue even after the UI was closed. In Cabbage 3, this behavior has changed: once the UI is closed, parameter updates stop, and the value remains fixed until the UI is reopened. 
+
 > Note: Please consult the `range` and `channel` properties for this widget, they are different to those of single channel widgets.
 
 # List of supported properties
