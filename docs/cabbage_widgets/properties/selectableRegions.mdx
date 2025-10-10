@@ -1,0 +1,16 @@
+````plaintext
+```json
+"selectableRegions": true
+```
+
+When enabled, users can click and drag on the waveform to select a region of samples. The selected region is highlighted with a semi-transparent overlay.
+
+**Behavior:**
+- **Click and drag**: Select a region by clicking on the waveform and dragging to define the selection boundaries
+- **Click without drag**: Clicking without dragging (less than 3 pixels of movement) clears the current selection
+- **Visual feedback**: Selected regions are shown with a semi-transparent overlay
+- **Channel output**: When a region is selected, the start and end sample indices are automatically sent to Csound via the configured channels (see `channelGentable`)
+
+This feature is useful for selecting portions of audio for processing, looping, or analysis.
+
+````

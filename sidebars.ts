@@ -29,17 +29,20 @@ const sidebars: SidebarsConfig = {
       label: 'Using Cabbage 3',
       items: [
         'using_cabbage/overview',
+        'using_cabbage/running_cabbage',
         'using_cabbage/working_with_instruments',
-        'using_cabbage/commands',
-        'using_cabbage/configuration',
+        'using_cabbage/exporting_instruments',
         'using_cabbage/media_files',
-        'using_cabbage/multichannel'
+        'using_cabbage/multichannel',
+        'using_cabbage/commands',
+        'using_cabbage/configuration'
       ],
     },
     {
       type: 'category',
       label: 'Widgets',
       items: ['cabbage_widgets/intro',
+        'cabbage_widgets/form',
         'cabbage_widgets/button',
         'cabbage_widgets/combobox',
         'cabbage_widgets/gentable',
@@ -50,7 +53,8 @@ const sidebars: SidebarsConfig = {
         'cabbage_widgets/optionButton',
         'cabbage_widgets/horizontalSlider',
         'cabbage_widgets/verticalSlider',
-        'cabbage_widgets/rotarySlider'],
+        'cabbage_widgets/rotarySlider',
+        'cabbage_widgets/xyPad'],
     },
     {
       type: 'doc',
@@ -64,7 +68,8 @@ const sidebars: SidebarsConfig = {
         'cabbage_opcodes/cabbageDump',
         'cabbage_opcodes/cabbageGetValue',
         'cabbage_opcodes/cabbageGet',
-        'cabbage_opcodes/cabbageSet'],
+        'cabbage_opcodes/cabbageSet',
+        'cabbage_opcodes/cabbageSetValue'],
     },
   ],
 

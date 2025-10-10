@@ -1,0 +1,89 @@
+import Font from "./properties/font.mdx";
+import ChannelXY from "./properties/channelXY.mdx";
+import Automatable from "./properties/automatable.mdx";
+import Colour from "./properties/colour.mdx";
+import Opacity from "./properties/opacity.mdx";
+import Bounds from "./properties/bounds.mdx";
+import Visible from "./properties/visible.mdx";
+import Active from "./properties/active.mdx";
+import Corners from "./properties/corners.mdx";
+import TextXY from "./properties/textXY.mdx";
+import RangeXY from "./properties/rangeXY.mdx";
+import BallSize from "./properties/ballSize.mdx";
+import Popup from "./properties/popup.mdx";
+import { useEffect, useState } from 'react';
+import CodeBlock from '@theme/CodeBlock';
+import widgetCode from '!!raw-loader!../../static/examples/xyPad.csd';
+
+# XY Pad
+
+`xyPad` creates a 2-dimensional X-Y pad controller that allows simultaneous control of two parameters. A draggable ball represents the current position, with independent channels for X and Y axes. The widget features dynamic crosshairs that follow the ball position, value displays for both axes, and customizable ranges with support for non-linear (skewed) scaling. This is ideal for controlling paired parameters like cutoff frequency and resonance, pan and reverb amount, or any two related audio parameters.
+
+In Cabbage 2, if you slung the ball across the XY pad, parameter updates would continue even after the UI was closed. In Cabbage 3, this behavior has changed: once the UI is closed, parameter updates stop, and the value remains fixed until the UI is reopened. 
+
+> Note: Please consult the `range` and `channel` properties for this widget, they are different to those of single channel widgets.
+
+# List of supported properties
+[Active](#active) | [Automatable](#automatable) | [BallSize](#ballsize) | [Bounds](#bounds) | [Channel](#channel) | [Colour](#colour) | [Corners](#corners) | [Font](#font) | [Opacity](#opacity) | [Popup](#popup) | [Range](#range) | [Text](#text) | [Visible](#visible)
+
+
+### Common Properties
+
+<a id="active" class="anchor-target"></a>
+#### Active
+<Active />
+
+<a id="automatable" class="anchor-target"></a>
+#### Automatable
+<Automatable />
+
+<a id="ballsize" class="anchor-target"></a>
+#### BallSize
+<BallSize />
+
+<a id="bounds" class="anchor-target"></a>
+#### Bounds
+<Bounds />
+
+<a id="channel" class="anchor-target"></a>
+#### Channel
+<ChannelXY />
+
+<a id="colour" class="anchor-target"></a>
+#### Colour
+<Colour />
+
+<a id="corners" class="anchor-target"></a>
+#### Corners
+<Corners />
+
+<a id="font" class="anchor-target"></a>
+#### Font
+<Font />
+
+<a id="opacity" class="anchor-target"></a>
+#### Opacity
+<Opacity />
+
+<a id="popup" class="anchor-target"></a>
+#### Popup
+<Popup />
+
+<a id="range" class="anchor-target"></a>
+#### Range
+<RangeXY />
+
+<a id="text" class="anchor-target"></a>
+#### Text
+<TextXY />
+
+<a id="visible" class="anchor-target"></a>
+#### Visible
+<Visible />
+
+<!--(End of identifiers)/-->
+
+
+## Example
+
+<CodeBlock language="csharp">{widgetCode}</CodeBlock>

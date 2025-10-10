@@ -5,7 +5,7 @@ description: How to export instruments
 
 Once you are satisfied that your plugin is ready for testing in a DAW, you can export it using the `Export as...` command. A list of plugin export options, specific to your current operating system, will be displayed. After selecting an export option, a file browser window will appear, allowing you to choose the target destination for your plugin binary.
 
-While the plugin binary will be saved in the selected location, all associated assets—such as images, .csd files, and other related resources—will be automatically placed in the following default locations:
+The plugin binary will be saved in the selected location. By default, any resources the plugin requires—such as images, .csd files, and samples—will be automatically written to the following locations unless Bundle Resources is enabled:
 
 * MacOS
     `/Library/CabbageAudio/PLUGIN_NAME/`
@@ -18,3 +18,8 @@ To make changes to your newly exported plugin, you only need to edit the associa
 `C:/Program Files/CabbageAudio/SavageCabbage/SavageCabbage.csd`.
 
 After making changes, you must remove and re-add the plugin in your plugin host (DAW) to see the updates. Once the plugin is removed and reinstated on the track, the changes will be reflected.
+
+### Bundling Resources
+If you enable the Bundle Resource option in the Cabbage VS Code settings, Cabbage will place the Resource folder inside the plugin bundle. This is useful when distributing a plugin but can cause code signing issues on macOS during development. Each time you modify a file within the plugin bundle, you must re-sign the plugin.
+
+To avoid this, it's recommended to keep your resources in the directories mentioned above during development. This allows for easier file updates without the need for repeated code signing.
