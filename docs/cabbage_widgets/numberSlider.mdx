@@ -1,0 +1,63 @@
+import Bounds from "./properties/bounds.mdx";
+import Channel from "./properties/channel.mdx";
+import Value from "./properties/value.mdx";
+import Visible from "./properties/visible.mdx";
+import Font from "./properties/font.mdx";
+import ValueTextBox from "./properties/valueTextBox.mdx";
+import Automatable from "./properties/automatable.mdx";
+import CodeBlock from '@theme/CodeBlock';
+import widgetCode from '!!raw-loader!../../static/examples/numberSlider.csd';
+
+# NumberSlider
+
+`numberSlider` allows users to adjust a numeric value by clicking and dragging up or down. This component displays the current value as text and is useful for precise parameter control in a compact space.
+
+# List of supported properties
+[Bounds](#bounds) | [Channel](#channel) | [Value](#value) | [Visible](#visible) | [Colour](#colour) | [Font](#font) |
+| [Value Text Box](#value-text-box) | [Automatable](#automatable)
+
+### Unique Properties
+
+<a id="value-text-box" class="anchor-target"></a>
+#### Value Text Box
+<ValueTextBox />
+
+### Common properties
+<a id="bounds" class="anchor-target"></a>
+#### Bounds
+<Bounds />
+
+<a id="channel" class="anchor-target"></a>
+#### Channel
+<Channel />
+
+<a id="value" class="anchor-target"></a>
+#### Value
+<Value />
+
+<a id="visible" class="anchor-target"></a>
+#### Visible
+<Visible />
+
+<a id="colour" class="anchor-target"></a>
+#### Colour
+````json
+"colour": {
+    "fill": "#222222"
+}
+````
+
+Colour properties can be any valid CSS or HTML color string. They can also accept hexadecimal strings, or RGB / RGBA arrays, where each channel ranges from 0 to 255. For example, `"colour":{"fill":[0, 0, 255]}` or `"colour":{"fill":"#ff0000"}`. The `fill` property sets the background colour of the number slider.
+
+<a id="font" class="anchor-target"></a>
+#### Font
+<Font/>
+
+<a id="automatable" class="anchor-target"></a>
+#### Automatable
+<Automatable />
+
+
+## Example
+
+<CodeBlock language="csharp">{widgetCode}</CodeBlock>
