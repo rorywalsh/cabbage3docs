@@ -1,8 +1,28 @@
 ```json
-"channel": "chan"
+"channels": [
+                {
+                    "id":"channelName", 
+                    "eventType": "valueChanged",
+                    "range": {"min":0, "max":100, "value":0, "skew":1, "incr":0.1}
+                }
+            ]
 ```
 
-The unique channel name associated with a widget/component. This unique name is used to get and set widget properties. 
+In Cabbage 3, widgets use an array of channels instead of a single channel string. Each channel object includes an 'id' for the unique channel name. Cabbage 3 widgets can have a number of channel attached to them. An optional 'eventType' is used to specify the type of interaction, and a 'range' object defining the minimum, maximum, initial value, skew, and increment can also be used for custom mapping of values. If `range` is left out, it will default to a ranges that goes from 0 to 1, with increments of 0.001 for drag events and 1 for click/toggle events. A widget's `id` is used to set the general communication channel for updating attributes, whereas the channels defined in the `channels\ array are used for value and parameter updates. 
+
+Supported event types:
+
+| Event             | Description |
+| ----------------- | -------------------------------------------- |
+| `valueChanged (default)` | Tracks simple value changes |
+| `mousePressLeft` | Tracks presses of left mouse button |
+| `mousePressRight` | Tracks presses of right mouse button |
+| `mousePressMiddle` | Tracks presses of middle mouse button |
+| `mouseMoveX` | Tracks movement along X axis. |
+| `mouseMoveY` | Tracks movement along Y axis. |
+| `mouseDragX` | Tracks movement along X axis with mouse pressed |
+| `mouseDragY` | Tracks movement along Y axis with mouse pressed |
+| `mouseInside` | Returns max when any mouse button is within the bounds of the widget, min if outside. |
 
 > In Cabbage 3, channels don't need to start with a letter, and white spaces are permitted. 
  
