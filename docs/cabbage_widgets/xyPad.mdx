@@ -8,6 +8,7 @@ import Visible from "./properties/visible.mdx";
 import Active from "./properties/active.mdx";
 import Corners from "./properties/corners.mdx";
 import TextXY from "./properties/textXY.mdx";
+import Id from "./properties/id.mdx";
 import RangeXY from "./properties/rangeXY.mdx";
 import BallSize from "./properties/ballSize.mdx";
 import Popup from "./properties/popup.mdx";
@@ -21,10 +22,8 @@ import widgetCode from '!!raw-loader!../../static/examples/xyPad.csd';
 
 In Cabbage 2, if you slung the ball across the XY pad, parameter updates would continue even after the UI was closed. In Cabbage 3, this behavior has changed: once the UI is closed, parameter updates stop, and the value remains fixed until the UI is reopened. 
 
-> Note: Please consult the `range` and `channel` properties for this widget, they are different to those of single channel widgets.
-
 # List of supported properties
-[Active](#active) | [Automatable](#automatable) | [BallSize](#ballsize) | [Bounds](#bounds) | [Channel](#channel) | [Colour](#colour) | [Corners](#corners) | [Font](#font) | [Opacity](#opacity) | [Popup](#popup) | [Range](#range) | [Text](#text) | [Visible](#visible)
+[Active](#active) | [Automatable](#automatable) | [BallSize](#ballsize) | [Bounds](#bounds) | [Channel](#channel) | [Colour](#colour) | [Corners](#corners) | [Font](#font) |[Id](#id) | [Opacity](#opacity) | [Popup](#popup) | [Range](#range) | [Text](#text) | [Visible](#visible)
 
 
 ### Common Properties
@@ -60,6 +59,10 @@ In Cabbage 2, if you slung the ball across the XY pad, parameter updates would c
 <a id="font" class="anchor-target"></a>
 #### Font
 <Font />
+
+<a id="id" class="anchor-target"></a>
+#### Id
+<Id />
 
 <a id="opacity" class="anchor-target"></a>
 #### Opacity

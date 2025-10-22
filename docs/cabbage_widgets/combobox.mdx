@@ -6,6 +6,7 @@ import Automatable from "./properties/automatable.mdx";
 import Bounds from "./properties/bounds.mdx";
 import Colour from "./properties/colour.mdx";
 import Font from "./properties/font.mdx";
+import Id from "./properties/id.mdx";
 import Value from "./properties/value.mdx";
 import Visible from "./properties/visible.mdx";
 import Opacity from "./properties/opacity.mdx";
@@ -19,7 +20,7 @@ import widgetCode from '!!raw-loader!../../static/examples/combobox.csd';
 A combobox can also be set up to work with strings. In this case, Csound will receive the currently selected string instead of the current index. Note that using a combobox in this way renders it useless in terms of host automation. Host automation can only be achieved when a combobox is sending the **current** index, rather than the current string.
 
 # List of supported properties
-[Active](#active) | [Automatable](#automatable) | [Bounds](#bounds) | [Channel](#channel) | [Colour](#colour) | [Font](#font) | [Opacity](#opacity) | [Value](#value) | [Visible](#visible) | [Items](#items) | [Populate](#populate)
+[Active](#active) | [Automatable](#automatable) | [Bounds](#bounds) | [Channel](#channel) | [Colour](#colour) | [Font](#font) |[Id](#id) | [Opacity](#opacity) | [Value](#value) | [Visible](#visible) | [Items](#items) | [Populate](#populate)
 
 ### Unique Properties
 
@@ -55,6 +56,10 @@ A combobox can also be set up to work with strings. In this case, Csound will re
 <a id="font" class="anchor-target"></a>
 #### Font
 <Font />
+
+<a id="id" class="anchor-target"></a>
+#### Id
+<Id />
 
 <a id="opacity" class="anchor-target"></a>
 #### Opacity

@@ -8,7 +8,11 @@
             ]
 ```
 
-In Cabbage 3, widgets use an array of channels instead of a single channel string. Each channel object includes an 'id' for the unique channel name. Cabbage 3 widgets can have a number of channel attached to them. An optional 'eventType' is used to specify the type of interaction, and a 'range' object defining the minimum, maximum, initial value, skew, and increment can also be used for custom mapping of values. If `range` is left out, it will default to a ranges that goes from 0 to 1, with increments of 0.001 for drag events and 1 for click/toggle events. A widget's `id` is used to set the general communication channel for updating attributes, whereas the channels defined in the `channels\ array are used for value and parameter updates. 
+In Cabbage 3, widgets use an array of channels instead of a single channel string. Each channel object includes an id that defines a unique channel name. Widgets in Cabbage 3 can have any number of channels attached to them. An optional eventType property specifies the type of interaction. A range object can define the minimum, maximum, and default values, along with the skew and step increment.
+
+If range is omitted, it defaults to a range from 0 to 1, with increments of 0.001 for widgets that use drag events (e.g., sliders, XY pads) and 1 for widgets that use click or toggle events (e.g., buttons, checkboxes). 
+
+> A widget’s top-level id property defines the general communication channel for updating attributes, while the channels specified in the channels array are used for value and parameter updates.
 
 Supported event types:
 

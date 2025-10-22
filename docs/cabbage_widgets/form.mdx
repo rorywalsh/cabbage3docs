@@ -4,6 +4,7 @@ import ChannelConfig from "./properties/channelConfig.mdx";
 import EnableDevTools from "./properties/enableDevTools.mdx";
 import Logger from "./properties/logger.mdx";
 import Size from "./properties/size.mdx";
+import Id from "./properties/id.mdx";
 import Colour from "./properties/colour.mdx";
 import CodeBlock from '@theme/CodeBlock';
 import widgetCode from '!!raw-loader!../../static/examples/checkbox.csd';
@@ -13,7 +14,7 @@ import widgetCode from '!!raw-loader!../../static/examples/checkbox.csd';
 `form` creates the main application window. `pluginId` is the only required property, while `caption` will only be used when running an instrument as a standalone. The default values for size are 600x300. There can only be one form per instrument, and it has the unique channel name of `MainForm`.
 
 # List of supported properties
-[Caption](#caption) | [Size](#size) | [Colour](#colour) | [ChannelConfig](#channelConfig) | [EnabledDevTools](#enableDevTools) | [Logger](#logger) | [PluginId](#pluginid)
+[Caption](#caption) | [Size](#size) |[Id](#id) | [Colour](#colour) | [ChannelConfig](#channelConfig) | [EnabledDevTools](#enableDevTools) | [Logger](#logger) | [PluginId](#pluginid)
 
 ### Unique Identifiers
 
@@ -42,6 +43,10 @@ import widgetCode from '!!raw-loader!../../static/examples/checkbox.csd';
 <Logger />
 
 ### Common Identifiers
+
+<a id="id" class="anchor-target"></a>
+#### Id
+<Id />
 
 <a id="colour" class="anchor-target"></a>
 #### Colour
