@@ -60,17 +60,37 @@ To communicate with Csound, you will need to implement event handlers for sendin
         console.log("Message received:", event.data);
         let obj = event.data;
 
-        const slider = document.getElementById(obj.id);
+        let slider;
+        if (obj.command === "parameterChange") {
+            // For parameterChange messages, find slider by paramIdx
+            slider = obj.paramIdx === 0 ? document.getElementById('slider1') : document.getElementById('slider2');
+        } else {
+            // For other messages, find slider by id
+            slider = document.getElementById(obj.id);
+        }
+
         if (slider) {
             switch (obj.command) {
+                case "parameterChange":
+                    console.log(`Parameter change for ${obj.paramIdx}:`, obj);
+                    slider.value = obj.value;
+                    break;
                 case "widgetUpdate":
                     if (obj.value !== undefined) {
+                        console.log(`Updating ${obj.id} to value:`, obj.value);
                         slider.value = obj.value;
                     }
                     else if (obj.widgetJson !== undefined) {
                         let widgetObj = JSON.parse(obj.widgetJson);
-                        let visible = widgetObj.visible;
-                        slider.style.display = visible ? 'block' : 'none';
+                        let bounds = widgetObj.bounds;
+                        if (bounds) {
+                            slider.style.position = 'absolute';
+                            slider.style.top = bounds.top + 'px';
+                        }
+                        // Set value if the UI has just been reopened
+                        if (widgetObj.value !== undefined) {
+                            slider.value = widgetObj.value;
+                        }
                     }
                     break;
                 default:
@@ -88,12 +108,22 @@ The script starts by sending a `cabbageIsReadyToLoad` message. This is essential
 
 User interactions, like moving a slider or changing a control, are captured by the global function `handleValueChange`. This function packages the new value and the associated channel information into a message that Cabbage can understand. The script uses `Cabbage.sendChannelUpdate()` to transmit this data to the audio engine in real time. If 'automatable is set to 1, then this function will also update the host. If set to 0, the data will bypass the host and go straight to Csound. 
 
-The script also sets up a `handleMessage` listener to capture messages from Csound or the DAW. Messages can be either parameter values sent from the host, or through calls to the `cabbageSetValue` opcodes. These messages are structured as follows:
+The script also sets up a `handleMessage` listener to capture messages from Csound or the DAW. Messages can be either parameter values sent from the host, or through calls to the `cabbageSetValue/cabbageSet` opcodes. Host parameter change messages are formatted like this:
+
+```json
+{
+    "command": "parameterChange",
+    "paramIdx": number,
+    "value": number
+}
+```
+
+while value updates from Csound, though calls to `cabbageSetValue`, are formatted like this:
 
 ```json
 {
     "command": "widgetUpdate",
-    "id": "channelId",
+    "id": string,
     "value": value
 }
 ```
@@ -103,8 +133,8 @@ Messages can also contain Json data, which can modify widget properties such as 
 ```json
 {
     "command": "widgetUpdate",
-    "id": "channelId",
-    "widgetJson": JSONDataString
+    "id": string,
+    "widgetJson": string
 }
 ```
 
