@@ -87,16 +87,16 @@ If no top-level `id` is set, the `channels[0].id` channel can be used, but the r
 
 Using well-named top-level `id`s to manage a widget’s visual state offers many benefits, not least when it comes to debugging complex instruments.
 
+> A widget's range is fixed and cannot be changed. However, there are ways to make it appear as though the range has changed. Please ask on the forum for tips and tricks on making this work.  
 
-## Interactive vs. Non-Interactive Widgets
 
-Interactive widgets (e.g., sliders, buttons, XY pads) can be directly manipulated by the user. When a user changes a value, it is sent through the widget’s named channels to update corresponding Csound parameters.
+## Plugin Parameters and Automation
 
-Non-interactive widgets (e.g., group boxes, images) cannot be directly manipulated by the user. They can only be updated programmatically via Csound.
+All widgets include an `automatable` property. Only widgets with `automatable` set to `1` will appear as automatable parameters in a host environment. Through the named channels, these widgets can be controlled or modulated by the host, ensuring synchronisation between the interface and the audio engine. Many of the stock widgets that ship with Cabbage have their `automatable` property set to `1` by default.
 
-## Automation
+Widgets with `automatable=0` can still send and receive data over named channels, but they will not appear in the list of plugin parameters presented in the DAW. A `fileButton` is a good example of one such widget. It makes little sense to give the DAW control to open a native file browser dialog. Note that this property cannot be toggled on and off; the host needs to know what is automatable when it loads.
 
-Widgets include an automatable property. Only widgets with automatable set to 1 will appear as automatable parameters in a host environment. Through the named channels, these widgets can be controlled or modulated by the host, ensuring synchronization between the interface and the audio engine.
+
 
 ## Examples and Documentation
 
