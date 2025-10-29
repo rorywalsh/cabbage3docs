@@ -106,7 +106,8 @@ To communicate with Csound, you will need to implement event handlers for sendin
 
 The script starts by sending a `cabbageIsReadyToLoad` message. This is essential because it informs Cabbage that the web interface is fully loaded and ready to start exchanging data. Without this step, the plugin might miss updates or fail to synchronise with the custom UI.
 
-User interactions, like moving a slider or changing a control, are captured by the global function `handleValueChange`. This function packages the new value and the associated channel information into a message that Cabbage can understand. The script uses `Cabbage.sendChannelUpdate()` to transmit this data to the audio engine in real time. If 'automatable is set to 1, then this function will also update the host. If set to 0, the data will bypass the host and go straight to Csound. 
+User interactions, like moving a slider or changing a control, are captured by the global function `handleValueChange`. This function packages the new value and the associated channel information into a message that Cabbage can understand. The script uses `Cabbage.sendChannelUpdate(message, vscode, automatable)` to transmit this data to the audio engine in real time. If `automatable` is set to 1, then this function will also update the host. If set to 0, the data will bypass the host and go straight to Csound. If you are creating custom widgets, but continue to use the Cabbage VS-Code extension, the `vscode` parameter will hold a valid instance of a VS Code Webview API object. In the context of audio plugins, `vscode` will always be null.   
+
 
 The script also sets up a `handleMessage` listener to capture messages from Csound or the DAW. Messages can be either parameter values sent from the host, or through calls to the `cabbageSetValue/cabbageSet` opcodes. Host parameter change messages are formatted like this:
 
