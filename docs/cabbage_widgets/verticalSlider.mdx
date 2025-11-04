@@ -2,12 +2,13 @@ import Bounds from "./properties/bounds.mdx";
 import Channel from "./properties/channel.mdx";
 import Value from "./properties/value.mdx";
 import Visible from "./properties/visible.mdx";
-import Colour from "./properties/colourSliders.mdx";
-import Font from "./properties/font.mdx";
 import Id from "./properties/id.mdx";
-import ValueTextBox from "./properties/valueTextBox.mdx";
+import ValueText from "./properties/valueText.mdx";
 import Automatable from "./properties/automatable.mdx";
 import Popup from "./properties/popup.mdx";
+import Velocity from "./properties/velocity.mdx";
+import Label from "./properties/label.mdx";
+import StyleVSlider from "./verticalSlider.style.mdx";
 import CodeBlock from '@theme/CodeBlock';
 import widgetCode from '!!raw-loader!../../static/examples/verticalSlider.csd';
 
@@ -16,13 +17,13 @@ import widgetCode from '!!raw-loader!../../static/examples/verticalSlider.csd';
 `verticalSlider` allows users to adjust a value by sliding a handle vertically. This component is useful for controlling parameters in real-time.
 
 # List of supported properties
-[Bounds](#bounds) | [Channel](#channel) | [Value](#value) | [Visible](#visible) | [Colour](#colour) | [Font](#font) |[Id](#id) |  [Value Text Box](#value-text-box) | [Automatable](#automatable) | [Popup](#popup)
+[Bounds](#bounds) | [Channel](#channel) | [Value](#value) | [Visible](#visible) | [Id](#id) | [Automatable](#automatable) | [Velocity](#velocity) | [Popup](#popup) | [Label](#label) | [Value Text](#value-text) | [Style](#style)
 
-### Unique Properties
+### Unique properties
 
-<a id="value-text-box" class="anchor-target"></a>
-#### Value Text Box
-<ValueTextBox />
+<a id="value-text" class="anchor-target"></a>
+#### Value Text
+<ValueText />
 
 <a id="popup" class="anchor-target"></a>
 #### Popup
@@ -45,27 +46,27 @@ import widgetCode from '!!raw-loader!../../static/examples/verticalSlider.csd';
 #### Visible
 <Visible />
 
-<a id="colour" class="anchor-target"></a>
-#### Colour
-<Colour />
 
-<a id="font" class="anchor-target"></a>
-#### Font
-<Font />
+<a id="label" class="anchor-target"></a>
+#### Label
+<Label />
 
+<a id="style" class="anchor-target"></a>
+#### Style
+<StyleVSlider />
 
 <a id="id" class="anchor-target"></a>
 #### Id
 <Id />
 
-<a id="font" class="anchor-target"></a>
-#### Font
-<Font />
-
 
 <a id="automatable" class="anchor-target"></a>
 #### Automatable
 <Automatable />
+
+<a id="velocity" class="anchor-target"></a>
+#### Velocity
+<Velocity />
 
 
 ## Example

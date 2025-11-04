@@ -14,6 +14,7 @@ import Text from "./properties/text.mdx";
 import SelectableRegions from "./properties/selectableRegions.mdx";
 import CodeBlock from '@theme/CodeBlock';
 import widgetCode from '!!raw-loader!../../static/examples/gentable.csd';
+import StyleGenTable from "./gentable.style.mdx";
 
 
 # GenTable
@@ -24,25 +25,21 @@ import widgetCode from '!!raw-loader!../../static/examples/gentable.csd';
 > Note: Manually editing tables through mouse clicks is not currently supported in Cabbage 3. 
 
 # List of supported properties
-[Active](#active) | [Bounds](#bounds) | [Channel](#channel) | [Colour](#colour) | [Font](#font) |[Id](#id) | [Opacity](#opacity) | [Range](#range)| [Sample Range](#sample) | [Selectable Regions](#selectableregions) | [Table Number](#tablenumber) | [Text](#text) | [Visible](#visible)
+[Active](#active) | [Bounds](#bounds) | [Channel](#channel) | [Colour](#colour) | [Font](#font) |[Id](#id) | [Opacity](#opacity) | [Range](#range)| [Sample Range](#sample) | [Selectable Regions](#selectableregions) | [Table Number](#tablenumber) | [Text](#text) | [Visible](#visible) | [Style](#style)
 
 
 ### Unique Properties 
 
-<a id="tablenumber" class="anchor-target"></a>
-#### Table Number
+#### Table Number {#tablenumber}
 <TableNumber />
 
-<a id="range" class="anchor-target"></a>
-#### Range
+#### Range {#range}
+<Range />
+
+#### Sample Range {#sample}
 <Sample />
 
-<a id="sample" class="anchor-target"></a>
-#### Sample Range
-<Sample />
-
-<a id="selectableregions" class="anchor-target"></a>
-#### Selectable Regions
+#### Selectable Regions {#selectableregions}
 <SelectableRegions />
 
 
@@ -83,6 +80,11 @@ import widgetCode from '!!raw-loader!../../static/examples/gentable.csd';
 <a id="visible" class="anchor-target"></a>
 #### Visible
 <Visible />
+
+
+<a id="style" class="anchor-target"></a>
+#### Style
+<StyleGenTable />
 
 
 ## Example

@@ -15,6 +15,7 @@ import Popup from "./properties/popup.mdx";
 import { useEffect, useState } from 'react';
 import CodeBlock from '@theme/CodeBlock';
 import widgetCode from '!!raw-loader!../../static/examples/xyPad.csd';
+import StyleXyPad from "./xyPad.style.mdx";
 
 # XY Pad
 
@@ -23,7 +24,7 @@ import widgetCode from '!!raw-loader!../../static/examples/xyPad.csd';
 In Cabbage 2, if you slung the ball across the XY pad, parameter updates would continue even after the UI was closed. In Cabbage 3, this behavior has changed: once the UI is closed, parameter updates stop, and the value remains fixed until the UI is reopened. 
 
 # List of supported properties
-[Active](#active) | [Automatable](#automatable) | [BallSize](#ballsize) | [Bounds](#bounds) | [Channel](#channel) | [Colour](#colour) | [Corners](#corners) | [Font](#font) |[Id](#id) | [Opacity](#opacity) | [Popup](#popup) | [Range](#range) | [Text](#text) | [Visible](#visible)
+[Active](#active) | [Automatable](#automatable) | [BallSize](#ballsize) | [Bounds](#bounds) | [Channel](#channel) | [Colour](#colour) | [Corners](#corners) | [Font](#font) |[Id](#id) | [Opacity](#opacity) | [Popup](#popup) | [Range](#range) | [Text](#text) | [Visible](#visible) | [Style](#style)
 
 
 ### Common Properties
@@ -83,6 +84,10 @@ In Cabbage 2, if you slung the ball across the XY pad, parameter updates would c
 <a id="visible" class="anchor-target"></a>
 #### Visible
 <Visible />
+
+<a id="style" class="anchor-target"></a>
+#### Style
+<StyleXyPad />
 
 <!--(End of identifiers)/-->
 

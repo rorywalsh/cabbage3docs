@@ -1,0 +1,33 @@
+```json
+{
+  "style": {
+    "opacity": 1,
+    "borderRadius": 2,
+    "fontFamily": "Verdana",
+    "fontSize": "auto",
+    "fontColor": "#dddddd",
+    "textAlign": "left",
+    "on": {
+      "fill": "#93d200",
+      "borderColor": "#dddddd",
+      "borderWidth": 2,
+      "textColor": "#dddddd"
+    },
+    "off": {
+      "fill": "#00000000",
+      "borderColor": "#dddddd",
+      "borderWidth": 2,
+      "textColor": "#000000"
+    }
+  },
+  "label": {
+    "text": "On/Off"
+  }
+}
+```
+
+Notes
+- fontSize: "auto" scales with the widget height; set a number (px) to fix it.
+- textAlign: "left" shows the box first and text to the right; use "right" to flip.
+- Colors accept CSS strings (e.g., "#93d200", "rgba(0,0,0,0)") or RGB arrays [r,g,b].
+- The text color shown is controlled by the current state's textColor (on/off).

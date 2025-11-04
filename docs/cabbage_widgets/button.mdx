@@ -10,6 +10,7 @@ import Active from "./properties/active.mdx";
 import Id from "./properties/id.mdx"
 import Corners from "./properties/corners.mdx";
 import Text from "./properties/textOnOff.mdx";
+import StyleButton from "./button.style.mdx";
 import CodeBlock from '@theme/CodeBlock';
 import widgetCode from '!!raw-loader!../../static/examples/button.csd';
 
@@ -19,7 +20,7 @@ import widgetCode from '!!raw-loader!../../static/examples/button.csd';
 `button` creates a button on screen that can be used for a whole range of tasks. The "channel" string identifies the channel on which Cabbage will communicate with Csound. The on and off text strings determine the text that will appear on the button as users toggle between two states, i.e., 0 or 1. By default these captions are set to "On" and "Off" but the user can specify any strings they wish. 
 
 # List of supported properties
-[Active](#active) | [Automatable](#automatable) | [Bounds](#bounds) | [Channel](#channel) | [Colour](#colour) | [Corners](#corners) | [Font](#font) |[Id](id) | [Opacity](#opacity) | [Text](#text) | [Value](#value) | [Visible](#visible)
+[Active](#active) | [Automatable](#automatable) | [Bounds](#bounds) | [Channel](#channel) | [Colour](#colour) | [Corners](#corners) | [Font](#font) | [Id](#id) | [Opacity](#opacity) | [Text](#text) | [Value](#value) | [Visible](#visible) | [Style](#style)
 
 
 ### Common Properties
@@ -71,6 +72,11 @@ import widgetCode from '!!raw-loader!../../static/examples/button.csd';
 <a id="visible" className="anchor-target"></a>
 #### Visible
 <Visible />
+
+
+<a id="style" className="anchor-target"></a>
+#### Style
+<StyleButton />
 
 
 
