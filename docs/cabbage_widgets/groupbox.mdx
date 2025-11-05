@@ -1,59 +1,54 @@
- 
-import Channel from "./properties/channel.mdx";
- 
-import Bounds from "./properties/bounds.mdx";
-import Visible from "./properties/visible.mdx";
 import Active from "./properties/active.mdx";
-import Sample from "./properties/sample.mdx";
-import Automatable from "./properties/automatable.mdx";
-import File from "./properties/file.mdx";
-import TableNumber from "./properties/tableNumber.mdx";
-import Text from "./properties/text.mdx";
+import Bounds from "./properties/bounds.mdx";
+import Channel from "./properties/channel.mdx";
 import Id from "./properties/id.mdx";
+import Label from "./properties/label.mdx";
+import Sample from "./properties/sample.mdx";
+import TableNumber from "./properties/tableNumber.mdx";
+import Visible from "./properties/visible.mdx";
+import StyleGroupBox from "./groupbox.style.mdx";
 import CodeBlock from '@theme/CodeBlock';
 import widgetCode from '!!raw-loader!../../static/examples/groupbox.csd';
-import StyleGroupBox from "./groupbox.style.mdx";
 
 # Groupbox
 
-`groupBox` creates a simple on-screen grouping box, i.e., a bounding rectangle and you can use to organise widgets within.  
+`groupBox` creates a simple on-screen grouping box, i.e., a bounding rectangle that you can use to organise widgets within.
 
-# List of supported properties
-[Active](#active) | [Bounds](#bounds) |[Id](#id) | [Text](#text) | [Visible](#visible) | [Style](#style)
+## Example
 
-
-### Common Properties
-
-<a id="active" class="anchor-target"></a>
-#### Active
+<CodeBlock language="csharp">{widgetCode}</CodeBlock>
 <Active />
 
 <a id="bounds" class="anchor-target"></a>
-#### Bounds
+### Bounds
 <Bounds />
 
 <a id="channel" class="anchor-target"></a>
-#### Channel
+### Channel
 <Channel />
 
- 
- 
 <a id="id" class="anchor-target"></a>
-#### Id
+### Id
 <Id />
 
+<a id="label" class="anchor-target"></a>
+### Label
+<Label />
 
+<a id="sample" class="anchor-target"></a>
+### Sample
+<Sample />
 
-<a id="text" class="anchor-target"></a>
-#### Text
-<Text />
+<a id="table-number" class="anchor-target"></a>
+### Table Number
+<TableNumber />
 
 <a id="visible" class="anchor-target"></a>
-#### Visible
+### Visible
 <Visible />
 
 <a id="style" class="anchor-target"></a>
-#### Style
+### Style
 <StyleGroupBox />
 
 ## Example

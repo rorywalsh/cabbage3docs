@@ -1,70 +1,58 @@
-import Font from "./properties/font.mdx";
-import Channel from "./properties/channel.mdx";
-import Automatable from "./properties/automatable.mdx";
-import Value from "./properties/value.mdx";
-import Bounds from "./properties/bounds.mdx";
-import Visible from "./properties/visible.mdx";
 import Active from "./properties/active.mdx";
-import Text from "./properties/text.mdx";
+import Automatable from "./properties/automatable.mdx";
+import Bounds from "./properties/bounds.mdx";
+import Channel from "./properties/channel.mdx";
 import Id from "./properties/id.mdx";
+import Label from "./properties/label.mdx";
+import Value from "./properties/value.mdx";
+import Visible from "./properties/visible.mdx";
 import StyleCheckbox from "./checkbox.style.mdx";
-import { useEffect, useState } from 'react';
 import CodeBlock from '@theme/CodeBlock';
 import widgetCode from '!!raw-loader!../../static/examples/checkbox.csd';
 
 # CheckBox
 
-`checkBox` creates a checkBox on screen that can be used for a whole range of tasks. The "channel" string identifies the channel on which Cabbage will communicate with Csound. The on and off text strings determine the text that will appear on the button as users toggle between two states, i.e., 0 or 1. By default these captions are set to "On" and "Off" but the user can specify any strings they wish. 
+`checkBox` creates a checkBox on screen that can be used for a whole range of tasks. The "channel" string identifies the channel on which Cabbage will communicate with Csound.
 
-# List of supported properties
-[Active](#active) | [Automatable](#automatable) | [Bounds](#bounds) | [Channel](#channel) | [Id](#id) | [Text](#text) | [Value](#value) | [Visible](#visible) | [Style](#style)
+## Properties (alphabetical)
 
-
-### Common Properties
+Below is the full, alphabetical list of top-level widget properties for `checkBox`.
 
 <a id="active" class="anchor-target"></a>
-#### Active
+### Active
 <Active />
 
 <a id="automatable" class="anchor-target"></a>
-#### Automatable
+### Automatable
 <Automatable />
 
 <a id="bounds" class="anchor-target"></a>
-#### Bounds
+### Bounds
 <Bounds />
 
 <a id="channel" class="anchor-target"></a>
-#### Channel
+### Channel
 <Channel />
 
- 
- 
 <a id="id" class="anchor-target"></a>
-#### Id
+### Id
 <Id />
 
-
-
-<a id="text" class="anchor-target"></a>
-#### Text
-<Text />
+<a id="label" class="anchor-target"></a>
+### Label
+<Label />
 
 <a id="value" class="anchor-target"></a>
-#### Value
+### Value
 <Value />
 
 <a id="visible" class="anchor-target"></a>
-#### Visible
+### Visible
 <Visible />
 
-<!--(End of identifiers)/-->
-
-
 <a id="style" class="anchor-target"></a>
-#### Style
+### Style
 <StyleCheckbox />
-
 
 ## Example
 

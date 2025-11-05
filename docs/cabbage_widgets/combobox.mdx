@@ -1,76 +1,61 @@
-import Channel from "./properties/channel.mdx";
-import Items from "./properties/items.mdx";
-import Populate from "./properties/populate.mdx";
+
 import Active from "./properties/active.mdx";
 import Automatable from "./properties/automatable.mdx";
 import Bounds from "./properties/bounds.mdx";
- 
+import Channel from "./properties/channel.mdx";
 import Id from "./properties/id.mdx";
-import Value from "./properties/value.mdx";
+import Items from "./properties/items.mdx";
+import Populate from "./properties/populate.mdx";
 import Visible from "./properties/visible.mdx";
-import CodeBlock from '@theme/CodeBlock';
 import StyleCombo from "./combobox.style.mdx";
+import CodeBlock from '@theme/CodeBlock';
 import widgetCode from '!!raw-loader!../../static/examples/combobox.csd';
 
 # ComboBox
 
-`combobox` creates a drop-down list of items which users can choose from. Once the user selects an item, the index of their selection will be sent to Csound on a channel named by the channel string. The default value is 0. The first item in the combobox will be seen as a 0.
+`combobox` creates a drop-down list of items which users can choose from. Once the user selects an item, the index of their selection will be sent to Csound on a channel named by the channel string.
 
-A combobox can also be set up to work with strings. In this case, Csound will receive the currently selected string instead of the current index. Note that using a combobox in this way renders it useless in terms of host automation. Host automation can only be achieved when a combobox is sending the **current** index, rather than the current string.
+## Properties (alphabetical)
 
-# List of supported properties
-[Active](#active) | [Automatable](#automatable) | [Bounds](#bounds) | [Channel](#channel) |[Id](#id) | [Value](#value) | [Visible](#visible) | [Items](#items) | [Populate](#populate) | [Style](#style)
+Below is the full, alphabetical list of top-level widget properties for `combobox`.
 
-### Unique Properties
-
-<a id="items" class="anchor-target"></a>
-#### Items
-<Items />
-
-<a id="populate" class="anchor-target"></a>
-#### Populate
-<Populate />
-
-### Common Properties
 <a id="active" class="anchor-target"></a>
-#### Active
+### Active
 <Active />
 
 <a id="automatable" class="anchor-target"></a>
-#### Automatable
+### Automatable
 <Automatable />
 
 <a id="bounds" class="anchor-target"></a>
-#### Bounds
+### Bounds
 <Bounds />
 
 <a id="channel" class="anchor-target"></a>
-#### Channel
+### Channel
 <Channel />
 
- 
- 
 <a id="id" class="anchor-target"></a>
-#### Id
+### Id
 <Id />
 
+<a id="items" class="anchor-target"></a>
+### Items
+<Items />
 
-
-<a id="value" class="anchor-target"></a>
-#### Value
-<Value />
-
+<a id="populate" class="anchor-target"></a>
+### Populate
+<Populate />
 <a id="visible" class="anchor-target"></a>
-#### Visible
+### Visible
 <Visible />
 
-
 <a id="style" class="anchor-target"></a>
-#### Style
+### Style
 <StyleCombo />
-
-
 
 ## Example
 
 <CodeBlock language="csharp">{widgetCode}</CodeBlock>
+
+

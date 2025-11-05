@@ -17,44 +17,44 @@
         "type": "horizontalSlider",
         "bounds": {"left": 14, "top": 212, "width": 368, "height": 14},
         "channels": [{"id": "harm1", "range": {"min": 0, "max": 1, "value": 1, "skew": 1, "increment": 0.01}}],
-        "text": "Harm1"
+        "label": {"text": "Harm1"}
     },
     {
         "type": "horizontalSlider",
         "bounds": {"left": 14, "top": 244, "width": 368, "height": 14},
         "channels": [{"id": "harm2", "range": {"min": 0, "max": 1, "value": 0, "skew": 1, "increment": 0.01}}],
-        "text": "Harm2"
+        "label": {"text": "Harm2"}
     },
     {
         "type": "horizontalSlider",
         "bounds": {"left": 14, "top": 276, "width": 368, "height": 14},
         "channels": [{"id": "harm3", "range": {"min": 0, "max": 1, "value": 0, "skew": 1, "increment": 0.01}}],
-        "text": "Harm3"
+        "label": {"text": "Harm3"}
     },
     {
         "type": "horizontalSlider",
         "bounds": {"left": 14, "top": 308, "width": 368, "height": 14},
         "channels": [{"id": "harm4", "range": {"min": 0, "max": 1, "value": 0, "skew": 1, "increment": 0.01}}],
-        "text": "Harm4"
+        "label": {"text": "Harm4"}
     },
     {
         "type": "horizontalSlider",
         "bounds": {"left": 14, "top": 340, "width": 368, "height": 14},
         "channels": [{"id": "harm5", "range": {"min": 0, "max": 1, "value": 0, "skew": 1, "increment": 0.01}}],
-        "text": "Harm5"
+        "label": {"text": "Harm5"}
     },
     {
         "type": "checkBox",
         "bounds": {"left": 16, "top": 380, "width": 120, "height": 20},
         "channels": [{"id": "normal"}],
-        "text": "Normalise",
+        "label": {"text": "Normalise"},
         "value": 1
     },
     {
         "type": "checkBox",
         "bounds": {"left": 140, "top": 380, "width": 120, "height": 20},
         "channels": [{"id": "fill"}],
-        "text": "Fill Table",
+        "label": {"text": "Fill Table"},
         "value": 1
     }
 ]
@@ -74,7 +74,7 @@ nchnls 		= 	2
 ; License: CC0 1.0 Universal
 ; You can copy, modify, and distribute this file,
 ; even for commercial purposes, all without asking permission.
-giTable	ftgen	1, 0,   1024, 10, 1
+sumTable@global:i = ftgen(1, 0, 1024, 10, 1)
 
 
 //fill table with default values
@@ -83,29 +83,29 @@ schedule("UpdateTable", 0, 0, 1, 0, 0, 0, 0, 0)
 instr	1
     
     ;toggle fill
-    kFill, kTrig = cabbageGetValue("fill")
-    cabbageSet(kTrig, "gentable1", "fill", kFill)
-
-    k1 = cabbageGetValue("harm1")
-    k2 = cabbageGetValue("harm2")
-    k3 = cabbageGetValue("harm3")
-    k4 = cabbageGetValue("harm4")
-    k5 = cabbageGetValue("harm5")
-    aEnv = linen(1, 1, p3, 1)
-    a1 = oscili(.2, 200, 1)
-    outs(a1, a1)
-
-    kChanged = changed(k1, k2, k3, k4, k5)
-    if kChanged==1 then
+    fill:k, trig:k = cabbageGetValue("fill")
+    cabbageSet(trig, "gentable1", "fill", fill)
+    
+    harm1:k = cabbageGetValue("harm1")
+    harm2:k = cabbageGetValue("harm2")
+    harm3:k = cabbageGetValue("harm3")
+    harm4:k = cabbageGetValue("harm4")
+    harm5:k = cabbageGetValue("harm5")
+    
+    outSig:a = oscili(.2, 200, 1)
+    outs(outSig, outSig)
+    
+    trigger:k = changed(harm1, harm2, harm3, harm4, harm5)
+    if trigger==1 then
         ;if a slider changes trigger instrument 2 to update table
-        event("i", "UpdateTable", 0, .01, k1, k2, k3, k4, k5)
+        event("i", "UpdateTable", 0, .01, harm1, harm2, harm3, harm4, harm5)
     endif
     
 endin
 
 instr UpdateTable
-    iNormal = (cabbageGetValue("normal")==0 ? -1 : 1)
-    giTable	= ftgen(1, 0,   1024, 10*iNormal, p4, p5, p6, p7, p8)
+    normal:i = (cabbageGetValue:i("normal")==0 ? -1 : 1)
+    sumTable =  ftgen(1, 0, 1024, 10*normal, p4, p5, p6, p7, p8)
     cabbageSet("gentable1", "tableNumber", 1)	; update table display
 endin
 

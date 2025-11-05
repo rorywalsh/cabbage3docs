@@ -5,22 +5,27 @@
         "type": "button",
         "bounds": {"left": 16, "top": 12, "width": 117, "height": 30},
         "channels": [{"id": "trigger", "event": "valueChanged"}],
-        "text": {"off": "Start Synth", "on": "Stop Synth"},
-        "corners": 2
+        "label": {"text": {"off": "Start Synth", "on": "Stop Synth"}}
     },
     {
         "type": "button",
         "bounds": {"left": 146, "top": 12, "width": 80, "height": 30},
         "channels": [{"id": "mute", "event": "valueChanged"}],
-        "text": {"off": "Unmute", "on": "Mute"},
-        "corners": 2
+        "label": {"text": {"off": "Unmute", "on": "Mute"}},
+        "style": {
+            "off": {"backgroundColor": "#993d00", "textColor": "#ffffff"},
+            "on": {"backgroundColor": "#cc5200", "textColor": "#ffffff"}
+        }
     },
     {
         "type": "button",
-        "channels": [{"id": "toggleFreq", "event": "valueChanged"}],
         "bounds": {"left": 240, "top": 12, "width": 121, "height": 30},
-        "text": {"off": "Toggle Freq", "on": "Toggle Freq"},
-        "colour": {"off": {"fill": "#ff0000", "stroke": "#000000"}, "on": {"fill": "#0295cf", "stroke": "#000000"}}
+        "channels": [{"id": "toggleFreq", "event": "valueChanged"}],
+        "label": {"text": {"off": "Toggle Freq", "on": "Toggle Freq"}},
+        "style": {
+            "off": {"backgroundColor": "#1da96f", "textColor": "#ffffff"},
+            "on": {"backgroundColor": "#0295cf", "textColor": "#ffffff"}
+        }
     }
 ]
 </Cabbage>
@@ -41,32 +46,32 @@ nchnls = 2
 ; even for commercial purposes, all without asking permission.
 
 instr 1
-
-    kVal, kTrig = cabbageGetValue("trigger")
-
-    if kTrig == 1 then
-        if kVal == 1 then
+    
+    val:k, trig:k = cabbageGetValue("trigger")
+    
+    if trig == 1 then
+        if val == 1 then
             event("i", "Synth", 0, 3600)
         else
-            iInstrNum = nstrnum("Synth")
-            turnoff2(iInstrNum, 0, 0)
+            instrNum:i = nstrnum("Synth")
+                turnoff2(instrNum, 0, 0)
+            endif
         endif
-    endif
+        
+    endin
     
-endin
-
-instr Synth
-    prints("Starting Synth")   
-    kMute = cabbageGetValue("mute")
-    a1 = oscili(.5*kMute, 300*(cabbageGetValue("toggleFreq")+1))
-    outs(a1, a1)
-endin
-
-
-
-</CsInstruments>
-<CsScore>
-;starts instrument 1 and runs it for a week
-i1 0 z
-</CsScore>
-</CsoundSynthesizer>
+    instr Synth
+        prints("Starting Synth")
+        mute:k = cabbageGetValue("mute")
+        outSig:a = oscili(.5*mute, 300*(cabbageGetValue("toggleFreq")+1))
+        outs(outSig, outSig)
+    endin
+    
+    
+    
+    </CsInstruments>
+    <CsScore>
+    ;starts instrument 1 and runs it for a week
+    i1 0 z
+    </CsScore>
+    </CsoundSynthesizer>

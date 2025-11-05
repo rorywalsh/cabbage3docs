@@ -1,84 +1,70 @@
- 
 import ChannelXY from "./properties/channelXY.mdx";
 import Automatable from "./properties/automatable.mdx";
- 
 import Bounds from "./properties/bounds.mdx";
 import Visible from "./properties/visible.mdx";
 import Active from "./properties/active.mdx";
- 
-import TextXY from "./properties/textXY.mdx";
 import Id from "./properties/id.mdx";
 import RangeXY from "./properties/rangeXY.mdx";
 import BallSize from "./properties/ballSize.mdx";
 import Popup from "./properties/popup.mdx";
-import { useEffect, useState } from 'react';
+import Label from "./properties/label.mdx";
+import StyleXyPad from "./xyPad.style.mdx";
 import CodeBlock from '@theme/CodeBlock';
 import widgetCode from '!!raw-loader!../../static/examples/xyPad.csd';
-import StyleXyPad from "./xyPad.style.mdx";
 
 # XY Pad
 
-`xyPad` creates a 2-dimensional X-Y pad controller that allows simultaneous control of two parameters. A draggable ball represents the current position, with independent channels for X and Y axes. The widget features dynamic crosshairs that follow the ball position, value displays for both axes, and customizable ranges with support for non-linear (skewed) scaling. This is ideal for controlling paired parameters like cutoff frequency and resonance, pan and reverb amount, or any two related audio parameters.
+`xyPad` creates a 2-dimensional X-Y pad controller that allows simultaneous control of two parameters. A draggable ball represents the current position, with independent channels for X and Y axes.
 
-In Cabbage 2, if you slung the ball across the XY pad, parameter updates would continue even after the UI was closed. In Cabbage 3, this behavior has changed: once the UI is closed, parameter updates stop, and the value remains fixed until the UI is reopened. 
+## Properties (alphabetical)
 
-# List of supported properties
-[Active](#active) | [Automatable](#automatable) | [BallSize](#ballsize) | [Bounds](#bounds) | [Channel](#channel) | [Popup](#popup) | [Range](#range) | [Text](#text) | [Visible](#visible) | [Style](#style)
-
-
-### Common Properties
+Below is the full, alphabetical list of top-level widget properties for `xyPad`.
 
 <a id="active" class="anchor-target"></a>
-#### Active
+### Active
 <Active />
 
 <a id="automatable" class="anchor-target"></a>
-#### Automatable
+### Automatable
 <Automatable />
 
 <a id="ballsize" class="anchor-target"></a>
-#### BallSize
+### BallSize
 <BallSize />
 
 <a id="bounds" class="anchor-target"></a>
-#### Bounds
+### Bounds
 <Bounds />
 
 <a id="channel" class="anchor-target"></a>
-#### Channel
+### Channel
 <ChannelXY />
 
- 
- 
 <a id="id" class="anchor-target"></a>
-#### Id
+### Id
 <Id />
 
-
+<a id="label" class="anchor-target"></a>
+### Label
+<Label />
 
 <a id="popup" class="anchor-target"></a>
-#### Popup
+### Popup
 <Popup />
 
 <a id="range" class="anchor-target"></a>
-#### Range
+### Range
 <RangeXY />
 
-<a id="text" class="anchor-target"></a>
-#### Text
-<TextXY />
-
 <a id="visible" class="anchor-target"></a>
-#### Visible
+### Visible
 <Visible />
 
 <a id="style" class="anchor-target"></a>
-#### Style
+### Style
 <StyleXyPad />
-
-<!--(End of identifiers)/-->
-
 
 ## Example
 
+<CodeBlock language="csharp">{widgetCode}</CodeBlock>
 <CodeBlock language="csharp">{widgetCode}</CodeBlock>

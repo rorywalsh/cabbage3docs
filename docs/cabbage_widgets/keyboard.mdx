@@ -1,58 +1,54 @@
- 
+import Active from "./properties/active.mdx";
 import KeyWidth from "./properties/keyWidth.mdx";
 import Value from "./properties/value.mdx";
 import Bounds from "./properties/bounds.mdx";
 import Channel from "./properties/channel.mdx";
 import Visible from "./properties/visible.mdx";
 import Id from "./properties/id.mdx";
-import CodeBlock from '@theme/CodeBlock';
 import StyleKeyboard from "./keyboard.style.mdx";
-
+import CodeBlock from '@theme/CodeBlock';
+import widgetCode from '!!raw-loader!../../static/examples/keyboard.csd';
 
 # Keyboard
-`keyboard` will display a keyboard that will send MIDI information to your Csound instrument. This component can be used together with a hardware controller. Pressing keys on an actual MIDI keyboard will cause the on-screen keys to light up.
+`keyboard` will display a keyboard that will send MIDI information to your Csound instrument. This component can be used together with a hardware controller.
 
-# List of supported properties
-[Key Width](#key-width) | [Value](#value) | [Bounds](#bounds) | [Id](#id) | [Channel](#channel) | [Visible](#visible)
+## Properties (alphabetical)
 
-### Unique Properties
-[Key Width](#key-width) | [Value](#value) | [Bounds](#bounds) | [Id](#id) | [Channel](#channel) | [Visible](#visible) | [Style](#style)
-<a id="key-width" class="anchor-target"></a>
-#### Key Width
-<KeyWidth />
+Below is the full, alphabetical list of top-level widget properties for `keyboard`.
 
-<a id="value" class="anchor-target"></a>
-#### Value
-<Value />
-
-### Common Properties
+<a id="active" class="anchor-target"></a>
+### Active
+<Active />
 
 <a id="bounds" class="anchor-target"></a>
-#### Bounds
+### Bounds
 <Bounds />
 
 <a id="channel" class="anchor-target"></a>
-#### Channel
+### Channel
 <Channel />
 
-
- 
 <a id="id" class="anchor-target"></a>
-#### Id
+### Id
 <Id />
 
-<a id="visible" class="anchor-target"></a>
+<a id="key-width" class="anchor-target"></a>
+### Key Width
+<KeyWidth />
 
+<a id="value" class="anchor-target"></a>
+### Value
+<Value />
 
 <a id="visible" class="anchor-target"></a>
-#### Visible
+### Visible
 <Visible />
 
-
 <a id="style" class="anchor-target"></a>
-#### Style
+### Style
 <StyleKeyboard />
 
+## Example
 
-## Example 
+<CodeBlock language="csharp">{widgetCode}</CodeBlock>
 

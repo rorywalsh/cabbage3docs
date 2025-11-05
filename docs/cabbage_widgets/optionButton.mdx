@@ -1,73 +1,61 @@
-import Channel from "./properties/channel.mdx";
-import Items from "./properties/items.mdx";
-import Populate from "./properties/populate.mdx";
 import Active from "./properties/active.mdx";
 import Automatable from "./properties/automatable.mdx";
 import Bounds from "./properties/bounds.mdx";
- 
- 
+import Channel from "./properties/channel.mdx";
 import Id from "./properties/id.mdx";
-import Value from "./properties/value.mdx";
+import Items from "./properties/items.mdx";
+import Populate from "./properties/populate.mdx";
 import Visible from "./properties/visible.mdx";
-import Opacity from "./properties/opacity.mdx";
+import StyleOptionButton from "./optionButton.style.mdx";
 import CodeBlock from '@theme/CodeBlock';
 import widgetCode from '!!raw-loader!../../static/examples/optionButton.csd';
-import StyleOptionButton from "./optionButton.style.mdx";
 
 # OptionButton
 
-`optionButton` creates a button which users can use to toggle through a range of items. Pressing the button will send the index of that item to Csound on a channel named by the channel string. The default value is 0. The first item in the `optionButton` will be seen as a 0.
+`optionButton` creates a button which users can use to toggle through a range of items. Pressing the button will send the index of that item to Csound on a channel named by the channel string.
 
+## Properties (alphabetical)
 
-# List of supported properties
-[Active](#active) | [Automatable](#automatable) | [Bounds](#bounds) | [Channel](#channel) | [Id](#id) | [Value](#value) | [Visible](#visible) | [Items](#items) | [Populate](#populate) | [Style](#style)
-### Unique Properties
+Below is the full, alphabetical list of top-level widget properties for `optionButton`.
 
-<a id="items" class="anchor-target"></a>
-#### Items
-<Items />
-
-<a id="populate" class="anchor-target"></a>
-#### Populate
-<Populate />
-
-### Common Properties
 <a id="active" class="anchor-target"></a>
-#### Active
+### Active
 <Active />
 
 <a id="automatable" class="anchor-target"></a>
-#### Automatable
+### Automatable
 <Automatable />
 
 <a id="bounds" class="anchor-target"></a>
-#### Bounds
+### Bounds
 <Bounds />
 
 <a id="channel" class="anchor-target"></a>
-#### Channel
+### Channel
 <Channel />
 
- 
- 
 <a id="id" class="anchor-target"></a>
-#### Id
+### Id
 <Id />
 
+<a id="items" class="anchor-target"></a>
+### Items
+<Items />
 
-
-<a id="value" class="anchor-target"></a>
-#### Value
-<Value />
-
-<a id="style" class="anchor-target"></a>
-#### Style
-<StyleOptionButton />
+<a id="populate" class="anchor-target"></a>
+### Populate
+<Populate />
 <a id="visible" class="anchor-target"></a>
-#### Visible
+### Visible
 <Visible />
 
+<a id="style" class="anchor-target"></a>
+### Style
+<StyleOptionButton />
 
 ## Example
 
 <CodeBlock language="csharp">{widgetCode}</CodeBlock>
+
+ 
+

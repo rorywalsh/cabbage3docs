@@ -42,7 +42,7 @@
 <CsoundSynthesizer>
 <CsOptions>
 -n -d -+rtmidi=NULL -M0 -m0d --midi-key=4 --midi-velocity-amp=5
-</CsOptions>e
+</CsOptions>
 <CsInstruments>
 ; Initialize the global variables.
 ksmps = 32
@@ -58,14 +58,14 @@ nchnls = 2
 
 instr 1
     
-    iVcoModes[] fillarray 0, 10, 12    
-    iAtt = cabbageGetValue("att")
-    iDec = cabbageGetValue("dec")
-    iSus = cabbageGetValue("sus")
-    iRel = cabbageGetValue("rel")
-    kEnv = madsr(iAtt, iDec, iSus, iRel)
-    aVco = vco2(kEnv*p5*.5, cpsmidinn(p4), iVcoModes[cabbageGetValue:i("waveform")])
-    outs(aVco, aVco)
+    vcoModes:i[] fillarray 0, 10, 12
+    att:i = cabbageGetValue("att")
+    dec:i = cabbageGetValue("dec")
+    sus:i = cabbageGetValue("sus")
+    rel:i = cabbageGetValue("rel")
+    env:k = madsr(att, dec, sus, rel)
+    vcoOut:a = vco2(env*p5*.5, cpsmidinn:k(p4), vcoModes[cabbageGetValue:i("waveform")])
+    outs(vcoOut, vcoOut)
     
 endin
 

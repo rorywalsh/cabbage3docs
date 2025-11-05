@@ -1,74 +1,56 @@
-import Channel from "./properties/channel.mdx";
-import Automatable from "./properties/automatable.mdx";
-import Value from "./properties/value.mdx";
-import Bounds from "./properties/bounds.mdx";
-import Visible from "./properties/visible.mdx";
 import Active from "./properties/active.mdx";
-import Id from "./properties/id.mdx"
-import Corners from "./properties/corners.mdx";
-import Text from "./properties/textOnOff.mdx";
+import Automatable from "./properties/automatable.mdx";
+import Bounds from "./properties/bounds.mdx";
+import Channel from "./properties/channel.mdx";
+import Id from "./properties/id.mdx";
+import Label from "./properties/label.mdx";
+import Visible from "./properties/visible.mdx";
 import StyleButton from "./button.style.mdx";
 import CodeBlock from '@theme/CodeBlock';
 import widgetCode from '!!raw-loader!../../static/examples/button.csd';
 
-
 # Button
 
-`button` creates a button on screen that can be used for a whole range of tasks. The "channel" string identifies the channel on which Cabbage will communicate with Csound. The on and off text strings determine the text that will appear on the button as users toggle between two states, i.e., 0 or 1. By default these captions are set to "On" and "Off" but the user can specify any strings they wish. 
+`button` creates a button on screen that can be used for a whole range of tasks. The "channel" string identifies the channel on which Cabbage will communicate with Csound.
 
-# List of supported properties
-[Active](#active) | [Automatable](#automatable) | [Bounds](#bounds) | [Channel](#channel) | [Corners](#corners) | [Id](#id) | [Text](#text) | [Value](#value) | [Visible](#visible) | [Style](#style)
+## Properties (alphabetical)
 
+Below is the full, alphabetical list of top-level widget properties for `button`.
 
-### Common Properties
-
-<a id="active" className="anchor-target"></a>
-#### Active
+<a id="active" class="anchor-target"></a>
+### Active
 <Active />
 
-<a id="automatable" className="anchor-target"></a>
-#### Automatable
+<a id="automatable" class="anchor-target"></a>
+### Automatable
 <Automatable />
 
-<a id="bounds" className="anchor-target"></a>
-#### Bounds
+<a id="bounds" class="anchor-target"></a>
+### Bounds
 <Bounds />
 
-<a id="channel" className="anchor-target"></a>
-#### Channel
+<a id="channel" class="anchor-target"></a>
+### Channel
 <Channel />
 
- 
-<a id="corners" className="anchor-target"></a>
-#### Corners
-<Corners />
-
- 
-
-
-<a id="id" className="anchor-target"></a>
-#### Id
+<a id="id" class="anchor-target"></a>
+### Id
 <Id />
 
-<a id="text" className="anchor-target"></a>
-#### Text
-<Text />
-
-<a id="value" className="anchor-target"></a>
-#### Value
-<Value />
-
-<a id="visible" className="anchor-target"></a>
-#### Visible
+<a id="label" class="anchor-target"></a>
+### Label
+<Label />
+<a id="visible" class="anchor-target"></a>
+### Visible
 <Visible />
 
-
-<a id="style" className="anchor-target"></a>
-#### Style
+<a id="style" class="anchor-target"></a>
+### Style
 <StyleButton />
-
-
 
 ## Example
 
 <CodeBlock language="csharp">{widgetCode}</CodeBlock>
+<Visible />
+
+

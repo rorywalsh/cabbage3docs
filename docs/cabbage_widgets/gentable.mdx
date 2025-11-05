@@ -1,7 +1,5 @@
 import Id from "./properties/id.mdx";
 import Channel from "./properties/channelGentable.mdx";
- 
-
 import Bounds from "./properties/bounds.mdx";
 import Visible from "./properties/visible.mdx";
 import Active from "./properties/active.mdx";
@@ -9,74 +7,67 @@ import Sample from "./properties/sampleRange.mdx";
 import File from "./properties/file.mdx";
 import Range from "./properties/rangeGenTable.mdx";
 import TableNumber from "./properties/tableNumber.mdx";
-import Text from "./properties/text.mdx";
 import SelectableRegions from "./properties/selectableRegions.mdx";
+import Label from "./properties/label.mdx";
+import StyleGenTable from "./gentable.style.mdx";
 import CodeBlock from '@theme/CodeBlock';
 import widgetCode from '!!raw-loader!../../static/examples/gentable.csd';
-import StyleGenTable from "./gentable.style.mdx";
-
 
 # GenTable
 
-`genTable` creates a table widget on screen that can be used to display the contents of a function table or the contents of a file. When `selectableRegions` is enabled, users can interactively select portions of the waveform by clicking and dragging. The start and end points can be picked up using the 'start' and 'end' channels. Note this widget is non-automatable. Therefore, its channels will not appear in a DAW as parameters. Setting a `file` will not write the contents of that file to the function table assigned with `tableNumber`. Such operations should be handled in Csound.   
+`genTable` creates a table widget on screen that can be used to display the contents of a function table or the contents of a file. When `selectableRegions` is enabled, users can interactively select portions of the waveform by clicking and dragging.
 
+## Properties (alphabetical)
 
-> Note: Manually editing tables through mouse clicks is not currently supported in Cabbage 3. 
-
-# List of supported properties
-[Active](#active) | [Bounds](#bounds) | [Channel](#channel) | [Id](#id) | [Range](#range)| [Sample Range](#sample) | [Selectable Regions](#selectableregions) | [Table Number](#tablenumber) | [Text](#text) | [Visible](#visible) | [Style](#style)
-
-
-### Unique Properties 
-
-#### Table Number {#tablenumber}
-<TableNumber />
-
-#### Range {#range}
-<Range />
-
-#### Sample Range {#sample}
-<Sample />
-
-#### Selectable Regions {#selectableregions}
-<SelectableRegions />
-
-
-### Common Properties
+Below is the full, alphabetical list of top-level widget properties for `genTable`.
 
 <a id="active" class="anchor-target"></a>
-#### Active
+### Active
 <Active />
 
 <a id="bounds" class="anchor-target"></a>
-#### Bounds
+### Bounds
 <Bounds />
 
 <a id="channel" class="anchor-target"></a>
-#### Channel
+### Channel
 <Channel />
 
- 
- 
+<a id="file" class="anchor-target"></a>
+### File
+<File />
+
 <a id="id" class="anchor-target"></a>
-#### Id
+### Id
 <Id />
 
+<a id="label" class="anchor-target"></a>
+### Label
+<Label />
 
+<a id="range" class="anchor-target"></a>
+### Range
+<Range />
 
-<a id="text" class="anchor-target"></a>
-#### Text
-<Text />
+<a id="sample-range" class="anchor-target"></a>
+### Sample Range
+<Sample />
+
+<a id="selectable-regions" class="anchor-target"></a>
+### Selectable Regions
+<SelectableRegions />
+
+<a id="table-number" class="anchor-target"></a>
+### Table Number
+<TableNumber />
 
 <a id="visible" class="anchor-target"></a>
-#### Visible
+### Visible
 <Visible />
 
-
 <a id="style" class="anchor-target"></a>
-#### Style
+### Style
 <StyleGenTable />
-
 
 ## Example
 
