@@ -3,7 +3,9 @@ import widgetCode from '!!raw-loader!../../static/examples/cabbageSet.csd';
 
 # CabbageSetValue
 
-This opcode set the current value of a widget. It can run at init-time or k-time. 
+This opcode sets the current value of a widget and can be executed at either init-time or k-time. When called, it immediately writes the incoming value to a Csound channel and also places the value into a FIFO queue, which the frontend reads to update the UI.
+
+Because the frontend operates at a much lower frame rate than the audio thread, it cannot process every value update. While all updates are written to the underlying Csound channel, many intermediate values will not make it into the FIFO queue and therefore will not be seen by the frontend. However, the most recent value will always make it through, ensuring the UI remains in sync with the latest state.
 
 ## Syntax
 

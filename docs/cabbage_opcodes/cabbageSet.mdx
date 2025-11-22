@@ -31,7 +31,9 @@ This opcode sets a widget property, i.e,`colour.fill`, `visible`, `opacity`, etc
 * *SValue* - a string value to set the widget property to
 * *kTrig* - used to trigger updates at k-rate
 
-> The k-rate variant of `cabbageSet` must use a k-rate trigger to update. This is to prevent the UI from being saturated with updates. If you need to continuously update, use a `metro()` opcode - `cabbageSet metro(5) ...` 
+> The k-rate variant of cabbageSet must use a k-rate trigger to initiate updates. This is to prevent the UI from being saturated with changes. If you need continuous updates, use a metro() opcode, for example: cabbageSet metro(5) ...
+
+> However, even when sending frequent updates, such as 20 changes per second, the frontend may only process a subset of them. This is because the UI runs at a much slower frame rate than the audio thread.
 
 ## Example
 

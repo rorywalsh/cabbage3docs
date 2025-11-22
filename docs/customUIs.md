@@ -7,11 +7,12 @@ Cabbage 3 includes a variety of standard plugin controls such as sliders and but
 
 1. ## **Custom Widget Classes**
 
-    Create new widget classes and add them to Cabbage. This approach allows you to develop custom widgets while retaining the convenience of the editing tools available in the Cabbage VS Code extension. To achieve this, follow these steps:
+    Create a new widget class and add it to Cabbage. This approach allows you to develop custom widgets while retaining the convenience of the editing tools available in the Cabbage VS Code extension. To achieve this, follow these steps:
 
 * **Steps to Create a New Widget Class**:
 
-    * **Create a New Widget Class**(): Use an existing widget class as a template. Below are key members you’ll need to define: 
+    * **Create a New Widget Class**(): Use the commannd pallete to 'Create new custom widget'. You'll need to creater a custom widget folder first if you haven't already done so. When you create this folder, teh extension will copy thre required files to it. All custom widget classes should go into this folder's widgets sub-folder so the extension can find it. The name of the file you choose will also be the class name. By convention, Cabbage classes are upper CamelCase, while the widget types are lower camelCase. For your widget to be recognised by the Cabbage vs-code extension, and in particular the property panel, you must define the following class members:  
+
         * **`this.props`**:
             This JSON object contains properties accessible through the UI element inspectors in VS Code. Any property defined here can also be queried and modified using the Cabbage get and set opcodes in Csound. At a minimum, this must include:
             * An 'id' property
@@ -23,17 +24,43 @@ Cabbage 3 includes a variety of standard plugin controls such as sliders and but
             Implement two methods:
 
             * **`addVsCodeEventListeners(widgetDiv, vs)`**: Called when Cabbage is running from VS Code.
-            * **`addVsCodeEventListeners()`**: Called when Cabbage is running as a plugin.
+            * **`addEventListeners()`**: Called when Cabbage is running as a plugin.
 
-        Both methods need to be implemented to ensure compatibility with different environments.
+        Both methods need to be implemented to ensure compatibility with different environments. 
 
-        * Define a **`getInnerHTML()`** method. This method should return the inner HTML used to render the UI element. The element’s size is determined by its bounds object. You can return an svg element or another div element, depending on your design needs.
+        * Define a **`getInnerHTML()`** method. This method should return the inner HTML used to render the UI element. The element's size is determined by its bounds object. You can return an svg element or another div element, depending on your design needs. The `WidgetManager` class calls this method when the widget is first inserted (via `insertWidget()`) and whenever properties change (via `updateWidget()`). For canvas-based widgets, `getInnerHTML()` is called during insertion to create the initial DOM structure, but subsequent updates use `updateCanvas()`(see below) instead to avoid destroying the canvas context.
 
-    * Add class to the Cabbage `src/cabbage/widgets` directory. This is installed with the VS Code extension. On MacOS it can be found here in `~/.vscode/extensions`, and on Windows it can be found in `%USERPROFILE%\.vscode\extensions`, where `%USERPROFILE%` is typically `C:\Users\your-username`. When in place, both the VS Code extension and the Cabbage service app will be able to access them. These source files get copied whenever Cabbage export a new plugin.  
+        * If you need a canvas for drawing to, add a `createCanvas()` function that initialises the canvas, and an `updateCanvas()` function that will update the canvas contents. These two functions are called by the `WidgetManager` class to manage the embedded graphics context, and update it when needs be. 
+
+        * **Reactive Properties (Optional)**: If you need to listen for changes to widget properties, you can wrap `this.props` with `CabbageUtils.createReactiveProps()`. This creates a Proxy that automatically handles common widget behaviors (like toggling pointer-events when `visible` or `active` change) and can notify you of property changes. Call it in your constructor:
+        
+        ```javascript
+        this.props = CabbageUtils.createReactiveProps(this, this.props, {
+            onPropertyChange: (change) => {
+                // Called when watched properties change
+                // change.key - the property name
+                // change.value - new value
+                // change.oldValue - previous value
+                // change.path - dot-separated path to the property
+            },
+            watchKeys: null,        // null = watch all, or array of strings/RegExp (e.g., ['value', 'bounds*'])
+            mode: 'change',         // 'change' (default) = only notify when value differs, 'set' = notify on every set
+            lazyPath: true          // true (default) = compute path only when notifying (more efficient)
+        });
+        ```
+        
+        The `opts` parameter is optional - you can call `CabbageUtils.createReactiveProps(this, this.props)` without options for basic reactive behavior. 
+        
+        > [!IMPORTANT]
+        > **Performance Note**: Don't use `onPropertyChange` to listen for `value` updates from Csound. The `WidgetManager` automatically calls `updateCanvas()` for canvas-based widgets when channel values change, bypassing the reactive props system for efficiency. Value updates are sent as lightweight messages without full widget JSON, allowing high-frequency updates (e.g., for k-rate parameter changes) without overhead. Use reactive props for UI-driven property changes (like `visible`, `bounds`, or custom properties), not for high frequency value streams.
+
+
 
 2. ## **Entirely new web-based interfaces**
 
-You can design an entirely new web-based interface using any framework you prefer. To ensure communication with the Csound/Cabbage plugin, you need to include the `cabbage.js` file, which provides basic functions to send data to Csound from the web UI. While this method does not give access to the UI editing tools in Cabbage, it offers maximum flexibility to create custom interfaces tailored to your needs.
+You can design a completely custom web-based interface using any framework you prefer. To enable communication with the Csound/Cabbage plugin, you simply need to include the cabbage.js file, which provides the core functions required to send data from the web UI into Csound. While this approach does not provide access to Cabbage’s built-in UI editing tools, it offers maximum flexibility for building interfaces tailored to your needs.
+
+If you want to create an entirely new, non-Cabbage frontend—such as a standalone VS Code extension—you can use the Command Palette to generate a new Vanilla Plugin project. This will create a basic project layout with an HTML file, a CSS file, and a JavaScript file. From there, you can use the Cabbage JS API to communicate with Csound and build your interface however you wish.
 
 To communicate with Csound, you will need to implement event handlers for sending and receiving data. The following example demonstrates a complete setup that communicates to two parameters, with `id`s `slider1` and `slider2`:
 
