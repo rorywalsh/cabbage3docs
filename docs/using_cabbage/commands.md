@@ -1,102 +1,302 @@
 ---
-title: Cabbage Commands
-description: Available commands in Cabbage 3
+title: Commands & Settings
+description: Available commands and settings in Cabbage 3
 ---
 
 ## Table of Contents
-- [Table of Contents](#table-of-contents)
 - [Command Palette Access](#command-palette-access)
-- [Commands](#commands)
-  - [Running](#running)
-  - [Formatting](#formatting)
+- [Commands \& Settings](#commands--settings)
+  - [Running \& Compilation](#running--compilation)
+  - [Document Formatting](#document-formatting)
+  - [Navigation](#navigation)
+  - [Project Creation](#project-creation)
+  - [Audio/MIDI Configuration](#audiomidi-configuration)
+  - [Plugin Export](#plugin-export)
+  - [Custom Widgets](#custom-widgets)
+  - [Daisy Development](#daisy-development)
+  - [Advanced Settings](#advanced-settings)
   - [Utilities](#utilities)
-  - [Configuration](#configuration)
-  - [Exporting](#exporting)
 
 ## Command Palette Access
-Ctrl+S and Ctrl+E are the default shortcuts for running and entering edit mode. The following commands, which don't have keyboard shortcuts attached, are all accessible from the command palette. To access the command palette in Visual Studio Code, you can use the following keyboard shortcuts:
+
+**Ctrl+S** and **Ctrl+E** are the default shortcuts for compiling and entering edit mode. All other commands are accessible from the command palette:
 
 - **Windows/Linux**: Press `Ctrl + Shift + P`
 - **macOS**: Press `Cmd + Shift + P`
 
-Once the command palette is open, you can start typing the name of the command you want to execute. For example, you can type "Cabbage" to filter the commands related to the Cabbage extension. Select the desired command from the list to execute it. Below are the commands currently provided. 
+Once open, type "Cabbage" to filter extension commands.
 
-> It's very simple to assign custom shortcuts to any command palette entry. Simple summon the command, then press the small cogwheel icon that appears on the right of the command. This will bring up a config screen where you can quickly set your preferred shortcuts.  
+> **Tip**: Assign custom shortcuts to any command by clicking the cogwheel icon next to the command in the palette.
 
-## Commands
+## Commands & Settings
 
-### Running
+### Running & Compilation
 
-- **Launch Cabbage**
-  - The `Compile Instrument` command can be called from the command palette. Each time it is called your .csd file will be saved to disk, and if it contains a valid Cabbage JSON section the instrument will launch is a dedicated tab.
+**Commands:**
 
-- **Edit Mode**
-  - `Edit Mode` enabled edit mode for the Cabbage interface. When in edit mode users can right-click to show the context menu, whereupon they can select a widget to add to the UI. Clicking on an existing widget will being up its properties panel.
+- **Compile Cabbage Instrument** (`cabbage.compile`)
+  - Saves the current .csd file and launches the instrument in a dedicated webview tab if it contains valid Cabbage JSON
 
-### Formatting
+- **Start Cabbage Server** (`cabbage.startServer`)
+  - Manually starts the Cabbage backend server (can also be started from the bottom right of the status panel)
 
-- **Format Document**
-  - Formats the current document according to Cabbage formatting rules (this basically).
+- **Stop Cabbage Server** (`cabbage.stopServer`)
+  - Stops the running Cabbage backend server
 
-- **Collapse Cabbage section**
-  - Collapses the Cabbage JSON section in the current document.
+- **Edit Mode** (`cabbage.editMode`)
+  - Toggles edit mode for the Cabbage interface. Right-click in edit-mode to add widgets or click existing widgets to edit their properties
 
-- **Expand Cabbage section**
-  - Expands the Cabbage JSON section in the current document.
+**Settings:**
+
+- **Clear Console On Compile** (`cabbage.clearConsoleOnCompile`)
+  - Default: `true`
+  - Clear the console output each time Csound is compiled
+
+- **Log Verbose** (`cabbage.logVerbose`)
+  - Default: `false`
+  - Enable verbose logging from Cabbage for troubleshooting
+
+### Document Formatting
+
+**Commands:**
+
+- **Format Document** (`cabbage.formatDocument`)
+  - Formats the current .csd document according to Cabbage formatting rules and JSON settings
+
+- **Expand Cabbage section** (`cabbage.expandCabbageJSON`)
+  - Expands the `<Cabbage>` JSON section for easier editing
+
+- **Collapse Cabbage section** (`cabbage.collapseCabbageJSON`)
+  - Collapses the `<Cabbage>` JSON section to reduce visual clutter
+
+- **Add a Cabbage section** (`cabbage.addCabbageSection`)
+  - Inserts a new `<Cabbage>` section into the current document
+
+**Settings:**
+
+- **Default JSON Formatting** (`cabbage.defaultJsonFormatting`)
+  - Default: `"Single line objects"`
+  - Options: `"Single line objects"` | `"Multiline objects"`
+  - Choose how widget objects are formatted in the `<Cabbage>` section
+
+- **JSON Indent Spaces** (`cabbage.jsonIndentSpaces`)
+  - Default: `4`
+  - Range: 2-8
+  - Number of spaces to use for JSON indentation
+
+- **JSON Max Length** (`cabbage.jsonMaxLength`)
+  - Default: `120`
+  - Range: 0-200
+  - Maximum line length for JSON formatting. Longer lines will be wrapped. Set to 0 for no wrapping
+
+- **Show Warning Comment** (`cabbage.showWarningComment`)
+  - Default: `true`
+  - Show a warning comment above the `<Cabbage>` section when the extension writes JSON into the document
+
+- **Snap To Size** (`cabbage.snapToSize`)
+  - Default: `4`
+  - Number of pixels to move by when dragging widgets in edit mode
+
+### Navigation
+
+**Commands:**
+
+- **Jump to widget definition** (`cabbage.jumpToWidgetObject`)
+  - Shows a dropdown of all widgets in the current file. Select one to jump to its JSON definition
+
+- **Go to widget definition** (`cabbage.goToDefinition`)
+  - Context menu command to jump to a widget's definition from a reference in the code
+
+### Project Creation
+
+**Commands:**
+
+- **Create a new Cabbage Effect file** (`cabbage.createNewCabbageEffect`)
+  - Creates a new .csd file with a basic effect template
+
+- **Create a new Cabbage Synth file** (`cabbage.createNewCabbageSynth`)
+  - Creates a new .csd file with a basic synthesizer template
+
+- **Create Vanilla VST3 Effect** (`cabbage.createVanillaVST3Effect`)
+  - Creates a new project with custom HTML/CSS/JS frontend for a VST3 effect
+
+- **Create Vanilla VST3 Synth** (`cabbage.createVanillaVST3Synth`)
+  - Creates a new project with custom HTML/CSS/JS frontend for a VST3 synth
+
+### Audio/MIDI Configuration
+
+**Commands:**
+
+- **Select Sampling Rate** (`cabbage.selectSamplingRate`)
+  - Choose the audio sampling rate (e.g., 44100, 48000, 96000 Hz)
+
+- **Select Buffer Size** (`cabbage.selectBufferSize`)
+  - Choose the audio buffer size (affects latency vs. CPU usage)
+
+- **Select Audio Driver** (`cabbage.selectAudioDriver`)
+  - Choose the audio driver (Windows only: ASIO, DirectSound, etc.)
+
+- **Select Audio Output Device** (`cabbage.selectAudioOutputDevice`)
+  - Choose which audio output device to use
+
+- **Select Audio Input Device** (`cabbage.selectAudioInputDevice`)
+  - Choose which audio input device to use
+
+- **Select MIDI Input Device** (`cabbage.selectMidiInputDevice`)
+  - Choose which MIDI input device to use
+
+- **Select MIDI Output Device** (`cabbage.selectMidiOutputDevice`)
+  - Choose which MIDI output device to use
+
+**Settings:**
+
+> These settings are managed by the commands above and stored in VS Code settings. They can also be edited directly in settings.json. Updating them via the command pallete will also display a list of valid options.
+
+- **Audio Output Device** (`cabbage.audioOutputDevice`)
+  - Default: `"Default"`
+  - Currently selected audio output device
+
+- **Audio Input Device** (`cabbage.audioInputDevice`)
+  - Default: `"Default"`
+  - Currently selected audio input device
+
+- **MIDI Output Device** (`cabbage.midiOutputDevice`)
+  - Default: `"Default"`
+  - Currently selected MIDI output device
+
+- **MIDI Input Device** (`cabbage.midiInputDevice`)
+  - Default: `"Default"`
+  - Currently selected MIDI input device
+
+- **Audio Sample Rate** (`cabbage.audioSampleRate`)
+  - Default: `"44100"`
+  - Currently selected sampling rate
+
+- **Audio Buffer Size** (`cabbage.audioBufferSize`)
+  - Default: `"32 samples"`
+  - Currently selected buffer size
+
+- **Audio Driver** (`cabbage.audioDriver`)
+  - Default: `"32 samples"`
+  - Currently selected audio driver (Windows only)
+
+### Plugin Export
+
+**Commands:**
+
+- **Export as VST3 Effect** (`cabbage.exportVST3Effect`)
+  - Exports the current instrument as a VST3 effect plugin
+
+- **Export as VST3 Synth** (`cabbage.exportVST3Synth`)
+  - Exports the current instrument as a VST3 synthesizer plugin
+
+- **Export as AUv2 Effect** (`cabbage.exportAUEffect`)
+  - Exports the current instrument as an AUv2 effect plugin (macOS only)
+
+- **Export as AUv2 Synth** (`cabbage.exportAUSynth`)
+  - Exports the current instrument as an AUv2 synthesizer plugin (macOS only)
+
+**Settings:**
+
+- **Bundle Resources** (`cabbage.bundleResources`)
+  - Default: `false`
+  - When enabled, all resources (audio files, images, etc.) are bundled into the plugin directory. When disabled, resources are placed in the CabbageAudio resources folder
+
+- **Property Panel Position** (`cabbage.propertyPanelPosition`)
+  - Default: `"right"`
+  - Options: `"right"` | `"left"`
+  - Position of the property panel in the webview editor
+
+### Custom Widgets
+
+**Commands:**
+
+- **Set Custom Widget Directory** (`cabbage.setCustomWidgetDirectory`)
+  - Choose a directory for custom widgets. Automatically copies the required Cabbage framework structure
+
+- **Create New Custom Widget** (`cabbage.createNewCustomWidget`)
+  - Creates a new custom widget class from a template in your custom widgets directory
+
+**Settings:**
+
+- **Custom Widget Directories** (`cabbage.customWidgetDirectories`)
+  - Default: `[]`
+  - Array of paths to custom widget directories. Each directory should contain a `cabbage` folder structure
+  - **Recommended**: Use the "Set Custom Widget Directory" command which automatically sets up the required structure
+
+### Daisy Development
+
+Commands for building Csound code for the [Electrosmith Daisy](https://www.electro-smith.com/daisy) hardware platform:
+
+**Commands:**
+
+- **Make for Daisy** (`cabbage.makeForDaisy`)
+  - Compiles the current .csd file for Daisy hardware
+
+- **Make clean for Daisy** (`cabbage.makeCleanForDaisy`)
+  - Cleans the Daisy build directory
+
+- **Make boot for Daisy** (`cabbage.makeBootForDaisy`)
+  - Creates a bootloader for Daisy
+
+- **Make dfu for Daisy** (`cabbage.makeDfuForDaisy`)
+  - Creates a DFU (Device Firmware Update) file for Daisy
+
+- **Set path to the Csound include directory (for Daisy)** (`cabbage.setCsoundIncludeDir`)
+  - Sets the path to Csound header files needed for Daisy compilation
+
+- **Set path to the Csound library directory (for Daisy)** (`cabbage.setCsoundLibraryDir`)
+  - Sets the path to Csound library files needed for Daisy compilation
+
+**Settings:**
+
+- **Path To Csound Include Dir** (`cabbage.pathToCsoundIncludeDir`)
+  - Default: `""`
+  - Path to Csound include directory - used when building for Daisy
+
+- **Path To Csound Library Dir** (`cabbage.pathToCsoundLibraryDir`)
+  - Default: `""`
+  - Path to Csound library directory - used when building for Daisy
+
+### Advanced Settings
+
+**Commands:**
+
+- **Set Cabbage source path** (`cabbage.setCabbageSourcePath`)
+  - Sets the path to the Cabbage JavaScript source directory
+  > ⚠️ **Warning**: This is set automatically by the extension. Only change if you know what you're doing!
+
+- **Set path to the Cabbage binary** (`cabbage.setCabbageBinaryPath`)
+  - Sets the path to the Cabbage backend executable (CabbageApp)
+  > ⚠️ **Warning**: This is set automatically by the extension. Only change if you're using a custom build!
+
+- **Reset CabbageApp (not vscode) settings file** (`cabbage.resetCabbageAppSettingsFiles`)
+  - Resets the Cabbage backend settings file to defaults (does not affect VS Code settings)
+
+**Settings:**
+
+- **Path To Cabbage Binary** (`cabbage.pathToCabbageBinary`)
+  - Default: `""`
+  - Path to the Cabbage service app. Leave empty to use the default location bundled with the extension
+
+- **Path To JS Source (Windows)** (`cabbage.pathToJsSourceWindows`)
+  - Default: `""`
+  - Path to Cabbage JavaScript directory on Windows. Leave empty to use default location
+
+- **Path To JS Source (macOS)** (`cabbage.pathToJsSourceMacOS`)
+  - Default: `""`
+  - Path to Cabbage JavaScript directory on macOS. Leave empty to use default location
+
+- **Path To JS Source (Linux)** (`cabbage.pathToJsSourceLinux`)
+  - Default: `""`
+  - Path to Cabbage JavaScript directory on Linux. Leave empty to use default location
 
 ### Utilities
 
-- **Jump to Widget Object**
-  - Provides a dropdown menu of widget objects. Selecting one will cause the text editor to jump that that object. Objects are listed by their channel name. 
+**Commands:**
 
-- **Open a widget example**
-  - Provides a dropdown list of example widget .csd files. Selecting one will open it in text editor. Any of these files can be run without modification, but they are read-only. If you wish to modify an example you will need to run 'save-as' to make an editable copy. 
-  
+- **Open an widget example** (`cabbage.openCabbageExample`)
+  - Browse and open example .csd files demonstrating various widgets and techniques
 
-### Configuration
-
-- **Select Sampling Rate**
-  - Opens a prompt to select the audio sampling rate for the project.
-
-- **Select Buffer Size**
-  - Opens a prompt to select the audio buffer size for the project.
-
-- **Select Audio Driver**
-  - Opens a prompt to select the audio driver.
-  
-- **Select Audio Output Device**
-  - Opens a prompt to select the audio output device.
-
-- **Select Audio Input Device**
-  - Opens a prompt to select the audio input device.
-
-- **Select MIDI Input Device**
-  - Opens a prompt to select the MIDI input device.
-
-- **Select MIDI Output Device**
-  - Opens a prompt to select the MIDI output device.
-
-- **Set Cabbage source path**
-  - Opens a dialog to set the path to the Cabbage JS source directory. 
-  > This is set by the extension and should not be overwritten unless you know what you are doing!
-
-- **Set path to the Cabbage binary**
-  - Opens a dialog to set the path to the Cabbage binary executable, that is CabbageApp.app on MacOS and CabbageApp.exe on Windows. 
-  > This is also set by the extension and should not be overwritten unless you know what you are doing!
-
-### Exporting
-
-- **Export as VST3 Effect**
-  - Opens a file dialogue and lets users export the current project as a VST3 effect plugin. 
-
-- **Export as VST3 Synth**
-  - Opens a file dialogue and lets users export the current project as a VST3 synthesizer plugin.
-
-- **Export as AUv2 Effect**
-  - Opens a file dialogue and lets users export the current project as an AUv2 effect plugin.
-
-- **Export as AUv2 Synth**
-  - Opens a file dialogue and lets users export the current project as an AUv2 synthesizer plugin.
-
-- **Bundle Resources**
-  - Tells Cabbage to bundle all resources into the plugin folder, otherwise all resources, including the .csd file will be placed into the CabbageAdio resources directory.  
+- **Opens the Csound 7 opcode reference page** (`cabbage.openOpcodeReference`)
+  - Opens the Csound 7 opcode documentation in your browser

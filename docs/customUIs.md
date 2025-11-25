@@ -11,7 +11,13 @@ Cabbage 3 includes a variety of standard plugin controls such as sliders and but
 
 * **Steps to Create a New Widget Class**:
 
-    * **Create a New Widget Class**(): Use the commannd pallete to 'Create new custom widget'. You'll need to creater a custom widget folder first if you haven't already done so. When you create this folder, teh extension will copy thre required files to it. All custom widget classes should go into this folder's widgets sub-folder so the extension can find it. The name of the file you choose will also be the class name. By convention, Cabbage classes are upper CamelCase, while the widget types are lower camelCase. For your widget to be recognised by the Cabbage vs-code extension, and in particular the property panel, you must define the following class members:  
+    * **Create a New Widget Class**(): Use the command palette to Create New Custom Widget. If you haven’t already created a custom widget folder, you’ll need to do so first. When this folder is created, the extension will copy the required files into it.
+
+    All custom widget classes should be placed in this folder’s widgets sub-folder, i.e, `CustomWidgetFolder/cabbage/widgets`, so the extension can locate them and load them via the property panel. The name of the file you create will also serve as the class name.
+
+    By convention, Cabbage classes follow UpperCamelCase, while widget types use lowerCamelCase. Although the backend works with normalised values, frontends send and receive unnormalised values. The backend will use the widget's channels range object to correctly map the unnormalised values to normalised values.
+
+    For your widget to be recognized by the Cabbage VS Code extension—especially by the property panel—you must define the following class members: 
 
         * **`this.props`**:
             This JSON object contains properties accessible through the UI element inspectors in VS Code. Any property defined here can also be queried and modified using the Cabbage get and set opcodes in Csound. At a minimum, this must include:

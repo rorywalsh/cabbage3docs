@@ -17,7 +17,7 @@ The plugin binary will be saved in the selected location. By default, any resour
 To make changes to your newly exported plugin, you only need to edit the associated .csd file; there’s no need to re-export the plugin each time you makes changes. For example, on Windows, if your plugin is named `SavageCabbage.dll`, you can make changes by editing the corresponding file located at:
 `C:/Program Files/CabbageAudio/SavageCabbage/SavageCabbage.csd`.
 
-After making changes, you must remove and re-add the plugin in your plugin host (DAW) to see the updates. Once the plugin is removed and reinstated on the track, the changes will be reflected.
+After making changes, you must remove and re-add the plugin in your plugin host (DAW) to see the updates. Once the plugin is removed and reinstated on the track, the changes will be reflected. The simplest approach here is to simply reload your plugin project in your DAW. In almost all cases this is quicker than removing the track and re-adding it. However, if you have add new parameters to your plugin, you may have problems opening a saved session as the DAW will expect a certain number of parameters. In this case you will need to start a new session to test. 
 
 ### Bundling Resources
 If you enable the Bundle Resource option in the Cabbage VS Code settings, Cabbage will place the Resource folder inside the plugin bundle. This is useful when distributing a plugin but can cause code signing issues on macOS during development. Each time you modify a file within the plugin bundle, you must re-sign the plugin.

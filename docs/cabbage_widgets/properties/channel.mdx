@@ -12,7 +12,7 @@ In Cabbage 3, widgets use an array of channels instead of a single channel strin
 
 If range is omitted, it defaults to a range from 0 to 1, with increments of 0.001 for widgets that use drag events (e.g., sliders, XY pads) and 1 for widgets that use click or toggle events (e.g., buttons, checkboxes). 
 
-> A widget’s top-level id property defines the general communication channel for updating attributes, while the channels specified in the channels array are used for value and parameter updates.
+> A widget’s top-level id property defines the general communication channel for updating attributes, while the channels specified in the channels array are used for value and parameter updates. If no top level id is specified, the first channel.id will be used as the general communication channel.
 
 Supported event types:
 
