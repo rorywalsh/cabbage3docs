@@ -85,7 +85,9 @@ If no top-level `id` is set, the `channels[0].id` channel can be used, but the r
 }
 ```
 
-Using well-named top-level `id`s to manage a widget’s visual state offers many benefits, not least when it comes to debugging complex instruments.
+Using well-named top-level `id`s to manage a widget’s visual state offers many benefits, not least when it comes to debugging complex instruments. 
+
+JSON doesn't support comments. If you wish to add comments to your JSON, use a `"//" : "This is a comment....."` property. The extension will highlight this line to make it stands out from the rest of the JSON code. 
 
 > A widget's range is fixed and cannot be changed. However, there are ways to make it appear as though the range has changed. Please ask on the forum for tips and tricks on making this work.  
 
