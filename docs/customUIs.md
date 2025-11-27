@@ -16,12 +16,17 @@ By convention, Cabbage classes follow UpperCamelCase, while widget types use low
 For your widget to be recognized by the Cabbage VS Code extension—especially by the property panel—you must: 
 
 * Add a **`this.props`**:
-    This JSON object contains properties accessible through the UI element inspectors in VS Code. Any property defined here can also be queried and modified using the Cabbage get and set opcodes in Csound. At a minimum, this must include:
+    This JSON object contains properties accessible through the UI element inspectors in VS Code. Any property defined here can also be queried and modified using the Cabbage get and set opcodes in Csound. Properties can be objects, strings, or numbers. Boolean can be used only for set Cabbage properties such as `visible`, `active`, `automatable`, etc. Use 0/1 if you need to send boolean values to the backend. 
+
+    At a minimum, the props object must include:
     * An 'id' property
     * A channels array
-    * An automatable property
+    * An automatable property (boolean)
     * A bounds object to define dimensions and placement
     * A vscode property (assigned to the VS Code API instance when running from VS Code, undefined otherwise)
+    * A `zIndex` property (integer)
+    * A `visible` property (boolean)
+    * An `active` property (boolean)
 
 * Add event listener methods:
 
