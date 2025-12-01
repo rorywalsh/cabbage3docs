@@ -3,7 +3,7 @@
 
 Cabbage provides a set of built-in widgets, although it is also possible to create custom widgets using any JavaScript/HTML framework. Widgets can generally be divided into two categories: interactive and non-interactive.
 
-## Widget Properties and Channels
+## Widget Channels
 
 Each widget has a unique set of properties and associated Csound software channels, defined in JSON format. These channels define parameters and serve as the communication bridge between Cabbage’s graphical interface and the Csound audio engine. Most widget properties can be modified at any time to adjust their appearance or behavior.
 
@@ -90,6 +90,56 @@ Using well-named top-level `id`s to manage a widget’s visual state offers many
 JSON doesn't support comments. If you wish to add comments to your JSON, use a `"//" : "This is a comment....."` property. The extension will highlight this line to make it stands out from the rest of the JSON code. 
 
 > A widget's range is fixed and cannot be changed. However, there are ways to make it appear as though the range has changed. Please ask on the forum for tips and tricks on making this work.  
+
+## Widget Properties 
+
+Each and every Cabbage widget has a set of properties that define its behavior and appearance. All properties, except for `channels` and `automatable`, can be updated dynamically during run-time. The following properties are common to all widgets:
+
+**Bounds**
+
+```json
+"bounds": {"left":0, "top":0, "width":100, "height":100}
+```
+
+* Sets the placement and dimensions of the widget within the main form.
+
+**Visible**
+
+```json
+"visible": true
+```
+
+* Determines whether the component is visible.
+
+**Active**
+
+```json
+"active": true
+```
+
+* Will disable a widget if set to `false`. Interaction is not supported with widgets that have `active` set to `false`.
+
+**Automatable**
+
+```json
+"automatable": true
+```
+
+* Defaults to `true`. Determines if a widget is automatable by a host DAW. Automatable widgets show up as plug-in parameters in the host. Non-automatable widgets can still communicate with Csound but are not accessible by the host. Note that hosts do not allow this parameter to change dynamically. If you change this setting, the plugin will need to be reloaded.
+
+**Z-Index**
+
+```json
+"zIndex": 1
+```
+
+* Sets the stacking order of the widget. Widgets with higher `zIndex` values appear in front of widgets with lower values. The default is `1`.
+
+Each widget also has a unique set of styling properties accessed through the `style` object. Here, users can control how their widgets look. In a break from Cabbage 2 convention, and to align with CSS/HTML naming schemes, all style properties use CSS-style spelling—for example, background color is listed as `backgroundColor`. A full list of supported styles, along with all other properties, can be found in each widget's manual entry.
+
+
+
+
 
 
 ## Plugin Parameters and Automation
