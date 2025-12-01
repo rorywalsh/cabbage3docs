@@ -144,9 +144,9 @@ Each widget also has a unique set of styling properties accessed through the `st
 
 ## Plugin Parameters and Automation
 
-All widgets include an `automatable` property. Only widgets with `automatable` set to `1` will appear as automatable parameters in a host environment. Through the named channels, these widgets can be controlled or modulated by the host, ensuring synchronisation between the interface and the audio engine. Many of the stock widgets that ship with Cabbage have their `automatable` property set to `1` by default.
+All widgets include an `automatable` property. Only widgets with `automatable` set to `true` will appear as automatable parameters in a host environment. Through the named channels, these widgets can be controlled or modulated by the host, ensuring synchronisation between the interface and the audio engine. Many of the stock widgets that ship with Cabbage have their `automatable` property set to `true` by default.
 
-Widgets with `automatable=0` can still send and receive data over named channels, but they will not appear in the list of plugin parameters presented in the DAW. A `fileButton` is a good example of one such widget. It makes little sense to give the DAW control to open a native file browser dialog. Note that this property cannot be toggled on and off; the host needs to know what is automatable when it loads.
+Widgets with `automatable:true` can still send and receive data over named channels, but they will not appear in the list of plugin parameters presented in the DAW. A `fileButton` is a good example of one such widget. It makes little sense to give the DAW control to open a native file browser dialog. Note that this property cannot be toggled on and off; the host needs to know what is automatable when it loads.
 
 
 
