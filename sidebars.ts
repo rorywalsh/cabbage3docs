@@ -32,10 +32,12 @@ const sidebars: SidebarsConfig = {
         'using_cabbage/running_cabbage',
         'using_cabbage/working_with_instruments',
         'using_cabbage/exporting_instruments',
+        'using_cabbage/reserved_channels',
         'using_cabbage/media_files',
         'using_cabbage/multichannel',
         'using_cabbage/commands',
-        'using_cabbage/configuration'
+        'using_cabbage/configuration',
+
       ],
     },
     {
@@ -67,12 +69,16 @@ const sidebars: SidebarsConfig = {
       items: ['cabbage_opcodes/intro',
         'cabbage_opcodes/cabbageCreate',
         'cabbage_opcodes/cabbageDump',
+        'cabbage_opcodes/cabbageGetFiles',
         'cabbage_opcodes/cabbageGetValue',
+        'cabbage_opcodes/cabbageCreateFileName',
         'cabbage_opcodes/cabbageGet',
         'cabbage_opcodes/cabbageLoadState',
         'cabbage_opcodes/cabbageSaveState',
         'cabbage_opcodes/cabbageSet',
-        'cabbage_opcodes/cabbageSetValue'],
+        'cabbage_opcodes/cabbageSetValue',
+        'cabbage_opcodes/cabbageGetFiles',
+        'cabbage_opcodes/cabbageCreateFileName'],
     },
   ],
 
