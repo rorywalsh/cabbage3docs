@@ -8,7 +8,11 @@ This opcode queries the current value of a widget. It can run at init-time or k-
 
 *iValue* **cabbageGetValue** *SChannel*
 
+*SValue* **cabbageGetValue** *SChannel*
+
 *kValue [, kTrig]* **cabbageGetValue** *SChannel*
+
+*SValue [, kTrig]* **cabbageGetValue** *SChannel*
 
 ### Initialization
 * *SChannel* – the name of the channel to query
@@ -16,6 +20,7 @@ This opcode queries the current value of a widget. It can run at init-time or k-
 
 ### Performance
 * *kValue* - the current value of the widget at k-time
+* *SValue* - the current value of the widget at i/k-time. The trigger version of `cabbageGetValue` for strings works at k-rate, the non trigger version is i-time only. 
 * *kTrig* - a trigger signal that will return 1 for a single k-cycle whenever the value has been updated/changed
 
 

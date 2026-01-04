@@ -1,6 +1,6 @@
 # CabbageSaveState
 
-This opcode saves the current state of all widget values to a JSON file. The saved state can later be restored using the `cabbageLoadState` opcode. This is useful for creating preset systems or saving/loading configurations.
+This opcode saves the current state of all widget values to a JSON file. The saved state can later be restored using the `cabbageLoadState` opcode. This is useful for creating preset systems or saving/loading configurations. This opcode works at i-time only. Therefore it is best used in an instrument that is called when you want to save state. 
 
 ## Syntax
 
