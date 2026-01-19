@@ -1,59 +1,17 @@
-````plaintext
+
 ```json
-## `channel()`
-
-`channel()` is used to define the channels for selectable region output on the genTable widget. It accepts an object with properties for start position and length:
-
-```javascript
-channel({ start: "channelName1", length: "channelName2" })
+"channels": [
+                {
+                    "id": "gentableStart",
+                    "event": "valueChanged",
+                    "range": { "min": 0, "max": -1 }
+                },
+                {
+                    "id": "gentableLength",
+                    "event": "valueChanged",
+                    "range": { "min": 0, "max": -1 }
+                }
+            ]
 ```
 
-- **start**: Channel that receives the starting sample position of the selected region (integer)
-- **length**: Channel that receives the length of the selected region in samples (integer)
-
-When a user selects a region on the genTable, the widget sends the start position and length to the specified channels as sample indices. These can be directly used in Csound to access the corresponding portion of the function table.
-
-### Example Usage
-
-```javascript
-gentable({
-    bounds: {left: 10, top: 10, width: 600, height: 200},
-    channel: {start: "region_start", length: "region_length"},
-    tableNumber: 1,
-    selectableRegions: true
-})
-```
-
-In your Csound code:
-
-```csound
-kRegionStart cabbageGetValue "region_start"
-kRegionLength cabbageGetValue "region_length"
-
-; Use the sample positions directly
-kSample = 0
-while kSample < kRegionLength do
-    kValue table kRegionStart + kSample, giTable1
-    ; Process the sample...
-    kSample += 1
-od
-```
-```
-Defines the channel configuration for the genTable widget:
-- **id**: Unique identifier for the genTable widget itself. Use this channel with `cabbageSet` to update any of the genTable's attributes.
-- **start**: Channel name for the selection start position (normalized 0-1). This channel is updated when the user selects a region on the waveform (only when `selectableRegions` is enabled)
-- **length**: Channel name for the selection length (normalized 0-1). This channel is updated when the user selects a region on the waveform (only when `selectableRegions` is enabled)
-
-The start and length channels are only used when `selectableRegions` is enabled. Values are normalized (0-1) representing positions within the visible range of the table, regardless of the actual sample count. You can read these values in your Csound code using `cabbageGetValue` and convert them to sample positions using the table size.
-
-**Example usage in Csound:**
-```csound
-kRegionStart cabbageGetValue "region_start"
-kRegionLength cabbageGetValue "region_length"
-kTableSize = ftlen(giTable1)
-kStartSample = kRegionStart * kTableSize
-kLengthSamples = kRegionLength * kTableSize
-; Process the selected region...
-```
-
-````
+The `genTable` has two default channels that provide information about the current selection. Note these channels are only valid if `selectableRegions` is set to `true`.

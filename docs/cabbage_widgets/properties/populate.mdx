@@ -1,7 +1,7 @@
 
 ```json
             "populate": {
-                "directory": "",
+                "directories": [""],
                 "fileType": "",
                 "fullFileAndPath": false,
                 "order": "date",
@@ -10,7 +10,7 @@
             }
 ```
 
-Sets the type of file to search for, and the initial directory to look in. You can specify multiple file types by using the following pattern `*.txt;*.csv;*.dat`. If no directory is specified, the file browser will try to access the current working directory. Note it's always best to set the `directory` property from your Csound code in order to make sure the path is correct. For example, the following code will set the directory to that of the current .csd file. 
+Sets the type of file to search for, and the directories to look in. You can specify multiple file types by using the following pattern `*.txt;*.csv;*.dat`. If no directories are specified, the file browser will try to access the current working directory. Note it's always best to set the `directories` property from your Csound code in order to make sure the path is correct. For example, the following code will set the directory to that of the current .csd file. 
 
 ```
 cabbageSet "presetCombo", "populate.directory", chnget:S("CSD_PATH")

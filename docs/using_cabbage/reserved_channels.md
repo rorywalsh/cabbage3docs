@@ -7,6 +7,9 @@ Reserved channels in Cabbage 3 are special string channels that are automaticall
 ### CSD_PATH
 The directory path where the current CSD file is located. Useful for loading resources relative to your CSD file location.
 
+### IS_A_PLUGIN
+Returns 1 if the instrument is running inside a DAW, otherwise returns 0. 
+
 ### USER_HOME_DIRECTORY
 The user's home directory. On Windows, this is typically `C:\Users\<username>`. On macOS and Linux, this is `/Users/<username>` or `/home/<username>` respectively.
 
