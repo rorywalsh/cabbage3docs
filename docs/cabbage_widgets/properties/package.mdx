@@ -4,10 +4,10 @@
 },
 ```
 
-The package object can be used to manage resources needed for your instruments when they get exported. Pacakfge accept an array of `src`/`dest` pairs. `src` can be relative of a full path, and maybe contain file wildcards, i.e,
+The package object is used to manage the resources required by your instruments when they are exported. The package accepts an array of `src/dest` pairs. The `src` value may be a relative or absolute path and can include file wildcards (for example, * or **).
 
 ```json 
 "include": [ {"src": "/Users/me/cabbage3-recipes/samples/*.wav", "dest": "audioSamples"} ]
 ```
 
-This example will copy all wav files from the samples folder and place them into an audioSamples folder that lives in the top level directory of the exported plugin resources folder.  
+This example copies all `.wav` files from the samples folder into an audioSamples folder located at the top level of the exported plugin’s resources directory.
