@@ -1,6 +1,7 @@
 ```json
 "package" : {
-    "include": [ {"src": "sample", "dest": "samples"} ]
+    "include": [ {"src": "sample", "dest": "samples"} ],
+    "cabzOuputDir":""
 },
 ```
 
@@ -10,4 +11,4 @@ The package object is used to manage the resources required by your instruments 
 "include": [ {"src": "/Users/me/cabbage3-recipes/samples/*.wav", "dest": "audioSamples"} ]
 ```
 
-This example copies all `.wav` files from the samples folder into an audioSamples folder located at the top level of the exported plugin’s resources directory.
+This example copies all `.wav` files from the samples folder into an audioSamples folder located at the top level of the exported plugin’s resources directory. The `dest` directory is always the top level directory. If your `src` is a folder, and you leave out the `dest` dir, all the files from that folder will be placed in the top-level plugin resource directory. `cabzOutputDir` is the output location for encrypted resource, available only in the Cabbage pro add-on.
