@@ -14,7 +14,7 @@ Cabbage 3 represents a significant overhaul of the previous version, Cabbage 2. 
 #### 3. Change in Syntax
 - Perhaps one of the most notable adjustments in Cabbage 3 is the alteration in syntax, specifically the transition from traditional identifiers to the use of JSON objects. In the earlier version, users would typically rely on a system of identifiers to define various components and functionalities within their projects. This might have included unique names and values associated with different elements of the user interface or functionality within the Cabbage environment.
 
-    JSON or JavaScript Object Notation, is a lightweight data interchange format that is easy for humans to read and write and easy for machines to parse and generate. By transitioning to JSON objects, Cabbage 3 enhances the expressiveness and flexibility of how data is structured and manipulated. JSON allows for nested structures, making it easier to represent complex data relationships and configurations in a way that is both human-readable and machine-friendly.
+JSON or JavaScript Object Notation, is a lightweight data interchange format that is easy for humans to read and write and easy for machines to parse and generate. By transitioning to JSON objects, Cabbage 3 enhances the expressiveness and flexibility of how data is structured and manipulated. JSON allows for nested structures, making it easier to represent complex data relationships and configurations in a way that is both human-readable and machine-friendly.
 
 - #### Implications for Users
     This change has several implications:
@@ -36,7 +36,8 @@ Also, certain identifier names have been modified. For instance, `outlineWidth` 
         }
     }
 ```
-Other identifiers have been dropped completely, while some are yet to be implemented. While attempts have been made to provide utility scripts to help transition to Cabbage 3, it's unlikely that any of them will offer a 100% error-free transition from Cabbage 2 to Cabbage 3. Please refer to the updated Docs section to see how widget properties have been changed and updated.
+
+Other identifiers have been dropped completely. Please refer to the updated Docs section to see how widget properties have been changed and updated.
 
 In summary, the changes in Cabbage 3, particularly the shift to using JSON objects, mark a significant evolution in how developers interact with the platform. This move aligns Cabbage with contemporary development practices, enhances user experience, and empowers users to build richer, more dynamic applications with greater ease.
 
@@ -51,4 +52,12 @@ Although the process of exporting has remained largely unchanged, the sequence o
 
 Cabbage automatically searches these directories when it starts, so it’s essential not to move them to another location.
 
-When sharing plugins, it's probably easier to use the `Bundle Resources` option to keep things self contained. Otherwise, you must ensure you copy the entire folder along with the plugin binary and restore the folder to its correct location as specified above to ensure proper functionality on the target machine.
+When sharing plugins, you must ensure that the entire resource folder is copied along with the plugin binary and restored to its correct location, as specified above, to ensure proper functionality on the target machine.
+
+Although keeping mutable artifacts outside of the plugin bundle represents a departure from Cabbage 2, it offers several advantages:
+
+* You avoid re-signing the plugin for every resource change
+* Updates can be shipped as a simple ZIP or tarball
+* No notarization is required for non-executable assets
+* Faster iteration, especially during development
+* A cleaner separation between code and data
