@@ -3,12 +3,14 @@
                 {
                     "id":"channelName", 
                     "eventType": "valueChanged",
-                    "range": {"min":0, "max":100, "value":0, "skew":1, "incr":0.1}
+                    "range": {"min":0, "max":100, "defaultValue":0, "skew":1, "incr":0.1}
                 }
             ]
 ```
 
-In Cabbage 3, widgets use an array of channels instead of a single channel string. Each channel object includes an id that defines a unique channel name. Widgets in Cabbage 3 can have any number of channels attached to them. An optional eventType property specifies the type of interaction. A range object can define the minimum, maximum, and default values, along with the skew and step increment.
+In Cabbage 3, widgets use an array of channels instead of a single channel string. Each channel object includes an id that defines a unique channel name. Widgets in Cabbage 3 can have any number of channels attached to them. An optional eventType property specifies the type of interaction. A range object can define the minimum, maximum, and default values, along with the skew and step increment. 
+
+⚠️ **Important:** During runtime, range objects will be appended with the current value. You should never set this value explicilty as it will override any state recall. 
 
 If range is omitted, it defaults to a range from 0 to 1, with increments of 0.001 for widgets that use drag events (e.g., sliders, XY pads) and 1 for widgets that use click or toggle events (e.g., buttons, checkboxes). 
 
