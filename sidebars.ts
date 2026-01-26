@@ -64,6 +64,11 @@ const sidebars: SidebarsConfig = {
       id: 'customUIs',
     },
     {
+      type: 'doc',
+      label: "JavaScript API",
+      id: 'CabbageJS_API',
+    },
+    {
       type: 'category',
       label: 'Opcodes',
       items: ['cabbage_opcodes/intro',

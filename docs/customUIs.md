@@ -11,7 +11,7 @@ Create a new widget class and add it to Cabbage. This approach allows you to dev
 
 All custom widget classes should be placed in this folder’s widgets sub-folder, i.e, `CustomWidgetFolder/cabbage/widgets`, so the extension can locate them and load them via the property panel. The name of the file you create will also serve as the class name.
 
-By convention, Cabbage classes follow UpperCamelCase, while widget types use lowerCamelCase. Although the backend works with normalised values, frontends send and receive unnormalised values. The backend will use the widget's channels range object to correctly map the unnormalised values to normalised values.
+By convention, Cabbage classes follow UpperCamelCase, while widget types use lowerCamelCase. The backend handles all value normalization needed by the host DAW, so frontends send and receive values in their full ranges (e.g., 20-20000 Hz for filter frequency, not normalized 0.0-1.0 values).
 
 For your widget to be recognized by the Cabbage VS Code extension—especially by the property panel—you must: 
 
@@ -63,43 +63,51 @@ The `opts` parameter is optional - you can call `CabbageUtils.createReactiveProp
 
 ### Sending Data to the Backend
 
-To send data from your widget to the Cabbage backend, use `Cabbage.sendChannelUpdate()`:
+To send data from your widget to the Cabbage backend, use `Cabbage.sendControlData()`:
 
 ```javascript
-Cabbage.sendChannelUpdate({
-    channel: "myChannel",
-    value: 42,
-    paramIdx: this.props.channels[0].parameterIndex  // Optional: for automatable parameters
-}, this.vscode, this.props.automatable);
+Cabbage.sendControlData({ channel: "myChannel", value: 42, gesture: "complete" }, this.vscode);
 ```
 
 **Parameters:**
-- `message`: Object containing `channel` (string) and `value` (number or string)
+- `data`: Object containing:
+  - `channel`: The channel name (string)
+  - `value`: The value to send in its natural/meaningful range (e.g., 20-20000 Hz for filter frequency)
+  - `gesture`: Optional gesture type - `"begin"`, `"value"`, `"end"`, or `"complete"` (default: `"complete"`)
 - `vscode`: The VS Code API instance (use `this.vscode` in your widget). This is undefined, and safely ignored when running as a plugin.
-- `automatable`: Boolean indicating if this is an automatable parameter
 
 **Behavior:**
-- If `automatable` is `true`: Routes to `sendParameterUpdate()` for real-time parameter control and DAW automation
-- If `automatable` is `false`: Routes to `sendChannelData()` for simple string/numeric data transmission to Csound
+- The backend automatically determines whether the channel is automatable and routes accordingly:
+  - Automatable channels -> DAW parameter system -> Csound
+  - Non-automatable channels -> Csound directly
+- **Thread Safety**: This function is asynchronous and does NOT block the audio thread. Parameter updates are queued and processed safely without interrupting real-time audio processing.
 
-You can also call `Cabbage.sendChannelData(channel, data, vscode)` directly for non-automatable data:
+**Value Ranges**: Send values in their natural/meaningful range (e.g., 20-20000 Hz for filter frequency). The backend automatically handles all normalization needed by the host DAW.
+
+**Gesture Types**: Use appropriate gestures for DAW automation:
+- `"begin"`: Start of user interaction (e.g., mouse down)
+- `"value"`: Continuous updates during interaction (e.g., mouse drag)
+- `"end"`: End of continuous interaction (e.g., mouse up)
+- `"complete"`: Discrete changes (e.g., button clicks, default)
+
+For most use cases, `sendControlData()` is the recommended API as it automatically handles routing. However, you can also call `Cabbage.sendChannelData(channel, data, vscode)` directly for non-automatable data:
 
 ```javascript
 Cabbage.sendChannelData("myStringChannel", "hello", this.vscode);
 Cabbage.sendChannelData("myNumberChannel", 3.14, this.vscode);
 ```
 
+**Value Ranges**: Send values in their natural/meaningful range. The backend handles all normalization needed by the host DAW.
+
 
 ### Channel Communication
-
-Communication between the back end and front end takes place over named channels. The top-level `this.props.id` represents the main DOM identifier, and most UI updates occur through this channel.
 
 The `channels` array defines the channels used to send value updates from the front end to the back end. If no `this.props.id` is defined, the first `channel.id` in the `channels` array will be used as the primary DOM identifier. 
 
 For multi-channel widgets (like an EQ controller with separate frequency and gain channels for each band), the `WidgetManager` automatically routes incoming parameter updates to the correct channel based on the channel ID. Each channel in the array should have:
 - `id`: Unique channel identifier
 - `range`: Object with `min`, `max`, `defaultValue`, and optionally `value`
-- `parameterIndex`: Optional index for DAW automation (if `automatable` is true) 
+- `event`: Optional event type (e.g., "valueChanged", "mouseDragX", "mouseDragY") 
 
 ### CabbageUtils Helper Functions
 
@@ -152,18 +160,13 @@ To communicate with Csound, you will need to implement event handlers for sendin
     /* Cabbage JS API integration */
     import { Cabbage } from './cabbage/cabbage.js';
     /* Notify Cabbage that the UI is ready to load */
-    Cabbage.sendCustomCommand('cabbageIsReadyToLoad', null);
+    Cabbage.isReadyToLoad();
 
     // Make handleValueChange available globally
     window.handleValueChange = (newValue, sliderId) => {
         console.log(`Slider ${sliderId} changed to:`, newValue);
-        const msg = {
-            paramIdx: sliderId === 'slider1' ? 0 : 1,
-            channel: sliderId,
-            value: parseFloat(newValue),
-        };
-        const automatable = 1;
-        Cabbage.sendChannelUpdate(msg, null, automatable);
+        // Send the value directly - backend automatically determines if channel is automatable
+        Cabbage.sendControlData({ channel: sliderId, value: parseFloat(newValue), gesture: "complete" }, null);
     };
 
     const handleMessage = async (event) => {
@@ -214,9 +217,9 @@ To communicate with Csound, you will need to implement event handlers for sendin
 </script>
 ```
 
-The script starts by sending a `cabbageIsReadyToLoad` message. This is essential because it informs Cabbage that the web interface is fully loaded and ready to start exchanging data. Without this step, the plugin might miss updates or fail to synchronise with the custom UI.
+The script starts by sending a `cabbageIsReadyToLoad` message via the `Cabbage.isReadyToLoad()` function. This is essential because it informs Cabbage that the web interface is fully loaded and ready to start exchanging data. Without this step, the plugin might miss updates or fail to synchronise with the custom UI.
 
-User interactions, like moving a slider or changing a control, are captured by the global function `handleValueChange`. This function packages the new value and the associated channel information into a message that Cabbage can understand. The script uses `Cabbage.sendChannelUpdate(message, vscode, automatable)` to transmit this data to the audio engine in real time. If `automatable` is set to 1, then this function will also update the host. If set to 0, the data will bypass the host and go straight to Csound. The `vscode` parameter will be null when working outside the larger Cabbage framework, as no VSCode Webview API will be available.
+User interactions, like moving a slider or changing a control, are captured by the global function `handleValueChange`. This function sends the new value directly to Cabbage using `Cabbage.sendControlData()`. The backend automatically determines whether the channel is automatable and routes the data appropriately - either to the DAW parameter system for automation, or directly to Csound for non-automatable channels. The `vscode` parameter is null when working outside the VS Code environment.
 
 The script also sets up a `handleMessage` listener to capture messages from Csound or the DAW. Messages can be either parameter values sent from the host, or through calls to the `cabbageSetValue/cabbageSet` opcodes. Host parameter change messages are formatted like this:
 
