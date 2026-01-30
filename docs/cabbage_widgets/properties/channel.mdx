@@ -16,7 +16,7 @@ If range is omitted, it defaults to a range from 0 to 1, with increments of 0.00
 
 **Note on `increment` parameter behavior:**
 
-The `increment` parameter quantizes all values sent to Csound channels, ensuring they snap to the specified step size. For example, with `incr: 0.1`, values will be rounded to 0.0, 0.1, 0.2, etc. before reaching Csound.
+The `increment` parameter quantizes all values sent to Csound channels, ensuring they snap to the specified step size. For example, with `increment: 0.1`, values will be rounded to 0.0, 0.1, 0.2, etc. before reaching Csound.
 
 The DAW host automation has additional constraints:
 - **`increment >= 1.0`**: The host will display discrete integer steps (e.g., move from 1 to 2 to 3, etc.) in its native controls, and enforce these steps during automation.
