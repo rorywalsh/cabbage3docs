@@ -7,7 +7,7 @@ description: Cabbage API
 
 The Cabbage JavaScript API provides the communication layer between webview UIs and the Cabbage backend. This API enables bidirectional communication for plugin development. 
 
-📃 **Note:** A `<Cabbage>{...}</Cabbage>` JSON structure is still required to define parameters for use in a host application. Objects declared in this structure are accessible through the API via a custom event handler (see below). These objects are sent at load time and can be updated at runtime using the [`cabbageSet`](../cabbage_opcodes/cabbageSet.md) and [`cabbageSetValue`](../cabbage_opcodes/cabbageSetValue.md) opcodes.
+📃 **Note:** A `<Cabbage>{...}</Cabbage>` JSON structure is still required to define parameters for use in a host application. Objects declared in this structure are accessible through the API via a custom event handler (see below). These objects are sent at load time and can be updated at runtime using the [`cabbageSet`](/docs/cabbage_opcodes/cabbageSet) and [`cabbageSetValue`](/docs/cabbage_opcodes/cabbageSetValue) opcodes.
 
 ## Architecture Overview
 

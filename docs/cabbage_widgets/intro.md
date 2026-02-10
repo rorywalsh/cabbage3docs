@@ -25,7 +25,7 @@ Named channels are a central part of the Cabbage architecture: they carry values
 }
 ```
 
-`channel.id`, in this case `"Gain"`, will be registered as a plugin parameter in a host DAW, with `0` and `1` defining its minimum and maximum range. The [`cabbageSetValue`](../cabbage_opcodes/cabbageSetValue.md) and [`cabbageGetValue`](../cabbage_opcodes/cabbageGetValue.md) opcodes can be used to send values back and forth to these channels.
+`channel.id`, in this case `"Gain"`, will be registered as a plugin parameter in a host DAW, with `0` and `1` defining its minimum and maximum range. The [`cabbageSetValue`](/docs/cabbage_opcodes/cabbageSetValue) and [`cabbageGetValue`](/docs/cabbage_opcodes/cabbageGetValue) opcodes can be used to send values back and forth to these channels.
 
 Certain widgets, such as a `groupBox`, will rarely be set up to function as parameters. In these cases, a top-level `id` can be set. For example:
 
@@ -36,7 +36,7 @@ Certain widgets, such as a `groupBox`, will rarely be set up to function as para
 }
 ```
 
-In such cases, the [`cabbageSet`](../cabbage_opcodes/cabbageSet.md) and [`cabbageGet`](../cabbage_opcodes/cabbageGet.md) opcodes can be used to send JSON data back and forth. Widgets can also combine a top-level `id` with channel `id`s. Consider an `image` widget for example, with multiple channels defined:
+In such cases, the [`cabbageSet`](/docs/cabbage_opcodes/cabbageSet) and [`cabbageGet`](/docs/cabbage_opcodes/cabbageGet) opcodes can be used to send JSON data back and forth. Widgets can also combine a top-level `id` with channel `id`s. Consider an `image` widget for example, with multiple channels defined:
 
 ```json
 {

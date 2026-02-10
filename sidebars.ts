@@ -63,11 +63,6 @@ const sidebars: SidebarsConfig = {
       id: 'customUIs',
     },
     {
-      type: 'doc',
-      label: "JavaScript API",
-      id: 'CabbageJS_API',
-    },
-    {
       type: 'category',
       label: 'Opcodes',
       items: ['cabbage_opcodes/intro',
@@ -85,6 +80,16 @@ const sidebars: SidebarsConfig = {
         'cabbage_opcodes/cabbageGetFiles',
         'cabbage_opcodes/cabbageCreateFileName'],
     },
+    {
+      type: 'html',
+      value: '<hr style="border: 0; border-top: 1px solid #CCC; margin: 0.5rem 0;" />', // Customize style here
+      defaultStyle: true, // Optional: ensures it fits the theme
+    },
+    {
+      type: 'doc',
+      label: "JavaScript API",
+      id: 'CabbageJS_API',
+    }
   ],
 
 };
