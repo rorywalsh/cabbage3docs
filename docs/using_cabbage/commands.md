@@ -12,6 +12,7 @@ description: Available commands and settings in Cabbage 3
   - [Project Creation](#project-creation)
   - [Audio/MIDI Configuration](#audiomidi-configuration)
   - [Plugin Export](#plugin-export)
+  - [Pro Plugin Export](#pro-plugin-export)
   - [Custom Widgets](#custom-widgets)
   - [Daisy Development](#daisy-development)
   - [Advanced Settings](#advanced-settings)
@@ -46,6 +47,9 @@ Once open, type "Cabbage" to filter extension commands.
 - **Edit Mode** (`cabbage.editMode`)
   - Toggles edit mode for the Cabbage interface. Right-click in edit-mode to add widgets or click existing widgets to edit their properties
 
+- **Stop Csound** (`cabbage.stopCsound`)
+  - Stops the running Csound process
+
 **Settings:**
 
 - **Clear Console On Compile** (`cabbage.clearConsoleOnCompile`)
@@ -71,6 +75,9 @@ Once open, type "Cabbage" to filter extension commands.
 
 - **Add a Cabbage section** (`cabbage.addCabbageSection`)
   - Inserts a new `<Cabbage>` section into the current document
+
+- **Move Cabbage Section** (`cabbage.moveCabbageSection`)
+  - Moves the existing `<Cabbage>` section to the top or bottom of the .csd file
 
 **Settings:**
 
@@ -106,6 +113,9 @@ Once open, type "Cabbage" to filter extension commands.
 
 - **Go to widget definition** (`cabbage.goToDefinition`)
   - Context menu command to jump to a widget's definition from a reference in the code
+
+- **Reorder Widgets** (`cabbage.reorderWidgets`)
+  - Reorders widgets in the `<Cabbage>` section based on their position in the UI
 
 ### Project Creation
 
@@ -147,6 +157,15 @@ Once open, type "Cabbage" to filter extension commands.
 
 - **Select MIDI Output Device** (`cabbage.selectMidiOutputDevice`)
   - Choose which MIDI output device to use
+
+- **Send file to stereo inputs** (`cabbage.sendFileToChannel1and2`)
+  - Routes an audio file to both input channels 1 and 2
+
+- **Send file to input 1** (`cabbage.sendFileToChannel1`)
+  - Routes an audio file to input channel 1
+
+- **Send file to input 2** (`cabbage.sendFileToChannel2`)
+  - Routes an audio file to input channel 2
 
 **Settings:**
 
@@ -195,6 +214,43 @@ Once open, type "Cabbage" to filter extension commands.
 
 - **Export as AUv2 Synth** (`cabbage.exportAUSynth`)
   - Exports the current instrument as an AUv2 synthesizer plugin (macOS only)
+
+- **Export as CLAP Effect** (`cabbage.exportCLAPEffect`)
+  - Exports the current instrument as a CLAP effect plugin
+
+- **Export as CLAP Synth** (`cabbage.exportCLAPSynth`)
+  - Exports the current instrument as a CLAP synthesizer plugin
+
+- **Export as AUv2 MidiFx** (`cabbage.exportAUMidiFx`)
+  - Exports the current instrument as an AUv2 MidiFx plugin (macOS only)
+
+#### Pro Plugin Export
+
+📃 **Note:** These commands are only available in the 'pro' build of Cabbage.
+
+- **Setup Pro Binaries** (`cabbage.setupCabbageProBinaries`)
+  - Sets up the paths to Cabbage Pro binaries for encrypted plugin export
+
+- **Export as VST3 Effect (Pro)** (`cabbage.exportProVST3Effect`)
+  - Exports the current instrument as a VST3 effect plugin with encryption (requires Pro)
+
+- **Export as VST3 Synth (Pro)** (`cabbage.exportProVST3Synth`)
+  - Exports the current instrument as a VST3 synthesizer plugin with encryption (requires Pro)
+
+- **Export as CLAP Effect (Pro)** (`cabbage.exportProCLAPEffect`)
+  - Exports the current instrument as a CLAP effect plugin with encryption (requires Pro)
+
+- **Export as CLAP Synth (Pro)** (`cabbage.exportProCLAPSynth`)
+  - Exports the current instrument as a CLAP synthesizer plugin with encryption (requires Pro)
+
+- **Export as AUv2 Effect (Pro)** (`cabbage.exportProAUEffect`)
+  - Exports the current instrument as an AUv2 effect plugin with encryption (requires Pro, macOS only)
+
+- **Export as AUv2 Synth (Pro)** (`cabbage.exportProAUSynth`)
+  - Exports the current instrument as an AUv2 synthesizer plugin with encryption (requires Pro, macOS only)
+
+- **Export as AUv2 MidiFx (Pro)** (`cabbage.exportProAUMidiFx`)
+  - Exports the current instrument as an AUv2 MidiFx plugin with encryption (requires Pro, macOS only)
 
 **Settings:**
 
@@ -273,6 +329,9 @@ Commands for building Csound code for the [Electrosmith Daisy](https://www.elect
 - **Reset CabbageApp (not vscode) settings file** (`cabbage.resetCabbageAppSettingsFiles`)
   - Resets the Cabbage backend settings file to defaults (does not affect VS Code settings)
 
+- **Set Custom Comment Decoration Color** (`cabbage.setCustomCommentDecorationColor`)
+  - Sets the color for comment decorations in Cabbage JSON sections
+
 **Settings:**
 
 - **Path To Cabbage Binary** (`cabbage.pathToCabbageBinary`)
@@ -300,3 +359,6 @@ Commands for building Csound code for the [Electrosmith Daisy](https://www.elect
 
 - **Opens the Csound 7 opcode reference page** (`cabbage.openOpcodeReference`)
   - Opens the Csound 7 opcode documentation in your browser
+
+- **Update old-style Cabbage code to JSON** (`cabbage.updateToCabbage3`)
+  - Converts old Cabbage syntax to the new JSON format

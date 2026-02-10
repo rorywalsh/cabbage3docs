@@ -1,5 +1,5 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
@@ -73,21 +73,6 @@ const config: Config = {
       hideOnScroll: true, // Hide navbar on scroll
       items: [] // Empty array hides the navbar
     },
-    footer: {
-      style: 'dark',
-      links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Tutorial',
-              to: '/docs/intro',
-            },
-          ],
-        }
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} CabbageAudio. Built with Docusaurus.`,
-    },
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
@@ -95,27 +80,27 @@ const config: Config = {
     },
   } satisfies Preset.ThemeConfig,
   // Register the custom plugin
-  plugins: 
+  plugins:
     [
-     // Custom plugin to modify Webpack config
-    function myCustomPlugin(context, options) {
-      return {
-        name: 'custom-webpack-plugin',
-        configureWebpack(config, isServer, utils, content) {
-          return {
-            module: {
-              rules: [
-                {
-                  test: /\.csd$/,
-                  type: 'asset/resource',
-                },
-              ],
-            },
-          };
-        },
-      };
-    },
-  ],
+      // Custom plugin to modify Webpack config
+      function myCustomPlugin(context, options) {
+        return {
+          name: 'custom-webpack-plugin',
+          configureWebpack(config, isServer, utils, content) {
+            return {
+              module: {
+                rules: [
+                  {
+                    test: /\.csd$/,
+                    type: 'asset/resource',
+                  },
+                ],
+              },
+            };
+          },
+        };
+      },
+    ],
 };
 
 export default config;

@@ -4,13 +4,13 @@ description: Managing multichannel setups
 ---
 
 
-While any instrument that processes more than a signal channels can be classified as multichannel, the term is typically reserved for instruments that process more than 2 channels. 
+While any instrument that processes more than one signal channel can be considered multichannel, the term is typically used for instruments that handle more than two channels.
 
 ### Defining number of outputs 
 
-We can define the number of outputs we would like in our Csound header section. We can use the `nchnls` keyword to tell Csound how many output channels to use. In the following setup the instrument will have 2 outputs. 
+The number of outputs can be specified in the Csound header section using the nchnls keyword, which indicates how many output channels the instrument should use. In the following setup, the instrument is configured with two outputs.
 
-```
+```js
 <CsoundSynthesizer>
 <CsOptions>
 -n -d -+rtmidi=NULL -M0 -m0d 
@@ -37,7 +37,7 @@ nchnls_i = 4    //quadraphonic input
 0dbfs = 1
 ```
 
-> Note that `nchnls` will be taken as the number of input channels if `nchnls_i` is not defined. 
+📃 **Note:**  The numer given for `nchnls` will be taken as the number of input channels *if* `nchnls_i` is not defined. 
 
 ## Instruments with side-chains 
 
@@ -75,15 +75,15 @@ In order to set up custom busing in Cabbage 3 we define a list of available bus 
 }
 ```
 
-You can specify as many bus arranges as you like, but they must adhere to the overall number of inputs and outputs you set in your Csound header section. 
+Any number of bus arrangements can be specified, but they must conform to the total number of inputs and outputs defined in the Csound header section.
 
-Note that some hosts may try to override, `nchnls/nchnls_i`. For example, if you drop an instrument with `nchnls=2` defined onto a mono track in Logic, `nchnls` will be overwritten and set to 1. That’s why it’s a good idea to use code like this in your instruments:
+Some hosts may override the requested bus or channel configuration. For example, dropping an instrument with `nchnls=2` onto a mono track in Logic will cause Logic to change the configuration to mono. In this case, Cabbage will overwrite `nchnls` and set it to 1. It is therefore recommended to use code like the following in instruments:
 
-```
-if nchnls == 1 then
+```js
+if (nchnls == 1) then
     outs (aLeft+aRight)/2
 else
-	outs aLeft, aRight
+    outs (aLeft, aRight)
 endif
 ```
 

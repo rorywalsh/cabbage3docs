@@ -1,7 +1,7 @@
 
 # Cabbage Widgets
 
-Cabbage provides a set of built-in widgets, although it is also possible to create custom widgets using any JavaScript/HTML framework. Widgets can generally be divided into two categories: interactive and non-interactive.
+While it is possible to create custom widgets using any JavaScript/HTML framework, Cabbage also provides a set of built-in widgets. 
 
 ## Widget Channels
 
@@ -9,7 +9,7 @@ Each widget has a unique set of properties and associated Csound software channe
 
 Named channels are a central part of the Cabbage architecture: they carry values and parameter updates between the GUI and Csound, forming a software “bus” for data transfer. Every widget must have a channel `id`. Channel `id`s can be set at the widget’s top level, but more often they are defined within channel objects that form part of the `channels` array. The `channels` array allows multiple channels to be associated with a single widget, enabling extended interactions.
 
-`range` objects can be defined within channel objects. These are used both to name plugin parameters and to define their ranges. A typical channel definition with an embedded `range` object might look like this:
+`range` objects are defined within channel objects. These are used both to name plugin parameters and to define their ranges. A typical channel definition with an embedded `range` object might look like this:
 
 ```json
 {
@@ -25,7 +25,7 @@ Named channels are a central part of the Cabbage architecture: they carry values
 }
 ```
 
-`channel.id` — in this case `"Gain"` — will be registered as a plugin parameter in a host DAW, with `0` and `1` defining its minimum and maximum range. The `cabbageSetValue` and `cabbageGetValue` opcodes can be used to send values back and forth to these channels.
+`channel.id`, in this case `"Gain"`, will be registered as a plugin parameter in a host DAW, with `0` and `1` defining its minimum and maximum range. The [`cabbageSetValue`](../cabbage_opcodes/cabbageSetValue.md) and [`cabbageGetValue`](../cabbage_opcodes/cabbageGetValue.md) opcodes can be used to send values back and forth to these channels.
 
 Certain widgets, such as a `groupBox`, will rarely be set up to function as parameters. In these cases, a top-level `id` can be set. For example:
 
@@ -36,7 +36,7 @@ Certain widgets, such as a `groupBox`, will rarely be set up to function as para
 }
 ```
 
-In such cases, the `cabbageSet` and `cabbageGet` opcodes can be used to send JSON data back and forth. Widgets can also combine a top-level `id` with channel `id`s. Consider an `image` widget for example, with multiple channels defined:
+In such cases, the [`cabbageSet`](../cabbage_opcodes/cabbageSet.md) and [`cabbageGet`](../cabbage_opcodes/cabbageGet.md) opcodes can be used to send JSON data back and forth. Widgets can also combine a top-level `id` with channel `id`s. Consider an `image` widget for example, with multiple channels defined:
 
 ```json
 {
@@ -59,6 +59,8 @@ In such cases, the `cabbageSet` and `cabbageGet` opcodes can be used to send JSO
     ]
 }
 ```
+
+📃 **Note:** While it is possible to use `cabbageSet` to update a widget's value, it's not advised to do so. When calling cabbageSet, the widget's entire JSON data is passed from the backend to the frontend. When updating a value using `cabbageSetValue` only the value and channel name are sent, this results in much less overhead. 
 
 If no top-level `id` is set, the `channels[0].id` channel can be used, but the resulting code might not be very intuitive, for instance, calling `cabbageSet` to set the color of `mouseX` doesn’t make much sense. In such cases, it helps to define a more appropriately named top-level `id`:
 
@@ -74,7 +76,7 @@ If no top-level `id` is set, the `channels[0].id` channel can be used, but the r
         },
         {
             "id": "mouseY",
-            "event": "mouseMoveX",
+            "event": "mouseMoveY",
             "range": {"min": 0, "max": 1000, "defaultValue": 0, "skew": 1, "increment": 0.01}
         },
         {
@@ -89,7 +91,7 @@ Using well-named top-level `id`s to manage a widget’s visual state offers many
 
 JSON doesn't support comments. If you wish to add comments to your JSON, use a `"//" : "This is a comment....."` property. The extension will highlight this line to make it stands out from the rest of the JSON code. 
 
-> A widget's range is fixed and cannot be changed. However, there are ways to make it appear as though the range has changed. Please ask on the forum for tips and tricks on making this work.  
+⚠️ **Important:** A widget's range is fixed and cannot be changed at run-time. However, there are ways to make it appear as though the range has changed. Please ask on the forum for tips and tricks on making this work.  
 
 ## Widget Properties 
 
@@ -136,9 +138,6 @@ Each and every Cabbage widget has a set of properties that define its behavior a
 * Sets the stacking order of the widget. Widgets with higher `zIndex` values appear in front of widgets with lower values. The default is `1`.
 
 Each widget also has a unique set of styling properties accessed through the `style` object. Here, users can control how their widgets look. In a break from Cabbage 2 convention, and to align with CSS/HTML naming schemes, all style properties use CSS-style spelling—for example, background color is listed as `backgroundColor`. A full list of supported styles, along with all other properties, can be found in each widget's manual entry.
-
-
-
 
 
 

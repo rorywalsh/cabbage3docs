@@ -3,8 +3,8 @@
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
  */
- @import "@fortawesome/fontawesome-free/css/all.min.css";
- 
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: rgb(60, 177, 242);
@@ -31,22 +31,35 @@
 }
 
 .container .button {
-  color: white; /* Set text color to white */
+  color: white;
+  /* Set text color to white */
 }
 
 .button {
-  background-color: rgb(40, 145, 209); /* Button background color */
-  color: white; /* Set text color to white */
-  border: 2px solid white; /* Add a solid white border */
-  border-radius: 5px; /* Rounded corners */
-  padding: 10px 20px; /* Vertical and horizontal padding */
-  font-size: 1rem; /* Font size */
-  cursor: pointer; /* Change cursor to pointer on hover */
-  transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition for hover effect */
-  text-decoration: none; /* Remove underline from links */
-  display: inline-block; /* Ensure it behaves like a block element */
-  margin: 0 10px; /* Add horizontal margin to create space between buttons */
-  min-width: 120px; /* Set a minimum width for the buttons */
+  background-color: rgb(40, 145, 209);
+  /* Button background color */
+  color: white;
+  /* Set text color to white */
+  border: 2px solid white;
+  /* Add a solid white border */
+  border-radius: 5px;
+  /* Rounded corners */
+  padding: 10px 20px;
+  /* Vertical and horizontal padding */
+  font-size: 1rem;
+  /* Font size */
+  cursor: pointer;
+  /* Change cursor to pointer on hover */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  /* Smooth transition for hover effect */
+  text-decoration: none;
+  /* Remove underline from links */
+  display: inline-block;
+  /* Ensure it behaves like a block element */
+  margin: 0 10px;
+  /* Add horizontal margin to create space between buttons */
+  min-width: 120px;
+  /* Set a minimum width for the buttons */
 }
 
 
@@ -67,14 +80,69 @@
   display: none !important;
 }
 
+/* Hide the sidebar logo */
+.sidebarLogo_isFc {
+  display: none !important;
+}
+
+[class*="sidebarLogo"] {
+  display: none !important;
+}
+
+a[href="/cabbage3docs/"] {
+  display: none !important;
+}
+
+
+/* Style the sidebar */
+.theme-doc-sidebar-container {
+  background-color: #3091D1 !important;
+}
+
+.theme-doc-sidebar-container::before {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 300px;
+  margin: 0 auto;
+  /* Center the block horizontally */
+  background-image: url('/img/cabbage_transparent.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+.theme-doc-sidebar-container .menu {
+  color: white !important;
+  margin-top: -50px;
+}
+
+.theme-doc-sidebar-container .menu a {
+  color: white !important;
+}
+
+.theme-doc-sidebar-container .menu a:hover {
+  color: #e0e0e0 !important;
+}
+
+/* Style the sidebar arrows */
+.theme-doc-sidebar-container .menu__link--sublist-caret:before {
+  color: #93D202 !important;
+}
+
 h1 {
-  font-size: 2rem; /* Change this to the size you want */
-} 
+  font-size: 2rem;
+  /* Change this to the size you want */
+}
+
 /* Style for <details> panel with white background */
 /* Style for <details> panel */
 details {
-  background-color: #ffffff !important; /* White background */
-  border: 0px solid rgb(0, 0, 0) !important;    /* Light border */
+  background-color: #ffffff !important;
+  /* White background */
+  border: 0px solid rgb(0, 0, 0) !important;
+  /* Light border */
   color: #232323 !important;
 }
 
@@ -83,11 +151,14 @@ summary {
 
   color: #0057b3 !important;
   font-size: 1.0rem;
-  background-color: #ffffff;  /* Light grey background */
-  cursor: pointer;            /* Makes the summary clickable */
+  background-color: #ffffff;
+  /* Light grey background */
+  cursor: pointer;
+  /* Makes the summary clickable */
   padding: 0px;
   /* margin: -10px -10px 10px;    Adjusting the margin to align better */
-  list-style: none;           /* Remove default arrow styling */
+  list-style: none;
+  /* Remove default arrow styling */
 }
 
 
@@ -95,5 +166,6 @@ summary {
 
 /* Optional: Style the contents inside the <details> */
 details p {
-  margin-top: 5px; /* Adjust paragraph margin */
+  margin-top: 5px;
+  /* Adjust paragraph margin */
 }

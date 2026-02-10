@@ -36,7 +36,6 @@ const sidebars: SidebarsConfig = {
         'using_cabbage/media_files',
         'using_cabbage/multichannel',
         'using_cabbage/commands',
-        'using_cabbage/configuration',
 
       ],
     },
@@ -80,6 +79,7 @@ const sidebars: SidebarsConfig = {
         'cabbage_opcodes/cabbageGet',
         'cabbage_opcodes/cabbageLoadState',
         'cabbage_opcodes/cabbageSaveState',
+        'cabbage_opcodes/cabbageSendMessage',
         'cabbage_opcodes/cabbageSet',
         'cabbage_opcodes/cabbageSetValue',
         'cabbage_opcodes/cabbageGetFiles',

@@ -18,4 +18,5 @@ To make changes to your newly exported plugin, you only need to edit the associa
 `C:/Program Files/CabbageAudio/SavageCabbage/SavageCabbage.csd`.
 
 After making changes, you must remove and re-add the plugin in your plugin host (DAW) to see the updates. Once the plugin is removed and reinstated on the track, the changes will be reflected. The simplest approach here is to simply reload your plugin project in your DAW. In almost all cases this is quicker than removing the track and re-adding it. However, if you have added new parameters to your plugin, you may have problems opening a saved session, as the DAW will expect a certain number of parameters. In this case you will need to start a new session to test. 
-
+ 
+📃 **Note:** The design choice to keep plugin resources in a separate location was made to simplify development and maintenance: it avoids complications with operating system permissions and plugin signing, allows resources to be updated or replaced without rebuilding the plugin, and keeps the plugin binary self-contained while leaving its assets easily accessible for inspection or modification.
