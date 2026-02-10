@@ -5,7 +5,9 @@ description: Cabbage API
 
 # Cabbage JavaScript API Reference
 
-The Cabbage JavaScript API provides the communication layer between webview UIs and the Cabbage backend. This API enables bidirectional communication for plugin development.
+The Cabbage JavaScript API provides the communication layer between webview UIs and the Cabbage backend. This API enables bidirectional communication for plugin development. 
+
+📃 **Note:** A `<Cabbage>{...}</Cabbage>` JSON structure is still required to define parameters for use in a host application. Objects declared in this structure are accessible through the API via a custom event handler (see below). These objects are sent at load time and can be updated at runtime using the [`cabbageSet`](../cabbage_opcodes/cabbageSet.md) and [`cabbageSetValue`](../cabbage_opcodes/cabbageSetValue.md) opcodes.
 
 ## Architecture Overview
 
@@ -46,6 +48,8 @@ Cabbage.sendControlData({ channel: "volume", value: 0.9, gesture: "value" }, thi
 Cabbage.sendControlData({ channel: "volume", value: 0.9, gesture: "end" }, this.vscode);
 ```
 
+---
+
 #### `Cabbage.sendChannelData(channel, data, vscode)`
 
 Send channel data directly to Csound without DAW automation - bypasses all widget routing and validation. 
@@ -61,6 +65,7 @@ Send channel data directly to Csound without DAW automation - bypasses all widge
 - Automatically determines string vs numeric data
 
 
+---
 
 #### `Cabbage.sendMidiMessageFromUI(statusByte, dataByte1, dataByte2, vscode)`
 
@@ -77,6 +82,8 @@ Send MIDI messages from the UI to the backend.
 Cabbage.sendMidiMessageFromUI(144, 60, 100, this.vscode); // Note on
 ```
 
+---
+
 #### `Cabbage.MidiMessageFromHost(statusByte, dataByte1, dataByte2)`
 
 Handle incoming MIDI messages from the backend (callback function).
@@ -87,6 +94,8 @@ Handle incoming MIDI messages from the backend (callback function).
 - `dataByte2` (number): Second data byte
 
 
+---
+
 #### `Cabbage.isReadyToLoad(vscode, additionalData)`
 
 Signal that the UI is ready to load and initialize.
@@ -96,6 +105,8 @@ Signal that the UI is ready to load and initialize.
 - `additionalData` (Object, optional): Additional initialization data
 
 ### Utility Functions
+
+---
 
 #### `Cabbage.triggerFileOpenDialog(vscode, channel, options)`
 
@@ -116,6 +127,8 @@ Cabbage.triggerFileOpenDialog(this.vscode, "audioFile", {
     openAtLastKnownLocation: true
 });
 ```
+
+---
 
 #### `Cabbage.openUrl(vscode, url, file)`
 
@@ -143,7 +156,7 @@ Request a resize of the plugin GUI window (plugin mode only).
 
 ### Private Functions 
 
-These functions are used internally and are not for general use.  
+⚠️ **Important:** These functions are used internally and are not for general use.  
 
 #### `Cabbage.sendCustomCommand(command, vscode, additionalData)`
 
@@ -159,6 +172,7 @@ Send custom commands to the backend for specialized operations.
 Cabbage.sendCustomCommand('cabbageIsReadyToLoad', null);
 ```
 
+---
 
 #### `Cabbage.sendWidgetUpdate(widget, vscode)`
 
@@ -168,6 +182,8 @@ Update widget state in the backend (used by property panel).
 - `widget` (Object): Widget configuration object
 - `vscode` (Object|null): VS Code API instance
 
+
+---
 
 ## Incoming Messages (Backend -> UI)
 
@@ -211,20 +227,28 @@ window.hostMessageCallback = function(data) {
 - **Fields**: `channel`, `value`, `gesture`
 - **Action**: Update visual display only (avoid feedback loops)
 
+---
+
 #### `updateWidget`
 - **Purpose**: Widget state updates from Csound opcodes
 - **Fields**: `id`, `widgetJson`, `value` (optional)
 - **Action**: Update widget properties and visual state
+
+---
 
 #### `csoundOutputUpdate`
 - **Purpose**: Csound console output for debugging
 - **Fields**: `text`
 - **Action**: Display or log Csound output
 
+---
+
 #### `resizeResponse`
 - **Purpose**: Response to GUI resize requests
 - **Fields**: `accepted` (boolean), `width` (number), `height` (number)
 - **Action**: Handle resize acceptance/rejection and update UI dimensions
+
+---
 
 ## Gesture Types
 
@@ -235,6 +259,7 @@ Use appropriate gestures for proper DAW automation recording:
 - **`"end"`**: End of continuous interaction (e.g., mouse up)
 - **`"complete"`**: Discrete actions (e.g., button clicks, default)
 
+
 ## Best Practices
 
 ### Avoiding Feedback Loops
@@ -244,7 +269,7 @@ When receiving `parameterChange` messages, **only update the visual display**. N
 All outgoing functions are asynchronous and thread-safe. They queue messages without blocking the audio thread.
 
 ### Value Ranges
-Send values in their natural/meaningful ranges (e.g., 20-20000 Hz for frequency). The backend handles all DAW normalization automatically.
+Send values in their full/natural ranges (e.g., 20-20000 Hz for frequency). The backend handles all DAW normalization automatically.
 
 ### Environment Detection
 - **VS Code mode**: Pass `this.vscode` as the vscode parameter
