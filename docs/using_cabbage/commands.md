@@ -267,18 +267,18 @@ Once open, type "Cabbage" to filter extension commands.
 
 **Commands:**
 
-- **Set Custom Widget Directory** (`cabbage.setCustomWidgetDirectory`)
-  - Choose a directory for custom widgets. Automatically copies the required Cabbage framework structure
+- **Select Custom Widget Folder** (`cabbage.setCustomWidgetDirectory`)
+  - Choose a folder for custom widgets. Automatically copies the required Cabbage framework structure
 
 - **Create New Custom Widget** (`cabbage.createNewCustomWidget`)
-  - Creates a new custom widget class from a template in your custom widgets directory
+  - Creates a new custom widget class from a template in your custom widgets folder
 
 **Settings:**
 
-- **Custom Widget Directories** (`cabbage.customWidgetDirectories`)
+- **Custom Widget Folders** (`cabbage.customWidgetDirectories`)
   - Default: `[]`
-  - Array of paths to custom widget directories. Each directory should contain a `cabbage` folder structure
-  - **Recommended**: Use the "Set Custom Widget Directory" command which automatically sets up the required structure
+  - Array of paths to custom widget folders. Each folder should contain a `cabbage` folder structure
+  - **Recommended**: Use the "Select Custom Widget Folder" command which automatically sets up the required structure
 
 ### Daisy Development
 
@@ -298,31 +298,31 @@ Commands for building Csound code for the [Electrosmith Daisy](https://www.elect
 - **Make dfu for Daisy** (`cabbage.makeDfuForDaisy`)
   - Creates a DFU (Device Firmware Update) file for Daisy
 
-- **Set path to the Csound include directory (for Daisy)** (`cabbage.setCsoundIncludeDir`)
+- **Select Csound Include Folder (for Daisy)** (`cabbage.setCsoundIncludeDir`)
   - Sets the path to Csound header files needed for Daisy compilation
 
-- **Set path to the Csound library directory (for Daisy)** (`cabbage.setCsoundLibraryDir`)
+- **Select Csound Library Folder (for Daisy)** (`cabbage.setCsoundLibraryDir`)
   - Sets the path to Csound library files needed for Daisy compilation
 
 **Settings:**
 
-- **Path To Csound Include Dir** (`cabbage.pathToCsoundIncludeDir`)
+- **Folder Containing Csound Includes** (`cabbage.pathToCsoundIncludeDir`)
   - Default: `""`
-  - Path to Csound include directory - used when building for Daisy
+  - Folder containing Csound includes - used when building for Daisy
 
-- **Path To Csound Library Dir** (`cabbage.pathToCsoundLibraryDir`)
+- **Folder Containing Csound Library** (`cabbage.pathToCsoundLibraryDir`)
   - Default: `""`
-  - Path to Csound library directory - used when building for Daisy
+  - Folder containing Csound library - used when building for Daisy
 
 ### Advanced Settings
 
 **Commands:**
 
-- **Set Cabbage source path** (`cabbage.setCabbageSourcePath`)
-  - Sets the path to the Cabbage JavaScript source directory
+- **Select Cabbage Source Folder** (`cabbage.setCabbageSourcePath`)
+  - Sets the path to the Cabbage JavaScript source folder
   > ⚠️ **Warning**: This is set automatically by the extension. Only change if you know what you're doing!
 
-- **Set path to the Cabbage binary** (`cabbage.setCabbageBinaryPath`)
+- **Select Cabbage Binary Folder** (`cabbage.setCabbageBinaryPath`)
   - Sets the path to the Cabbage backend executable (CabbageApp)
   > ⚠️ **Warning**: This is set automatically by the extension. Only change if you're using a custom build!
 
@@ -334,21 +334,21 @@ Commands for building Csound code for the [Electrosmith Daisy](https://www.elect
 
 **Settings:**
 
-- **Path To Cabbage Binary** (`cabbage.pathToCabbageBinary`)
+- **Folder Containing Cabbage Service App** (`cabbage.pathToCabbageBinary`)
   - Default: `""`
-  - Path to the Cabbage service app. Leave empty to use the default location bundled with the extension
+  - Folder containing Cabbage service app. Leave empty to use the default location bundled with the extension
 
-- **Path To JS Source (Windows)** (`cabbage.pathToJsSourceWindows`)
+- **Folder Containing Cabbage Javascript on Windows** (`cabbage.pathToJsSourceWindows`)
   - Default: `""`
-  - Path to Cabbage JavaScript directory on Windows. Leave empty to use default location
+  - Folder containing Cabbage Javascript on Windows. Leave empty to use default location
 
-- **Path To JS Source (macOS)** (`cabbage.pathToJsSourceMacOS`)
+- **Folder Containing Cabbage Javascript on macOS** (`cabbage.pathToJsSourceMacOS`)
   - Default: `""`
-  - Path to Cabbage JavaScript directory on macOS. Leave empty to use default location
+  - Folder containing Cabbage Javascript on macOS. Leave empty to use default location
 
-- **Path To JS Source (Linux)** (`cabbage.pathToJsSourceLinux`)
+- **Folder Containing Cabbage Javascript on Linux** (`cabbage.pathToJsSourceLinux`)
   - Default: `""`
-  - Path to Cabbage JavaScript directory on Linux. Leave empty to use default location
+  - Folder containing Cabbage Javascript on Linux. Leave empty to use default location
 
 ### Utilities
 
