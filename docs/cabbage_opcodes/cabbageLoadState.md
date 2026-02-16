@@ -6,6 +6,7 @@ This opcode loads widget values from a previously saved JSON state file created 
 ```js
 cabbageLoadState:i(SFilePath)
 ```
+
 ### Initialization
 * *SFilePath* – the absolute file path to the state file to load (e.g., "/Users/username/Documents/mypreset.json" or "C:\\Users\\username\\Documents\\mypreset.json"). The file must exist and contain valid JSON data. Relative paths are not supported.
 
