@@ -1,4 +1,4 @@
-# CabbageSendMessage
+# cabbageSendMessage
 
 This opcode sends arbitrary JSON data directly to the frontend, allowing you to create custom messages for specialized UI interactions or data visualization. Unlike other Cabbage opcodes that update specific widget properties, `cabbageSendMessage` gives you complete control over the message format and content.
 
@@ -9,11 +9,10 @@ The JSON message is sent as-is to the frontend, where it can be handled by custo
 - Implementing custom communication protocols between Csound and your UI
 
 ## Syntax
-
-**cabbageSendMessage** *SJsonString*
-
-**cabbageSendMessage** *kTrigger*, *SJsonString*
-
+```js
+cabbageSendMessage:i(SJsonString)
+cabbageSendMessage:k(kTrigger, SJsonString)
+```
 ### Initialization
 * *SJsonString* – a valid JSON string (object or array) to send to the frontend
 

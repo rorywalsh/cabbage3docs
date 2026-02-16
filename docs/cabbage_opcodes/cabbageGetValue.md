@@ -1,18 +1,15 @@
-# CabbageGetValue
+# cabbageGetValue
 
 This opcode queries the current value of a widget. It can run at init-time or k-time and includes an optional output argument that triggers a value of 1 for one k-cycle whenever the widget value is updated or changed.
 
 ## Syntax
-
-*kValue* **cabbageGetValue** *SChannel*
-
-*iValue* **cabbageGetValue** *SChannel*
-
-*SValue* **cabbageGetValue** *SChannel*
-
-*kValue [, kTrig]* **cabbageGetValue** *SChannel*
-
-*SValue [, kTrig]* **cabbageGetValue** *SChannel*
+```js
+value:i = cabbageGetValue(SChannel)
+value:k = cabbageGetValue(SChannel)
+value:S = cabbageGetValue(SChannel)
+value:k [, trig:k] = cabbageGetValue(SChannel)
+value:k [, trig:k] = cabbageGetValue(SChannel)
+```
 
 ### Initialization
 * *SChannel* – the name of the channel to query

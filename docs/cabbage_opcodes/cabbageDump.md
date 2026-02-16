@@ -1,12 +1,12 @@
-# CabbageDump
+# cabbageDump
 
 This opcode will print the JSON representation of a widget to the Csound console. This can be useful for debugging widgets.
 
 ## Syntax
-
-**cabbageDump** *SChannel*, *iIndent*
-
-**cabbageDump** *kTrig*, *SChannel*, *iIndent*
+```js
+cabbageDump:i(SChannel, iIndent)
+cabbageDump:k(kTrig, SChannel, iIndent)
+```
 
 ### Initialization
 * *SChannel* – the name of the channel to query

@@ -1,11 +1,11 @@
-# CabbageLoadState
+# cabbageLoadState
 
 This opcode loads widget values from a previously saved JSON state file created by the `cabbageSaveState` opcode. All matching widget channels will be updated with their saved values. Unlike Cabbage 2, all widget state is saved and restored, not only the current parameter values. This opcode works at i-time only. Therefore it's best used in an instrument that is called when you want to load state. 
 
 ## Syntax
-
-**cabbageLoadState** *SFilePath*
-
+```js
+cabbageLoadState:i(SFilePath)
+```
 ### Initialization
 * *SFilePath* – the absolute file path to the state file to load (e.g., "/Users/username/Documents/mypreset.json" or "C:\\Users\\username\\Documents\\mypreset.json"). The file must exist and contain valid JSON data. Relative paths are not supported.
 

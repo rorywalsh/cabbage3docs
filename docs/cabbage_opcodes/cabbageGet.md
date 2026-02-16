@@ -1,18 +1,15 @@
-# CabbageGet
+# cabbageGet
 
 This opcode queries the current value of a widget property, i.e,`colour`, `bounds.top`, `height`, etc. It can run at init-time or k-time and includes an optional output argument that triggers a value of 1 for one k-cycle whenever the widget value is updated or changed.
 
 ## Syntax
-
-*kValue* **cabbageGet** *SChannel*, *SProperty*
-
-*iValue* **cabbageGet** *SChannel*, *SProperty*
-
-*SValue* **cabbageGet** *SChannel*, *SProperty*
-
-*kValue [, kTrig]* **cabbageGet** *SChannel*, *SProperty*
-
-*SValue [, kTrig]* **cabbageGet** *SChannel*, *SProperty*
+```js
+value:k = cabbageGet(SChannel, SProperty)
+value:i = cabbageGet(SChannel, SProperty)
+value:S = cabbageGet(SChannel, SProperty)
+value:k [, kTrig] = cabbageGet(SChannel, SProperty)
+value:k [, kTrig] = cabbageGet(SChannel, SProperty)
+```
 
 ### Initialization
 * *SChannel* – the name of the channel to query

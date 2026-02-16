@@ -1,24 +1,19 @@
 import CodeBlock from '@theme/CodeBlock';
 import widgetCode from '!!raw-loader!../../static/examples/cabbageSet.csd';
 
-# CabbageSet
+#cabbageSet
 
 This opcode sets a widget property, i.e,`colour.fill`, `visible`, `opacity`, etc. It can run at init-time or k-time. The k-time variant must use a trigger to initiate the update (see below). 
 
 ## Syntax
-
-**cabbageSet** *SChannel*, *SProperty*, *iValue*
-
-**cabbageSet** *SChannel*, *SProperty*, *iValue[]*
-
-**cabbageSet** *SChannel*, *SProperty*, *SValue*
-
-**cabbageSet** *kTrig*, *SChannel*, *SProperty*, *SValue*
-
-**cabbageSet** *kTrig*, *SChannel*, *SProperty*, *kValue*
-
-**cabbageSet** *kTrig*, *SChannel*, *SProperty*, *kValue[]*
-
+```js
+cabbageSet:i(SChannel, SProperty, iValue)
+cabbageSet:i(SChannel, SProperty, iValue[])
+cabbageSet:i(SChannel, SProperty, SValue)
+cabbageSet:k(kTrig, SChannel, SProperty, SValue)
+cabbageSet:k(kTrig, SChannel, SProperty, kValue)
+cabbageSet:k(kTrig, SChannel, SProperty, kValue[])
+```
 
 
 ### Initialization

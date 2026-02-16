@@ -3,8 +3,9 @@
 Returns a list of files in a directory optionally filtered by extension. Useful for populating file lists for widgets (e.g., comboboxes) or for scanning resource folders. This opcode works at i-time only. Therefore it is best used in an instrument that is called when the files are needed. 
 
 ## Syntax
-
-SFiles[] **cabbageGetFiles** SDirectory, SFileType
+```js
+files:S[] = cabbageGetFiles(SDirectory, SFileType)
+```
 
 ## Initialization
 
