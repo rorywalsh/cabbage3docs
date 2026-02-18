@@ -14,7 +14,7 @@ The plugin binary will be saved in the selected location. By default, any resour
  
 `PLUGIN_NAME` in the folder path will match the name of your exported plugin. It is crucial that the folder name exactly matches the plugin binary name. Cabbage ensures this alignment during the export process, so avoid renaming these folders, as doing so may result in unexpected behavior within Cabbage.
 
-To make changes to your newly exported plugin, you only need to edit the associated .csd file; there’s no need to re-export the plugin each time you makes changes. For example, on Windows, if your plugin is named `SavageCabbage.vst3`, you can make changes by editing the corresponding file located at:
+To make changes to your newly exported plugin, you only need to edit the associated .csd file; there’s no need to re-export the plugin each time you makes changes. For example, on Windows, if your plugin is named `SavageCabbage.clap`, you can make changes by editing the corresponding file located at:
 `C:/Program Files/CabbageAudio/SavageCabbage/SavageCabbage.csd`.
 
 After making changes, you must remove and re-add the plugin in your plugin host (DAW) to see the updates. Once the plugin is removed and reinstated on the track, the changes will be reflected. The simplest approach here is to simply reload your plugin project in your DAW. In almost all cases this is quicker than removing the track and re-adding it. However, if you have added new parameters to your plugin, you may have problems opening a saved session, as the DAW will expect a certain number of parameters. In this case you will need to start a new session to test. 
