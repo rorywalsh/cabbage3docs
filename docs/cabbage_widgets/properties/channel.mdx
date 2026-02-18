@@ -9,7 +9,7 @@
             ]
 ```
 
-In Cabbage 3, widgets use an array of channels instead of a single channel string. Each channel object includes an id that defines a unique channel name. Widgets in Cabbage 3 can have any number of channels attached to them. An optional eventType property specifies the type of interaction. A range object can define the minimum, maximum, and default values, along with the skew and step increment. The `type` is set to `number` by default, but can be set to `string` if needed. 
+In Cabbage 3, widgets use an array of channels instead of a single channel string. Each channel object includes an id that defines a unique channel name. Widgets in Cabbage 3 can have any number of channels attached to them. An optional eventType property specifies the type of interaction. A range object can define the minimum, maximum, and default values, along with the skew and step increment. The `type` is set to `number` by default. Each widget sets its own type, `number` or `string`.
 
 ⚠️ **Important:** During runtime, range objects will be appended with the current value. You should never set this value explicilty as it will override any state recall.
 
