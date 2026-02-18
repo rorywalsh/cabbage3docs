@@ -139,6 +139,8 @@ Open a URL or file in the system default application.
 - `url` (string): URL to open
 - `file` (string): File path to open
 
+---
+
 #### `Cabbage.consumeKeypresses(consume)` *(Windows plugin mode only)*
 
 Control whether keyboard events are captured by the webview or forwarded to the host DAW.
