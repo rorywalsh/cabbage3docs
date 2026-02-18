@@ -139,6 +139,28 @@ Open a URL or file in the system default application.
 - `url` (string): URL to open
 - `file` (string): File path to open
 
+#### `Cabbage.consumeKeypresses(consume)` *(Windows plugin mode only)*
+
+Control whether keyboard events are captured by the webview or forwarded to the host DAW.
+
+By default (`false`), all key events are passed through to the DAW so keyboard shortcuts keep working while the plugin UI has focus. This is handled automatically by Cabbage's internal key listener.
+
+**Parameters:**
+- `consume` (boolean): `true` to capture keys in the webview, `false` to pass them through to the DAW (default)
+
+**Notes:**
+- Native `<input>` and `<textarea>` elements are handled automatically — no need to call this
+- Only required for custom text-entry widgets built from non-native elements (e.g. a `div`-based code editor)
+- Always restore to `false` when the custom widget loses focus
+
+**Example:**
+```javascript
+myCustomEditor.addEventListener('focus', () => Cabbage.consumeKeypresses(true));
+myCustomEditor.addEventListener('blur',  () => Cabbage.consumeKeypresses(false));
+```
+
+---
+
 #### `Cabbage.requestResize(width, height, vscode)`
 
 Request a resize of the plugin GUI window (plugin mode only).
