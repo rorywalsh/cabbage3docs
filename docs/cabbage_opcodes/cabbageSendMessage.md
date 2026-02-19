@@ -2,6 +2,8 @@
 
 This opcode sends arbitrary JSON data directly to the frontend, allowing you to create custom messages for specialized UI interactions or data visualization. Unlike other Cabbage opcodes that update specific widget properties, `cabbageSendMessage` gives you complete control over the message format and content.
 
+📃 **Note:** Every message sent via `cabbageSendMessage` is added to a queue that is passed to the frontend. Calling `cabbageSendMessage` at k-rate can generate a high volume of messages, which may clog the communication channels between Csound and the plugin UI. Therefore, care must be taken to send messages only when absolutely necessary. 
+
 The JSON message is sent as-is to the frontend, where it can be handled by custom JavaScript code. This is particularly useful for:
 - Sending arrays of data for custom visualizations
 - Triggering custom frontend behaviors
