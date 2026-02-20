@@ -7,13 +7,17 @@ Cabbage 3 includes a variety of standard plugin controls such as sliders and but
 
 1. ## **Custom Widget Classes**
 
-Create a new widget class and add it to Cabbage. This approach allows you to develop custom widgets while retaining the convenience of the editing tools available in the Cabbage VS Code extension. To achieve this, use the command palette to Create New Custom Widget. If you haven’t already created a custom widget folder, you’ll need to do so first. When this folder is created, the extension will copy the required files into it.
+Creating custom widget classes allows custom widgets to be developed while retaining the editing tools provided by the Cabbage VS Code extension. New widgets can be created using the command palette by selecting Create New Custom Widget.
 
-All custom widget classes should be placed in this folder’s widgets sub-folder, i.e, `CustomWidgetFolder/cabbage/widgets`, so the extension can locate them and load them via the property panel. The name of the file you create will also serve as the class name.
+If a custom widget folder does not already exist, the extension will prompt for its creation and automatically copy the required files into it. These files are placed inside a src directory, which must not be moved.
 
-By convention, Cabbage classes follow UpperCamelCase, while widget types use lowerCamelCase. The backend handles all value normalization needed by the host DAW, so frontends send and receive values in their full ranges (e.g., 20-20000 Hz for filter frequency, not normalized 0.0-1.0 values).
+Custom widget classes must be placed in the widgets subdirectory within src, i.e. `CustomWidgetFolder/src/widgets`. This ensures that the extension can locate and load them via the property panel. The file name also serves as the class name.
 
-For your widget to be recognized by the Cabbage VS Code extension—especially by the property panel—you must: 
+📃 **Note:** The custom widget folder must contain a top-level cabbage directory (i.e. the directory that contains the widgets subfolder). Maintaining this structure ensures that all paths are correctly resolved by Cabbage.
+
+By convention, Cabbage classes use UpperCamelCase, while widget types use lowerCamelCase. The backend handles all value normalization required by the host DAW, allowing frontends to send and receive values in their full ranges (e.g., 20–20000 Hz for filter frequency, rather than normalized 0.0–1.0 values).
+
+For a widget to be recognized by the Cabbage VS Code extension, particularly by the property panel, it must:
 
 * Add a **`this.props`**:
     This JSON object contains properties accessible through the UI element inspectors in VS Code. Any property defined here can also be queried and modified using the Cabbage get and set opcodes in Csound. Properties can be objects, strings, or numbers. Boolean can be used only for set Cabbage properties such as `visible`, `active`, `automatable`, etc. Use 0/1 if you need to send boolean values to the backend. 

@@ -11,6 +11,7 @@ description: Available commands and settings in Cabbage 3
   - [Navigation](#navigation)
   - [Project Creation](#project-creation)
   - [Audio/MIDI Configuration](#audiomidi-configuration)
+  - [Audio Recording](#audio-recording)
   - [Plugin Export](#plugin-export)
   - [Pro Plugin Export](#pro-plugin-export)
   - [Custom Widgets](#custom-widgets)
@@ -166,6 +167,34 @@ Once open, type "Cabbage" to filter extension commands.
 
 - **Send file to input 2** (`cabbage.sendFileToChannel2`)
   - Routes an audio file to input channel 2
+
+#### Audio Recording
+
+**Commands:**
+
+- **Start Recording to WAV** (`cabbage.startRecording`)
+  - Opens a file browser to select output location and starts recording the processed audio output to a WAV file
+  - Records in real-time while your instrument is performing
+  - Shows a live status bar indicator with elapsed time (e.g., `🔴 Recording: recording.wav [00:23]`)
+  - Click the status bar to stop recording, or use the Stop Recording command
+
+- **Stop Recording** (`cabbage.stopRecording`)
+  - Stops the current recording and saves the WAV file
+  - Recording also stops automatically when:
+    - You close the instrument panel
+    - You use "Stop Csound" command
+    - You enter Edit Mode
+
+> **Note**: Recording captures the final processed audio output (post-Csound processing) at the current audio system sample rate.
+
+**Recording Settings:**
+
+- **Recording Bit Depth** (`cabbage.recordingBitDepth`)
+  - Default: `"32-bit float"`
+  - Options: `"16-bit"` | `"32-bit float"`
+  - Bit depth for audio recording
+    - **16-bit**: Smaller file size, suitable for most music applications
+    - **32-bit float**: Higher dynamic range and precision, no clipping, larger file size
 
 **Settings:**
 
