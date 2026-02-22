@@ -1,0 +1,14 @@
+```json
+"persistence": {
+  "preset": true,
+  "session": true
+}
+```
+
+Controls whether a widget's state is saved in DAW presets and Csound session files. Both properties default to `true`.
+
+- **`preset`**: When `true`, the widget's current value/state is included when using Csound's `cabbageSaveState` opcode to save preset data. Set to `false` for widgets that should not persist in Csound preset files (e.g., widgets that load presets).
+- **`session`**: When `true`, the widget's state is included when the DAW saves a preset. Set to `false` for widgets that should not have their values loaded/saved when a DAW session loads (e.g., widgets that load presets).
+
+**Auto-cascade behavior**: If you set `preset` to `false` without explicitly setting `session`, the system automatically sets `session` to `false` as well. This prevents state from being saved anywhere unless explicitly requested.
+

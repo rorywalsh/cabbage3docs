@@ -32,10 +32,15 @@ Once open, type "Cabbage" to filter extension commands.
 
 ## Commands & Settings
 
+<br/>
+
 ### Running & Compilation
 
-**Commands:**
+<hr/>
 
+<br/>
+
+**Commands:**
 - **Compile Cabbage Instrument** (`cabbage.compile`)
   - Saves the current .csd file and launches the instrument in a dedicated webview tab if it contains valid Cabbage JSON
 
@@ -51,8 +56,11 @@ Once open, type "Cabbage" to filter extension commands.
 - **Stop Csound** (`cabbage.stopCsound`)
   - Stops the running Csound process
 
-**Settings:**
+<hr/>
 
+<br/>
+
+**Settings:**
 - **Clear Console On Compile** (`cabbage.clearConsoleOnCompile`)
   - Default: `true`
   - Clear the console output each time Csound is compiled
@@ -61,10 +69,16 @@ Once open, type "Cabbage" to filter extension commands.
   - Default: `false`
   - Enable verbose logging from Cabbage for troubleshooting
 
+ 
+<br/>
+
 ### Document Formatting
 
-**Commands:**
+<hr/>
 
+<br/>
+
+**Commands:**
 - **Format Document** (`cabbage.formatDocument`)
   - Formats the current .csd document according to Cabbage formatting rules and JSON settings
 
@@ -80,8 +94,11 @@ Once open, type "Cabbage" to filter extension commands.
 - **Move Cabbage Section** (`cabbage.moveCabbageSection`)
   - Moves the existing `<Cabbage>` section to the top or bottom of the .csd file
 
-**Settings:**
+<hr/>
 
+<br/>
+
+**Settings:**
 - **Default JSON Formatting** (`cabbage.defaultJsonFormatting`)
   - Default: `"Single line objects"`
   - Options: `"Single line objects"` | `"Multiline objects"`
@@ -105,10 +122,16 @@ Once open, type "Cabbage" to filter extension commands.
   - Default: `4`
   - Number of pixels to move by when dragging widgets in edit mode
 
+ 
+<br/>
+
 ### Navigation
 
-**Commands:**
+<hr/>
 
+<br/>
+
+**Commands:**
 - **Jump to widget definition** (`cabbage.jumpToWidgetObject`)
   - Shows a dropdown of all widgets in the current file. Select one to jump to its JSON definition
 
@@ -117,6 +140,9 @@ Once open, type "Cabbage" to filter extension commands.
 
 - **Reorder Widgets** (`cabbage.reorderWidgets`)
   - Reorders widgets in the `<Cabbage>` section based on their position in the UI
+
+ 
+<br/>
 
 ### Project Creation
 
@@ -133,6 +159,9 @@ Once open, type "Cabbage" to filter extension commands.
 
 - **Create Vanilla VST3 Synth** (`cabbage.createVanillaVST3Synth`)
   - Creates a new project with custom HTML/CSS/JS frontend for a VST3 synth
+
+ 
+<br/>
 
 ### Audio/MIDI Configuration
 
@@ -196,8 +225,11 @@ Once open, type "Cabbage" to filter extension commands.
     - **16-bit**: Smaller file size, suitable for most music applications
     - **32-bit float**: Higher dynamic range and precision, no clipping, larger file size
 
-**Settings:**
+<hr/>
 
+<br/>
+
+**Settings:**
 > These settings are managed by the commands above and stored in VS Code settings. They can also be edited directly in settings.json. Updating them via the command pallete will also display a list of valid options.
 
 - **Audio Output Device** (`cabbage.audioOutputDevice`)
@@ -228,10 +260,16 @@ Once open, type "Cabbage" to filter extension commands.
   - Default: `"32 samples"`
   - Currently selected audio driver (Windows only)
 
+ 
+<br/>
+
 ### Plugin Export
 
-**Commands:**
+<hr/>
 
+<br/>
+
+**Commands:**
 - **Export as VST3 Effect** (`cabbage.exportVST3Effect`)
   - Exports the current instrument as a VST3 effect plugin
 
@@ -292,10 +330,16 @@ Once open, type "Cabbage" to filter extension commands.
   - Options: `"right"` | `"left"`
   - Position of the property panel in the webview editor
 
+ 
+<br/>
+
 ### Custom Widgets
 
 **Commands:**
 
+<hr/>
+
+<br/>
 - **Select Custom Widget Folder** (`cabbage.setCustomWidgetDirectory`)
   - Choose a folder for custom widgets. Automatically copies the required Cabbage framework structure
 
@@ -308,6 +352,9 @@ Once open, type "Cabbage" to filter extension commands.
   - Default: `[]`
   - Array of paths to custom widget folders. Each folder should contain a `cabbage` folder structure
   - **Recommended**: Use the "Select Custom Widget Folder" command which automatically sets up the required structure
+
+ 
+<br/>
 
 ### Daisy Development
 
@@ -342,6 +389,9 @@ Commands for building Csound code for the [Electrosmith Daisy](https://www.elect
 - **Folder Containing Csound Library** (`cabbage.pathToCsoundLibraryDir`)
   - Default: `""`
   - Folder containing Csound library - used when building for Daisy
+
+ 
+<br/>
 
 ### Advanced Settings
 
@@ -378,6 +428,9 @@ Commands for building Csound code for the [Electrosmith Daisy](https://www.elect
 - **Folder Containing Cabbage Javascript on Linux** (`cabbage.pathToJsSourceLinux`)
   - Default: `""`
   - Folder containing Cabbage Javascript on Linux. Leave empty to use default location
+
+ 
+<br/>
 
 ### Utilities
 

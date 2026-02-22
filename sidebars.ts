@@ -45,6 +45,7 @@ const sidebars: SidebarsConfig = {
       items: ['cabbage_widgets/intro',
         'cabbage_widgets/form',
         'cabbage_widgets/button',
+        'cabbage_widgets/checkbox',
         'cabbage_widgets/combobox',
         'cabbage_widgets/gentable',
         'cabbage_widgets/groupbox',
