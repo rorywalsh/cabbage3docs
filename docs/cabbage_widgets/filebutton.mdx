@@ -1,0 +1,123 @@
+import Active from "./properties/active.mdx";
+import Automatable from "./properties/automatable.mdx";
+import Bounds from "./properties/bounds.mdx";
+import Channel from "./properties/channel.mdx";
+import Id from "./properties/id.mdx";
+import Label from "./properties/label.mdx";
+import Persistence from "./properties/persistence.mdx";
+import Visible from "./properties/visible.mdx";
+import ZIndex from "./properties/zindex.mdx";
+import StyleFileButton from "./filebutton.style.mdx";
+
+# File Button
+
+`fileButton` creates a button that opens a native file browser dialog. When clicked, it allows users to select files from their system. The selected file path is sent as a string value through the widget's channel, enabling dynamic audio file loading and other file-based operations in Csound.
+
+## Properties (alphabetical)
+
+Below is the full, alphabetical list of top-level widget properties for `fileButton`.
+
+<a id="active" class="anchor-target"></a>
+### Active
+<Active />
+
+<a id="automatable" class="anchor-target"></a>
+### Automatable
+<Automatable />
+
+<a id="bounds" class="anchor-target"></a>
+### Bounds
+<Bounds />
+
+<a id="channel" class="anchor-target"></a>
+### Channel
+<Channel />
+
+The `fileButton` channel returns a string value containing the full path to the selected file. Use `cabbageGetValue` in Csound to retrieve both the file path and a trigger value (1 when a new file is selected, 0 otherwise).
+
+<a id="directory" class="anchor-target"></a>
+### Directory
+
+**Type:** String
+**Default:** `""`
+
+Sets the initial directory that the file browser will open in. If empty, the browser opens in the system's default location or the last known location (depending on `openAtLastKnownLocation`).
+
+```json
+"directory": "/Users/username/audio_files"
+```
+
+<a id="filters" class="anchor-target"></a>
+### Filters
+
+**Type:** String
+**Default:** `"*"`
+
+Specifies file type filters for the file browser. Use wildcards to filter by extension. Multiple filters can be separated by semicolons.
+
+```json
+"filters": "*.wav;*.aif;*.mp3"
+```
+
+For all files, use `"*"` or `"*.*"`.
+
+<a id="id" class="anchor-target"></a>
+### Id
+<Id />
+
+<a id="label" class="anchor-target"></a>
+### Label
+<Label />
+
+<a id="mode" class="anchor-target"></a>
+### Mode
+
+**Type:** String
+**Default:** `"file"`
+
+Determines whether the file browser selects files or directories.
+
+- `"file"`: Select a single file (default)
+- `"directory"`: Select a directory/folder
+
+```json
+"mode": "directory"
+```
+
+<a id="openAtLastKnownLocation" class="anchor-target"></a>
+### Open At Last Known Location
+
+**Type:** Boolean
+**Default:** `true`
+
+When `true`, the file browser will open at the location of the last selected file. When `false`, it opens at the location specified by `directory` (or the system default if `directory` is empty).
+
+```json
+"openAtLastKnownLocation": false
+```
+
+<a id="persistence" class="anchor-target"></a>
+### Persistence
+<Persistence />
+
+<a id="visible" class="anchor-target"></a>
+### Visible
+<Visible />
+
+<a id="zindex" class="anchor-target"></a>
+### ZIndex
+<ZIndex />
+
+<a id="style" class="anchor-target"></a>
+### Style
+<StyleFileButton />
+
+## Csound Usage
+
+The `fileButton` returns a string containing the file path and a k-rate trigger value. Here's how to use it in Csound:
+
+```csound
+//insert example
+```
+
+The trigger value will be 1 for one k-cycle when a new file is selected, then return to 0.
