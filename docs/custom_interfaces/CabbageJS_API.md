@@ -5,7 +5,7 @@ description: Cabbage API
 
 # Cabbage JavaScript API Reference
 
-The Cabbage JavaScript API provides the communication layer between webview UIs and the Cabbage backend. This API enables bidirectional communication for plugin development. 
+The Cabbage JavaScript API provides the communication layer between webview UIs and the Cabbage backend. This API enables bidirectional communication for plugin development.
 
 📃 **Note:** A `<Cabbage>{...}</Cabbage>` JSON structure is still required to define parameters for use in a host application. Objects declared in this structure are accessible through the API via a custom event handler (see below). These objects are sent at load time and can be updated at runtime using the [`cabbageSet`](/docs/cabbage_opcodes/cabbageSet) and [`cabbageSetValue`](/docs/cabbage_opcodes/cabbageSetValue) opcodes.
 
@@ -15,11 +15,74 @@ The Cabbage JavaScript API provides the communication layer between webview UIs 
 Use `Cabbage.sendControlData()` to send widget value changes to the backend. The backend automatically determines routing based on channel automatable status.
 
 ### Backend → UI (Incoming Communication)
-The backend sends messages via `window.hostMessageCallback()`. Implement this global function to handle incoming messages.
+Use `Cabbage.addMessageListener(callback)` to receive messages from the backend. This works in all environments — VS Code, native DAW plugins, and custom UI frameworks — without any environment-specific setup.
 
 ## API Reference
 
 ### Core Functions
+
+#### `Cabbage.addMessageListener(callback)`
+
+Register a listener for incoming messages from the Cabbage backend. This is the recommended way to handle all backend → UI communication. It abstracts the two runtime environments so that the same UI code works everywhere:
+
+- **VS Code (custom UI / iframe relay)**: messages arrive as `window` message events
+- **Native plugin (DAW)**: messages arrive via `window.hostMessageCallback`
+
+**Parameters:**
+- `callback` (function): Called with each incoming message object
+
+**Returns:** A cleanup function — call it when the UI is torn down to avoid memory leaks.
+
+**Incoming message shapes:**
+
+| `command` | Fields | Sent by |
+|-----------|--------|---------|
+| `parameterChange` | `paramIdx`, `value` (may be top-level or nested in `data`) | DAW automation / backend |
+| `widgetUpdate` | `id`, `value` | [`cabbageSetValue`](/docs/cabbage_opcodes/cabbageSetValue) opcode |
+| `widgetUpdate` | `id`, `widgetJson` | [`cabbageSet`](/docs/cabbage_opcodes/cabbageSet) opcode |
+| `channelDataUpdate` | `channel`, `value` | Csound channel data |
+| `resizeResponse` | `accepted`, `width`, `height` | Response to `requestResize()` |
+
+**Example — Vanilla HTML:**
+```javascript
+import { Cabbage } from './cabbage/cabbage.js';
+
+Cabbage.addMessageListener((msg) => {
+    if (msg.command === 'parameterChange') {
+        // paramIdx/value may be top-level or nested in msg.data (DAW host dependent)
+        const data = msg.data ?? msg;
+        updateSlider(data.paramIdx, data.value);
+    } else if (msg.command === 'widgetUpdate') {
+        // id and value are always top-level
+        if (msg.value !== undefined) {
+            document.getElementById(msg.id).value = msg.value;
+        } else if (msg.widgetJson !== undefined) {
+            const widget = JSON.parse(msg.widgetJson);
+            // apply full widget update...
+        }
+    }
+});
+```
+
+**Example — Svelte:**
+```javascript
+import { Cabbage } from 'cabbage';
+import { onMount, onDestroy } from 'svelte';
+
+let removeListener;
+
+onMount(() => {
+    removeListener = Cabbage.addMessageListener((msg) => {
+        if (msg.command === 'widgetUpdate' && msg.id === 'myChannel') {
+            myValue = msg.value;
+        }
+    });
+});
+
+onDestroy(() => removeListener?.());
+```
+
+---
 
 #### `Cabbage.sendControlData(data, vscode)`
 
@@ -30,7 +93,7 @@ Send widget value changes to the Cabbage backend. This is the primary API for us
   - `channel` (string): The channel name
   - `value` (number|string): Value in natural range (e.g., 20-20000 Hz for frequency)
   - `gesture` (string, optional): Gesture type - `"begin"`, `"value"`, `"end"`, `"complete"` (default: `"complete"`)
-- `vscode` (Object|null): VS Code API instance (null for plugin mode)
+- `vscode` (Object|null): VS Code API instance (pass `null` for plugin mode)
 
 **Behavior:**
 - Automatically routes based on channel automatable status
@@ -40,19 +103,19 @@ Send widget value changes to the Cabbage backend. This is the primary API for us
 **Examples:**
 ```javascript
 // Basic usage
-Cabbage.sendControlData({ channel: "frequency", value: 1000 }, this.vscode);
+Cabbage.sendControlData({ channel: "frequency", value: 1000 }, null);
 
-// With gesture for DAW automation
-Cabbage.sendControlData({ channel: "volume", value: 0.8, gesture: "begin" }, this.vscode);
-Cabbage.sendControlData({ channel: "volume", value: 0.9, gesture: "value" }, this.vscode);
-Cabbage.sendControlData({ channel: "volume", value: 0.9, gesture: "end" }, this.vscode);
+// With gesture for DAW automation recording
+Cabbage.sendControlData({ channel: "volume", value: 0.8, gesture: "begin" }, null);
+Cabbage.sendControlData({ channel: "volume", value: 0.9, gesture: "value" }, null);
+Cabbage.sendControlData({ channel: "volume", value: 0.9, gesture: "end" }, null);
 ```
 
 ---
 
 #### `Cabbage.sendChannelData(channel, data, vscode)`
 
-Send channel data directly to Csound without DAW automation - bypasses all widget routing and validation. 
+Send channel data directly to Csound without DAW automation — bypasses all widget routing and validation.
 
 **Parameters:**
 - `channel` (string): Csound channel name
@@ -60,7 +123,7 @@ Send channel data directly to Csound without DAW automation - bypasses all widge
 - `vscode` (Object|null): VS Code API instance
 
 **Notes:**
-- Use `sendControlData()` instead for most cases as it will determine the best route for this data
+- Use `sendControlData()` instead for most cases as it determines the best route automatically
 - Bypasses DAW automation system
 - Automatically determines string vs numeric data
 
@@ -79,7 +142,7 @@ Send MIDI messages from the UI to the backend.
 
 **Example:**
 ```javascript
-Cabbage.sendMidiMessageFromUI(144, 60, 100, this.vscode); // Note on
+Cabbage.sendMidiMessageFromUI(144, 60, 100, null); // Note on
 ```
 
 ---
@@ -122,7 +185,7 @@ Trigger a file open dialog for file selection widgets.
 
 **Example:**
 ```javascript
-Cabbage.triggerFileOpenDialog(this.vscode, "audioFile", {
+Cabbage.triggerFileOpenDialog(null, "audioFile", {
     filters: "*.wav;*.aiff",
     openAtLastKnownLocation: true
 });
@@ -178,9 +241,9 @@ Request a resize of the plugin GUI window (plugin mode only).
 - Backend sends a `resizeResponse` message indicating acceptance and final dimensions
 
 
-### Private Functions 
+### Private Functions
 
-⚠️ **Important:** These functions are used internally and are not for general use.  
+⚠️ **Important:** These functions are used internally and are not for general use.
 
 #### `Cabbage.sendCustomCommand(command, vscode, additionalData)`
 
@@ -209,54 +272,29 @@ Update widget state in the backend (used by property panel).
 
 ---
 
-## Incoming Messages (Backend -> UI)
+## Incoming Messages (Backend → UI)
 
-Implement `window.hostMessageCallback` to handle messages from the backend:
-
-```javascript
-window.hostMessageCallback = function(data) {
-    switch(data.command) {
-        case "parameterChange":
-            // DAW automation or backend parameter update
-            // Update display only - NEVER send back to backend
-            // updateWidgetDisplay(data.channel, data.value);
-            break;
-
-        case "updateWidget":
-            // Widget property update from Csound (cabbageSetValue, cabbageSet)
-            // updateWidget(data.widgetJson);
-            break;
-
-        case "csoundOutputUpdate":
-            // Csound console output for debugging
-            console.log("Csound output:", data.text);
-            break;
-
-        case "resizeResponse":
-            // Response to GUI resize request
-            if (data.accepted) {
-            //     updateGuiDimensions(data.width, data.height);
-            } else {
-            //     handleResizeRejected(data.width, data.height);
-            }
-            break;
-    }
-};
-```
+Use `Cabbage.addMessageListener()` to handle all incoming messages. See [the full API entry above](#cabbageaddmessagelistenercallback) for details and examples.
 
 ### Message Types
 
 #### `parameterChange`
 - **Purpose**: Parameter updates from DAW automation or backend
-- **Fields**: `channel`, `value`, `gesture`
-- **Action**: Update visual display only (avoid feedback loops)
+- **Fields**: `paramIdx`, `value` — may be top-level or nested inside `data` depending on the host
+- **Action**: Update visual display only — **never** call `sendControlData()` in response (causes feedback loops)
 
 ---
 
-#### `updateWidget`
-- **Purpose**: Widget state updates from Csound opcodes
-- **Fields**: `id`, `widgetJson`, `value` (optional)
-- **Action**: Update widget properties and visual state
+#### `widgetUpdate`
+- **Purpose**: Widget value or property update from Csound opcodes (`cabbageSetValue`, `cabbageSet`)
+- **Fields**: `id` (string), and either `value` (number) for simple updates or `widgetJson` (string) for full property updates
+- **Action**: Update the corresponding widget's value or properties
+
+---
+
+#### `channelDataUpdate`
+- **Purpose**: Channel data from Csound
+- **Fields**: `channel`, `value`
 
 ---
 
@@ -287,7 +325,24 @@ Use appropriate gestures for proper DAW automation recording:
 ## Best Practices
 
 ### Avoiding Feedback Loops
-When receiving `parameterChange` messages, **only update the visual display**. Never send `sendControlData()` in response, as this creates feedback loops that interfere with DAW automation.
+When receiving `parameterChange` messages, **only update the visual display**. Never call `sendControlData()` in response, as this creates feedback loops that interfere with DAW automation.
+
+### isDragging Pattern
+When a user is actively dragging a slider, ignore incoming `parameterChange` updates to prevent the UI fighting with the user's input:
+
+```javascript
+let isDragging = false;
+
+slider.addEventListener('pointerdown', () => { isDragging = true; });
+slider.addEventListener('pointerup',   () => { isDragging = false; });
+
+Cabbage.addMessageListener((msg) => {
+    if (msg.command === 'parameterChange' && !isDragging) {
+        const data = msg.data ?? msg;
+        slider.value = data.value;
+    }
+});
+```
 
 ### Thread Safety
 All outgoing functions are asynchronous and thread-safe. They queue messages without blocking the audio thread.
@@ -296,7 +351,4 @@ All outgoing functions are asynchronous and thread-safe. They queue messages wit
 Send values in their full/natural ranges (e.g., 20-20000 Hz for frequency). The backend handles all DAW normalization automatically.
 
 ### Environment Detection
-- **VS Code mode**: Pass `this.vscode` as the vscode parameter
-- **Plugin mode**: Pass `null` for vscode parameter
-- Functions automatically detect the environment and use appropriate communication channels
-
+Pass `null` for the `vscode` parameter in all API calls — the library detects the environment automatically. The `vscode` parameter is a legacy option retained for backwards compatibility with older custom UIs that acquired the VS Code API directly.

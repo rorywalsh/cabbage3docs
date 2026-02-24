@@ -60,9 +60,13 @@ const sidebars: SidebarsConfig = {
         'cabbage_widgets/xyPad'],
     },
     {
-      type: 'doc',
-      label: "Custom User Interfaces",
-      id: 'customUIs',
+      type: 'category',
+      label: 'Custom Interfaces',
+      items: [
+        'custom_interfaces/customWidgets',
+        'custom_interfaces/customInterfaces',
+        'custom_interfaces/CabbageJS_API',
+      ],
     },
     {
       type: 'category',
@@ -82,13 +86,8 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'html',
-      value: '<hr style="border: 0; border-top: 1px solid #CCC; margin: 0.5rem 0;" />', // Customize style here
-      defaultStyle: true, // Optional: ensures it fits the theme
-    },
-    {
-      type: 'doc',
-      label: "JavaScript API",
-      id: 'CabbageJS_API',
+      value: '<hr style="border: 0; border-top: 1px solid #CCC; margin: 0.5rem 0;" />',
+      defaultStyle: true,
     }
   ],
 
