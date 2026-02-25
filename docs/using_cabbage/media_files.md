@@ -8,9 +8,7 @@ Because Cabbage uses a web frontend, all image files used in a UI are sand-boxed
 
 ### File Organization
 
-It's recommended to organize your media files in a structured way:
-- Create a `media` folder in your project directory, i.e., the folder that contains your `.csd` file. 
-- Place all image files here
+Due to the strict sand-boxed nature of web UIs, you must place all your media files in a structured way into a dedicated `media` folder in your project directory, i.e., the folder that contains your `.csd` file. 
 
 ### Accessing Media Files
 
