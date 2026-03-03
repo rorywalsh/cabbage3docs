@@ -56,9 +56,17 @@ Example including `testFile`:
 
 ### Writing analysis results
 
-Inside the `<Cabbage>` instrument section of your `.ara.csd`, write values to the declared channels during performance:
+Inside the `<CsInstruments>` instrument section of your `.ara.csd`, write values to the declared channels during performance:
 
 ```csound
+<CabbageARA>
+{
+  "channels": [
+    { "id": "lufs", "type": "number" }
+  ],
+  "testFile": "/path/to/your/audio.wav"
+}
+</CabbageARA>
 <CsInstruments>
 sr     = 44100
 ksmps  = 512
@@ -74,7 +82,7 @@ instr 1
   ; ARA_SOURCE_DURATION  — duration in seconds
 
   in1:a, in2:a  = ins()
-  
+  mom:k, int:k, short:k = lufs(0, in1, in2)
   ; ARA_ENDED is set to 1 on the final k-cycle — write final k-rate results here.
   kEnded = chnget:k("ARA_ENDED")
   if kEnded == 1 then
@@ -103,17 +111,12 @@ Source metadata is also exposed as arrays using plural names:
 Once analysis is complete, read declared channels as arrays, then index with `ARA_CURRENT_SOURCE_INDEX`.
 
 ```csound
-iCount chnget "ARA_SOURCE_COUNT"
-iIdx   chnget "ARA_CURRENT_SOURCE_INDEX"
+count:i = chnget("ARA_SOURCE_COUNT")
+index:i = chnget("ARA_CURRENT_SOURCE_INDEX")
+sources:S[] = chnget:S[]("ARA_SOURCE_NAMES")
+LUFS:i[]   chnget "lufs"
 
-iRms[]   chnget "ara_rms"
-iTempo[] chnget "ara_tempo"
-SNames[] chnget "ARA_SOURCE_NAMES"
-
-; values for the source on this plugin's track
-iMyRms   = iRms[iIdx]   
-iMyTempo = iTempo[iIdx] 
-iMyName  = SNames[iIdx] 
+prints("LUFS Value for %s is %d", sources[index], LUFS[index])
 ```
 
 `ARA_CURRENT_SOURCE_INDEX` points to the source associated with the current plugin instance/track.
@@ -128,20 +131,18 @@ Example trigger pattern:
 
 ```csound
 instr 1
-  kUpdate chnget "ARA_UPDATE"
-  kTrig   changed kUpdate
-  if kTrig == 1 then
-    event "i", "ReadAraData", 0, 0.001
+  update:k = chnget:k("ARA_UPDATE")
+  trig:k = changed:k("update")
+  if trig == 1 then
+    event( "i", "ReadAraData", 0, 0.001 )
   endif
 endin
 
 instr ReadAraData
-  iCount chnget "ARA_SOURCE_COUNT"
-  iIdx   chnget "ARA_CURRENT_SOURCE_INDEX"
-  iLUFS[] chnget "lufs"
-  if iIdx >= 0 && iIdx < iCount then
-    iMyRms = iRms[iIdx]
-  endif
+  count:i = chnget("ARA_SOURCE_COUNT")
+  index:i = chnget("ARA_CURRENT_SOURCE_INDEX")
+  sources:S[] = chnget:S[]("ARA_SOURCE_NAMES")
+  LUFS:i[]   chnget "lufs"
 endin
 ```
 
