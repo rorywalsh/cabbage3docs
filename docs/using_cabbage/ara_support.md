@@ -56,7 +56,7 @@ Example including `testFile`:
 
 ### Writing analysis results
 
-Inside the `<Cabbage>` instrument section of your `.ara.csd`, write values to the declared channels at the end of performance:
+Inside the `<Cabbage>` instrument section of your `.ara.csd`, write values to the declared channels during performance:
 
 ```csound
 <CsInstruments>
@@ -66,16 +66,16 @@ nchnls = 2
 0dbfs  = 1
 
 instr 1
-  ; ARA_SOURCE_* channels are set automatically by Cabbage before performance:
-  ;   ARA_SOURCE_NAME      — source file name (string)
-  ;   ARA_SOURCE_SAMPLES   — total sample count
-  ;   ARA_SOURCE_SR        — sample rate
-  ;   ARA_SOURCE_CHANNELS  — channel count
-  ;   ARA_SOURCE_DURATION  — duration in seconds
+  ; These channels are set automatically by Cabbage before performance:
+  ; ARA_SOURCE_NAME      — source file name (string)
+  ; ARA_SOURCE_SAMPLES   — total sample count
+  ; ARA_SOURCE_SR        — sample rate
+  ; ARA_SOURCE_CHANNELS  — channel count
+  ; ARA_SOURCE_DURATION  — duration in seconds
 
   in1:a, in2:a  = ins()
-
-  ; ARA_ENDED is set to 1 on the final k-cycle — write final results here.
+  
+  ; ARA_ENDED is set to 1 on the final k-cycle — write final k-rate results here.
   kEnded = chnget:k("ARA_ENDED")
   if kEnded == 1 then
     //set final data here
@@ -84,17 +84,19 @@ endin
 </CsInstruments>
 ```
 
+📃 **Note:** The `ARA_ENDED` channel will be set to 1 after all samples have been processed. While you can write data continuously to named channels during processing, it is often more efficient to compute the data and write it once at the end of the performance.
+
 After the analysis pass completes, any declared channels are forwarded to the main Csound. They can be queried using `chnget` and `chnset`.
 
-In the main instrument, each declared channel is exposed as an array channel. Although 64 slots are allocated internally, the number of valid entries is given by `ARA_SOURCE_COUNT`.
+In the main instrument, each declared channel is exposed as a array channel. Although 64 slots are allocated internally, the number of valid entries is given by `ARA_SOURCE_COUNT`.
 
 Source metadata is also exposed as arrays using plural names:
 
-- `ARA_SOURCE_NAMES`
-- `ARA_SOURCE_SAMPLES`
-- `ARA_SOURCE_SRS`
-- `ARA_SOURCE_CHANNELS`
-- `ARA_SOURCE_DURATIONS`
+- `ARA_SOURCE_NAMES`:  all source file names (string)
+- `ARA_SOURCE_SAMPLES`: total sample count across all sources
+- `ARA_SOURCE_SRS`: sample rates for all sources
+- `ARA_SOURCE_CHANNELS`: channel counts for all sources
+- `ARA_SOURCE_DURATIONS`: duration in seconds for all sources
 
 ### Reading results in the main instrument
 
