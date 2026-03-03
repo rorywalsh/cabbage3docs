@@ -4,6 +4,7 @@ Reserved channels in Cabbage 3 are special string or numeric channels automatica
 
 - [CSD_PATH](#csd_path)
 - [IS_A_PLUGIN](#is_a_plugin)
+- [IS_ARA_PLUGIN](#is_ara_plugin)
 - [USER_HOME_DIRECTORY](#user_home_directory)
 - [USER_DOCUMENTS_DIRECTORY](#user_documents_directory)
 - [USER_DESKTOP_DIRECTORY](#user_desktop_directory)
@@ -28,6 +29,11 @@ The directory path where the current CSD file is located. Useful for loading res
 
 #### `IS_A_PLUGIN`
 Returns 1 if the instrument is running inside a DAW, otherwise returns 0. 
+
+---
+
+#### `IS_ARA_PLUGIN`
+Returns 1 if the instrument has support for ARA. 
 
 ---
 
