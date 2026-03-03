@@ -108,7 +108,7 @@ Source metadata is also exposed as arrays using plural names:
 
 ### Reading results in the main instrument
 
-Once analysis is complete, read declared channels as arrays, then index with `ARA_CURRENT_SOURCE_INDEX`.
+Once analysis is complete, read declared channels as arrays, then index with `ARA_CURRENT_SOURCE_INDEX`. 
 
 ```csound
 count:i = chnget("ARA_SOURCE_COUNT")
@@ -119,13 +119,13 @@ LUFS:i[]   chnget "lufs"
 prints("LUFS Value for %s is %d", sources[index], LUFS[index])
 ```
 
-`ARA_CURRENT_SOURCE_INDEX` points to the source associated with the current plugin instance/track.
+`ARA_CURRENT_SOURCE_INDEX` points to the source associated with the current plugin instance/track. This is subject to change depending on DAW events that are taking place across a session, but it will always give the index of the source associated with the track a plugin is attached to. See note below about how best to handle this changing data. 
 
 `ARA_SOURCE_COUNT` tells you how many source entries are valid.
 
 `ARA_UPDATE` is incremented at k-rate whenever the ARA model data is refreshed.
 
-For robust instrument design, use `ARA_UPDATE` as a trigger to launch work that reads/copies the array data at i-time. This avoids timing ambiguity and keeps update handling deterministic.
+For robust instrument design, use `ARA_UPDATE` as a trigger to launch an instrument that reads the array data at i-time. This avoids timing ambiguity and keeps update handling deterministic. 
 
 Example trigger pattern:
 
