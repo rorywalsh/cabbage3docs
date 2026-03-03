@@ -10,7 +10,7 @@ While any instrument that processes more than one signal channel can be consider
 
 The number of outputs can be specified in the Csound header section using the nchnls keyword, which indicates how many output channels the instrument should use. In the following setup, the instrument is configured with two outputs.
 
-```js
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -n -d -+rtmidi=NULL -M0 -m0d 
@@ -25,7 +25,7 @@ nchnls = 2 //stereo output
 
 Similarly, we can use the `nchnls_i` keyword to set the number of input channels. 
 
-```
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -n -d -+rtmidi=NULL -M0 -m0d 
@@ -43,7 +43,7 @@ nchnls_i = 4    //quadraphonic input
 
 A sidechain channel in audio processing is an auxiliary input that influences how a plugin or processor (e.g., a compressor or gate) behaves. Instead of relying solely on the main audio input, the plugin uses the sidechain input as a control signal to guide its processing. In Cabbage terms, this is typically an instrument with more inputs than outputs. For example the following instrument might use the first 2 input channels to process the main stereo input, and the third input channel to control a gate.
 
-```
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -n -d -+rtmidi=NULL -M0 -m0d 
@@ -62,7 +62,7 @@ An audio bus is a logical grouping of audio channels that allows for the routing
 
 In order to set up custom busing in Cabbage 3 we define a list of available bus configurations in our `form` widget. For this we use the `channelConfig` property, which can be assigned a string with all supported configurations. In the case of our simple sidechain setup from above, we should probably group the inputs into a stereo bus, and the sidechain channel into a mono bus. To do this we add '2.1-2' to our `chanelConfig` property. 
 
-```
+```json
 {
     "type": "form",
     "caption": "Effect",
@@ -79,7 +79,7 @@ Any number of bus arrangements can be specified, but they must conform to the to
 
 Some hosts may override the requested bus or channel configuration. For example, dropping an instrument with `nchnls=2` onto a mono track in Logic will cause Logic to change the configuration to mono. In this case, Cabbage will overwrite `nchnls` and set it to 1. It is therefore recommended to use code like the following in instruments:
 
-```js
+```csound
 if (nchnls == 1) then
     outs (aLeft+aRight)/2
 else

@@ -99,7 +99,7 @@ Each and every Cabbage widget has a set of properties that define its behavior a
 
 **Bounds**
 
-```json
+```csound
 "bounds": {"left":0, "top":0, "width":100, "height":100}
 ```
 
@@ -107,7 +107,7 @@ Each and every Cabbage widget has a set of properties that define its behavior a
 
 **Visible**
 
-```json
+```csound
 "visible": true
 ```
 
@@ -115,7 +115,7 @@ Each and every Cabbage widget has a set of properties that define its behavior a
 
 **Active**
 
-```json
+```csound
 "active": true
 ```
 
@@ -123,7 +123,7 @@ Each and every Cabbage widget has a set of properties that define its behavior a
 
 **Automatable**
 
-```json
+```csound
 "automatable": true
 ```
 
@@ -131,7 +131,7 @@ Each and every Cabbage widget has a set of properties that define its behavior a
 
 **Z-Index**
 
-```json
+```csound
 "zIndex": 1
 ```
 

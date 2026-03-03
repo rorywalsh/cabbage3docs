@@ -3,7 +3,7 @@
 Generates a likely-unique filename in a target directory using the requested extension. This opcode is useful when you need a valid and unique filename for testing. The opcode returns a full path (forward slashes) but does not create the file on disk. This opcode is i-time only, so it's best used in a dedicated instrument that will generate the filename when needed. 
 
 ## Syntax
-```js
+```csound
 filename:i = cabbageCreateFileName(SDirectory, SExtension)
 ```
 
@@ -16,7 +16,7 @@ The opcode returns a single string containing a full path that is intended not t
 
 ## Example
 
-```cs
+```csound
 ksmps = 32
 nchnls = 2
 0dbfs = 1

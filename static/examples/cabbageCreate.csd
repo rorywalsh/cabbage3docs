@@ -1,30 +1,35 @@
 
 <Cabbage>
 [
-    {"type": "form", "caption": "Template Effect", "size": {"width": 580, "height": 370}, "pluginId": "def1"},
+    { "type": "form", "caption": "Template Effect", "size": {"width": 580, "height": 370}, "pluginId": "def1" },
     {
-        "type": "image",
-        "id": "scrubber",
-        "bounds": {"left": 9, "top": 9, "width": 32, "height": 278},
-        "channels": [{"id": "image130", "range": {"increment": 0.001}}],
-        "style": {"backgroundColor": "#0295cffd"},
-        "zIndex": -1
+        "type"    : "image",
+        "id"      : "scrubber",
+        "bounds"  : {"left": 9, "top": 9, "width": 32, "height": 278},
+        "channels": [
+            { "id": "image130", "range": {"increment": 0.001} }
+        ],
+        "style"   : {"backgroundColor": "#0295cffd"},
+        "zIndex"  : -1
     },
     {
-        "type": "horizontalSlider",
-        "id": "horizontalSlider133",
-        "bounds": {"top": 297, "width": 233, "height": 30},
-        "channels": [{"id": "bpmSlider", "range": {"defaultValue": 60, "increment": 1, "max": 320}}],
-        "label": {"text": "BPM"}
+        "type"    : "horizontalSlider",
+        "id"      : "horizontalSlider133",
+        "bounds"  : {"top": 297, "width": 233, "height": 30},
+        "channels": [
+            { "id": "bpmSlider", "range": {"defaultValue": 60, "increment": 1, "max": 320} }
+        ],
+        "label"   : {"text": "BPM"}
     },
     {
-        "type": "button",
-        "id": "randomBtn",
-        "bounds": {"left": 254, "top": 297, "width": 100},
-        "channels": [{"id": "shuffle", "range": {}}],
-        "label": {"text": {"on": "Shuffle", "off": "Shuffle"}}
+        "type"    : "button",
+        "id"      : "randomBtn",
+        "bounds"  : {"left": 254, "top": 297, "width": 100},
+        "channels": [ {"id": "shuffle", "range": {}} ],
+        "label"   : { "text": {"on": "Shuffle", "off": "Shuffle"} }
     }
 ]
+
 </Cabbage>
 <CsoundSynthesizer>
 <CsOptions>
@@ -38,7 +43,7 @@ nchnls = 2
 struct CabbageButton val:k, trig:k
 
 instr 1
-    
+
     x:i, y:i init 0
     widgetCount:i init 0
     while y < 8 do
@@ -62,14 +67,14 @@ instr 1
         x = 0
         y += 1
     od
-    
+
     notes:i[] = [48, 50, 52, 53, 55, 57, 59, 60, 62]
     column:k init 0
     scrubberPos:k init 0
     numRows:i = 8
     numCols:i = 16
     bpm:k = cabbageGetValue("bpmSlider")
-    
+
     if metro:k(bpm/60)==1 then
         row:k = 0
         while row<numRows do
@@ -83,7 +88,7 @@ instr 1
         cabbageSet(1, "scrubber", "bounds.left", (column*35+9))
         column = (column+1) % numCols
     endif
-    
+
     shuffle:CabbageButton init 0, 0
     shuffle.val, shuffle.trig = cabbageGetValue("shuffle")
     if shuffle.trig==1 then
@@ -101,7 +106,7 @@ endin
 instr SHUFFLE
     prints "Shuffling hits"
     index:i init 0
-    
+
     while index < 128 do
         randVal:i = rnd(100) > 80 ? 1 : 0
         SChannel = sprintfk("check%d", index)

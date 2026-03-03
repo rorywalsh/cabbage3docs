@@ -1,4 +1,4 @@
-```json
+```csound
 "package" : {
     "include": [ {"src": "sample", "dest": "samples"} ],
     "cabzOuputDir":""
@@ -7,7 +7,7 @@
 
 The package object is used to manage the resources required by your instruments when they are exported. The package accepts an array of `src/dest` pairs. The `src` value may be a relative or absolute path and can include file wildcards (for example, * or **).
 
-```json 
+```csound
 "include": [ {"src": "/Users/me/cabbage3-recipes/samples/*.wav", "dest": "audioSamples"} ]
 ```
 

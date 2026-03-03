@@ -54,7 +54,7 @@ If you need a canvas for drawing, add a `createCanvas()` function that initialis
 
 If you need to listen for changes to widget properties, wrap `this.props` with `CabbageUtils.createReactiveProps()`. This creates a Proxy that automatically handles common widget behaviours (like toggling pointer-events when `visible` or `active` change) and can notify you of property changes. Call it in your constructor:
 
-```javascript
+```csound
 this.props = CabbageUtils.createReactiveProps(this, this.props, {
     onPropertyChange: (change) => {
         // change.key      - the property name
@@ -76,7 +76,7 @@ The `opts` parameter is optional — you can call `CabbageUtils.createReactivePr
 
 To send data from your widget to the Cabbage backend, use `Cabbage.sendControlData()`:
 
-```javascript
+```csound
 Cabbage.sendControlData({ channel: "myChannel", value: 42, gesture: "complete" }, this.vscode);
 ```
 
@@ -88,7 +88,7 @@ Cabbage.sendControlData({ channel: "myChannel", value: 42, gesture: "complete" }
 
 The backend automatically determines whether the channel is automatable and routes accordingly. For non-automatable data you can also call `sendChannelData()` directly:
 
-```javascript
+```csound
 Cabbage.sendChannelData("myStringChannel", "hello", this.vscode);
 Cabbage.sendChannelData("myNumberChannel", 3.14, this.vscode);
 ```
@@ -107,14 +107,14 @@ For multi-channel widgets (like an EQ controller with separate frequency and gai
 #### `CabbageUtils.getWidgetDivId(props)`
 Returns the DOM ID for the widget's div element. Prioritises `props.id`, then falls back to `channels[0].id`.
 
-```javascript
+```csound
 const divId = CabbageUtils.getWidgetDivId(this.props);
 ```
 
 #### `CabbageUtils.getWidgetDiv(channelOrProps)`
 Returns the actual DOM element for the widget div. Accepts either a props object or a string div ID. Returns `null` if not found.
 
-```javascript
+```csound
 const widgetDiv = CabbageUtils.getWidgetDiv(this.props);
 const widgetDiv = CabbageUtils.getWidgetDiv("myWidgetId");
 ```
@@ -122,7 +122,7 @@ const widgetDiv = CabbageUtils.getWidgetDiv("myWidgetId");
 #### `CabbageUtils.getChannelId(props, index)`
 Returns the ID string of the nth channel from the `channels` array. Throws an error if the channel or its ID is not set.
 
-```javascript
+```csound
 const firstChannelId  = CabbageUtils.getChannelId(this.props, 0);
 const secondChannelId = CabbageUtils.getChannelId(this.props, 1);
 ```

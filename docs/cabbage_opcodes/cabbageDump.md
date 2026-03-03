@@ -3,7 +3,7 @@
 This opcode will print the JSON representation of a widget to the Csound console. This can be useful for debugging widgets.
 
 ## Syntax
-```js
+```csound
 cabbageDump:i(SChannel, iIndent)
 cabbageDump:k(kTrig, SChannel, iIndent)
 ```
@@ -17,7 +17,7 @@ cabbageDump:k(kTrig, SChannel, iIndent)
 
 ## Example:
 
-```cs
+```csound
 <Cabbage>[
     {"type":"form","caption":"Simple Instrument","size":{"width":1000,"height":520},"pluginId":"RMSy"},
     {"type":"rotarySlider", "channel":"gain", "bounds":{"left":150, "top":10, "width":100, "height":100}, "range":{"min":0, "max":2, "value":1, "skew":1, "increment":0.1}, "text":"Gain"},

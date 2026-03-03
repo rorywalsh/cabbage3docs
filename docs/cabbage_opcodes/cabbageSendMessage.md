@@ -11,7 +11,7 @@ The JSON message is sent as-is to the frontend, where it can be handled by custo
 - Implementing custom communication protocols between Csound and your UI
 
 ## Syntax
-```js
+```csound
 cabbageSendMessage:i(SJsonString)
 cabbageSendMessage:k(kTrigger, SJsonString)
 ```
@@ -33,7 +33,7 @@ cabbageSendMessage:k(kTrigger, SJsonString)
 
 ### Sending Custom Data Arrays
 
-```cs
+```csound
 <Cabbage>[
     {"type":"form","caption":"Custom Message Demo","size":{"width":800,"height":400},"pluginId":"CMsg"}
 ]
@@ -78,7 +78,7 @@ i2 0 10     ; Send periodic updates for 10 seconds
 
 To receive and handle these custom messages in your frontend code:
 
-```javascript
+```csound
 // In your custom widget or frontend code
 Cabbage.addMessageListener((message) => {
     // The message is the JSON object sent from Csound

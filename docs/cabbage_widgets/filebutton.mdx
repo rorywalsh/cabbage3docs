@@ -43,7 +43,7 @@ The `fileButton` channel returns a string value containing the full path to the 
 
 Sets the initial directory that the file browser will open in. If empty, the browser opens in the system's default location or the last known location (depending on `openAtLastKnownLocation`).
 
-```json
+```csound
 "directory": "/Users/username/audio_files"
 ```
 
@@ -55,7 +55,7 @@ Sets the initial directory that the file browser will open in. If empty, the bro
 
 Specifies file type filters for the file browser. Use wildcards to filter by extension. Multiple filters can be separated by semicolons.
 
-```json
+```csound
 "filters": "*.wav;*.aif;*.mp3"
 ```
 
@@ -80,7 +80,7 @@ Determines whether the file browser selects files or directories.
 - `"file"`: Select a single file (default)
 - `"directory"`: Select a directory/folder
 
-```json
+```csound
 "mode": "directory"
 ```
 
@@ -92,7 +92,7 @@ Determines whether the file browser selects files or directories.
 
 When `true`, the file browser will open at the location of the last selected file. When `false`, it opens at the location specified by `directory` (or the system default if `directory` is empty).
 
-```json
+```csound
 "openAtLastKnownLocation": false
 ```
 

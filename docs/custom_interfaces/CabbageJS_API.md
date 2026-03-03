@@ -44,7 +44,7 @@ Register a listener for incoming messages from the Cabbage backend. This is the 
 | `resizeResponse` | `accepted`, `width`, `height` | Response to `requestResize()` |
 
 **Example — Vanilla HTML:**
-```javascript
+```csound
 import { Cabbage } from './cabbage/cabbage.js';
 
 Cabbage.addMessageListener((msg) => {
@@ -65,7 +65,7 @@ Cabbage.addMessageListener((msg) => {
 ```
 
 **Example — Svelte:**
-```javascript
+```csound
 import { Cabbage } from 'cabbage';
 import { onMount, onDestroy } from 'svelte';
 
@@ -101,7 +101,7 @@ Send widget value changes to the Cabbage backend. This is the primary API for us
 - Values sent in natural ranges, backend handles normalization
 
 **Examples:**
-```javascript
+```csound
 // Basic usage
 Cabbage.sendControlData({ channel: "frequency", value: 1000 }, null);
 
@@ -141,7 +141,7 @@ Send MIDI messages from the UI to the backend.
 - `vscode` (Object|null): VS Code API instance
 
 **Example:**
-```javascript
+```csound
 Cabbage.sendMidiMessageFromUI(144, 60, 100, null); // Note on
 ```
 
@@ -184,7 +184,7 @@ Trigger a file open dialog for file selection widgets.
   - `openAtLastKnownLocation` (boolean): Use last known location
 
 **Example:**
-```javascript
+```csound
 Cabbage.triggerFileOpenDialog(null, "audioFile", {
     filters: "*.wav;*.aiff",
     openAtLastKnownLocation: true
@@ -219,7 +219,7 @@ By default (`false`), all key events are passed through to the DAW so keyboard s
 - Always restore to `false` when the custom widget loses focus
 
 **Example:**
-```javascript
+```csound
 myCustomEditor.addEventListener('focus', () => Cabbage.consumeKeypresses(true));
 myCustomEditor.addEventListener('blur',  () => Cabbage.consumeKeypresses(false));
 ```
@@ -255,7 +255,7 @@ Send custom commands to the backend for specialized operations.
 - `additionalData` (Object, optional): Additional data to send
 
 **Example:**
-```javascript
+```csound
 Cabbage.sendCustomCommand('cabbageIsReadyToLoad', null);
 ```
 
@@ -330,7 +330,7 @@ When receiving `parameterChange` messages, **only update the visual display**. N
 ### isDragging Pattern
 When a user is actively dragging a slider, ignore incoming `parameterChange` updates to prevent the UI fighting with the user's input:
 
-```javascript
+```csound
 let isDragging = false;
 
 slider.addEventListener('pointerdown', () => { isDragging = true; });

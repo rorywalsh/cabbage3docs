@@ -8,7 +8,7 @@ This opcode sets the current value of a widget and can be executed at either ini
 Because the frontend operates at a much lower frame rate than the audio thread, it cannot process every value update. While all updates are written to the underlying Csound channel, many intermediate values will not make it into the FIFO queue and therefore will not be seen by the frontend. However, the most recent value will always make it through, ensuring the UI remains in sync with the latest state.
 
 ## Syntax
-```js
+```csound
 cabbageSetValue:k(SChannel, kValue [, kTrigger]) 
 cabbageSetValue:i(SChannel, iValue) 
 ```
@@ -24,7 +24,7 @@ cabbageSetValue:i(SChannel, iValue)
 
 ## Example:
 
-```cs
+```csound
 <Cabbage>[
     {"type":"form","caption":"Simple Instrument","size":{"width":1000,"height":520},"pluginId":"RMSy"},
     {"type":"rotarySlider", "channel":"gain", "bounds":{"left":150, "top":10, "width":100, "height":100}, "range":{"min":0, "max":2, "value":1, "skew":1, "increment":0.1}, "text":"Gain"},

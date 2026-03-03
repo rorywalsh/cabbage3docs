@@ -18,7 +18,7 @@ Media files can be selected from the property panel or added manually to a widge
 
 📃 **Note:** Most widgets that support images also allow embedding SVG strings, eliminating the need for separate image files. For example:
 
-```json
+```csound
     "svg"       : {
         "markup": "<svg width=\"39\" height=\"28\" viewBox=\"0 0 39 28\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"> <path d=\"M27.0766 19.6261L37.4187\" fill=\"white\"/> </svg>",
         "padding": {"left": 3, "right": 6, "top": 6, "bottom": 6}
@@ -29,7 +29,7 @@ Media files can be selected from the property panel or added manually to a widge
 
 Audio files are read by Csound, hence they don't need and special considerations. However, you should also make sure to use full absolute paths for all sound files. The simplest way of doing this is to make sure your sound files are located in the same directory as your .csd file. Then use the `CSD_PATH` reserved channel to construct the full paths:
 
-```
+```csound
     SFileName1 = "loop1.wav"
     SFileName1 = sprintf("%s/%s", chnget:S("CSD_PATH"), SFileName)
 ```
@@ -46,7 +46,7 @@ The channel routing will persist across compiles unless manually disabled in the
 
 When exporting your instrument as a plugin you can use the `package` object from the `form` widget to ensure all files are correctly copied over to the plugin resource direcyory. For example, the following `form` widget will copy all sample from samples from `"/Users/me/cabbage3-recipes/samples/*.wav"` to a folder called `audioSamples` in the exported plugin's resource directory.
 
-```json
+```csound
 {
     "type": "form",
     "caption": "Button Example",

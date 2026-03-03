@@ -3,7 +3,7 @@
 This opcode loads widget values from a previously saved JSON state file created by the `cabbageSaveState` opcode. All matching widget channels will be updated with their saved values. Unlike Cabbage 2, all widget state is saved and restored, not only the current parameter values. This opcode works at i-time only. Therefore it's best used in an instrument that is called when you want to load state. 
 
 ## Syntax
-```js
+```csound
 cabbageLoadState:i(SFilePath)
 ```
 

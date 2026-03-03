@@ -28,7 +28,7 @@ Another cause of potential frustration in this move is the fact that **camelCase
 
 Also, certain identifier names have been modified. For instance, `outlineWidth` and `outlineColour` are now part of the `stroke` object within the `colour` object:
 
-    ```json
+    ```csound
     "colour":{
         "stroke": {
             "width": 2,

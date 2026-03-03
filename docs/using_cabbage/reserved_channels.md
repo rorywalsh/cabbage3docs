@@ -97,7 +97,7 @@ The height in pixels of the current Cabbage UI window. Use together with `WINDOW
 
 ## Usage Example
 
-```js
+```csound
 instr 1
     home:S = chnget("USER_HOME_DIRECTORY")
     desktop:S = chnget("USER_DESKTOP_DIRECTORY")

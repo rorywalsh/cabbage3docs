@@ -6,7 +6,7 @@ import widgetCode from '!!raw-loader!../../static/examples/cabbageSet.csd';
 This opcode sets a widget property, i.e,`colour.fill`, `visible`, `opacity`, etc. It can run at init-time or k-time. The k-time variant must use a trigger to initiate the update (see below). 
 
 ## Syntax
-```js
+```csound
 cabbageSet:i(SChannel, SProperty, iValue)
 cabbageSet:i(SChannel, SProperty, iValue[])
 cabbageSet:i(SChannel, SProperty, SValue)
@@ -32,5 +32,5 @@ cabbageSet:k(kTrig, SChannel, SProperty, kValue[])
 
 ## Example
 
-<CodeBlock language="csharp">{widgetCode}</CodeBlock>
+<CodeBlock language="csound">{widgetCode}</CodeBlock>
 

@@ -3,7 +3,7 @@
 This opcode queries the current value of a widget. It can run at init-time or k-time and includes an optional output argument that triggers a value of 1 for one k-cycle whenever the widget value is updated or changed.
 
 ## Syntax
-```js
+```csound
 value:i = cabbageGetValue(SChannel)
 value:k = cabbageGetValue(SChannel)
 value:S = cabbageGetValue(SChannel)
@@ -23,7 +23,7 @@ value:k [, trig:k] = cabbageGetValue(SChannel)
 
 ## Example:
 
-```cs
+```csound
 <Cabbage>[
     {"type":"form","caption":"Simple Instrument","size":{"width":1000,"height":520},"pluginId":"RMSy"},
     {"type":"rotarySlider", "channel":"gain", "bounds":{"left":150, "top":10, "width":100, "height":100}, "range":{"min":0, "max":2, "value":1, "skew":1, "increment":0.1}, "text":"Gain"},
