@@ -1,47 +1,35 @@
 <Cabbage>
-[
-    {
-        "type"    : "form",
-        "caption" : "Button Example",
-        "size"    : {"width": 380, "height": 300},
-        "guiMode" : "queue",
-        "pluginId": "def1"
-    },
-    {
-        "type"    : "checkBox",
-        "bounds"  : {"left": 10, "top": 16, "width": 126, "height": 18},
-        "channels": [
-            {
-                "id"   : "trigger",
-                "event": "valueChanged",
-                "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 1}
+{
+    "widgets": [
+        { "type": "form", "caption": "Button Example", "size": {"width": 380, "height": 300}, "guiMode": "queue", "pluginId": "def1" },
+        {
+            "type"    : "checkBox",
+            "bounds"  : {"left": 10, "top": 16, "width": 126, "height": 18},
+            "channels": [
+                { "id": "trigger", "event": "valueChanged", "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 1} }
+            ],
+            "label"   : {"text": "Synth Enabled"}
+        },
+        {
+            "type"    : "button",
+            "bounds"  : {"left": 146, "top": 12, "width": 80, "height": 30},
+            "channels": [
+                { "id": "mute", "event": "valueChanged", "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 1} }
+            ],
+            "label"   : { "text": {"off": "Unmute", "on": "Mute"} }
+        },
+        {
+            "type"    : "button",
+            "bounds"  : {"left": 240, "top": 12, "width": 121, "height": 30},
+            "channels": [ {"id": "toggleFreq", "event": "valueChanged"} ],
+            "label"   : { "text": {"off": "Toggle Freq", "on": "Toggle Freq"} },
+            "style"   : {
+                "off": {"backgroundColor": "#ff0000", "textColor": "#ffffff"},
+                "on" : {"backgroundColor": "#0295cf", "textColor": "#ffffff"}
             }
-        ],
-        "label"   : {"text": "Synth Enabled"}
-    },
-    {
-        "type"    : "button",
-        "bounds"  : {"left": 146, "top": 12, "width": 80, "height": 30},
-        "channels": [
-            {
-                "id"   : "mute",
-                "event": "valueChanged",
-                "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 1}
-            }
-        ],
-        "label"   : { "text": {"off": "Unmute", "on": "Mute"} }
-    },
-    {
-        "type"    : "button",
-        "bounds"  : {"left": 240, "top": 12, "width": 121, "height": 30},
-        "channels": [ {"id": "toggleFreq", "event": "valueChanged"} ],
-        "label"   : { "text": {"off": "Toggle Freq", "on": "Toggle Freq"} },
-        "style"   : {
-            "off": {"backgroundColor": "#ff0000", "textColor": "#ffffff"},
-            "on" : {"backgroundColor": "#0295cf", "textColor": "#ffffff"}
         }
-    }
-]
+    ]
+}
 
 </Cabbage>
 <CsoundSynthesizer>

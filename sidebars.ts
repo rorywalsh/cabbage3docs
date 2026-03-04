@@ -42,7 +42,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: 'Widgets',
+      label: 'UI Layout & Configuration',
       items: ['cabbage_widgets/intro',
         'cabbage_widgets/form',
         'cabbage_widgets/button',

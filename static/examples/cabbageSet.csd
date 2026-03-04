@@ -1,39 +1,36 @@
 <Cabbage>
-[
-    { "type": "form", "caption": "GetSet Opcodes", "size": {"height": 500, "width": 580}, "pluginId": "def1" },
-    {
-        "type"   : "rotarySlider",
-        "channel": "gain",
-        "bounds" : {"left": 150, "top": 10, "width": 100, "height": 100},
-        "range"  : {"min": 0, "max": 2, "defaultValue": 1, "skew": 1, "increment": 0.1},
-        "text"   : "Gain"
-    },
-    {
-        "type"   : "button",
-        "channel": "button1",
-        "bounds" : {"left": 0, "top": 10, "width": 100, "height": 30},
-        "colour" : {
-            "on" : { "fill": [255, 0, 0] },
-            "off": { "fill": "#0000ff"   }
+{
+    "widgets": [
+        { "type": "form", "caption": "GetSet Opcodes", "size": {"height": 500, "width": 580}, "pluginId": "def1" },
+        {
+            "type"   : "rotarySlider",
+            "channel": "gain",
+            "bounds" : {"left": 150, "top": 10, "width": 100, "height": 100},
+            "range"  : {"min": 0, "max": 2, "defaultValue": 1, "skew": 1, "increment": 0.1},
+            "text"   : "Gain"
         },
-        "text"   : {"on": "I am on", "off": "I am off"}
-    },
-    {
-        "type"      : "textEditor",
-        "bounds"    : {"left": 17, "top": 169, "width": 341, "height": 40},
-        "channel"   : "infoText",
-        "readOnly"  : 1,
-        "wrap"      : 1,
-        "scrollbars": 1,
-        "text"      : "This instrument shows an example..."
-    },
-    {
-        "type"   : "comboBox",
-        "channel": "combo1",
-        "bounds" : {"left": 200, "top": 200, "width": 100, "height": 30},
-        "items"  : ["One", "Two", "Three"]
-    }
-]
+        {
+            "type"   : "button",
+            "channel": "button1",
+            "bounds" : {"left": 0, "top": 10, "width": 100, "height": 30},
+            "colour" : {
+                "on" : { "fill": [255, 0, 0] },
+                "off": { "fill": "#0000ff"   }
+            },
+            "text"   : {"on": "I am on", "off": "I am off"}
+        },
+        {
+            "type"      : "textEditor",
+            "bounds"    : {"left": 17, "top": 169, "width": 341, "height": 40},
+            "channel"   : "infoText",
+            "readOnly"  : 1,
+            "wrap"      : 1,
+            "scrollbars": 1,
+            "text"      : "This instrument shows an example..."
+        },
+        { "type": "comboBox", "channel": "combo1", "bounds": {"left": 200, "top": 200, "width": 100, "height": 30}, "items": ["One", "Two", "Three"] }
+    ]
+}
 
 </Cabbage>
 <CsoundSynthesizer>
