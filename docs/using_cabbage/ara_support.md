@@ -3,7 +3,7 @@ title: ARA Support
 description: Using ARA (Audio Random Access) with Cabbage 3
 ---
 
-ARA (Audio Random Access) is an extension to the standard audio plugin format that gives a plugin direct, offline access to a host's audio material — without having to process it in real time. Cabbage supports ARA through a companion `.ara.csd` file that runs an offline Csound analysis pass and feeds the results back into the main instrument.
+ARA (Audio Random Access) is an extension to the standard audio plugin format that gives a plugin direct, offline access to a host's audio material — without having to process it in real time. Cabbage supports ARA through a companion `.ara.csd` file that runs a Csound processor offline and feeds the results back into the main instrument. To maximize throughput, the offline processor runs asynchronously. It pushes audio data into Csound IO buffers in a continuous loop, bypassing real-time constraints for efficient, non-blocking sample processing.
 
 ### Exporting an ARA plugin
 
@@ -23,22 +23,22 @@ MyInstrument.csd          ← main instrument
 MyInstrument.ara.csd      ← ARA analysis script (optional)
 ```
 
-If the companion file is found, Cabbage reads the `<CabbageARA>` section to discover which Csound channels the analysis script will write. After the host grants sample access, Cabbage runs the `.ara.csd` offline — feeding the audio data in block by block — and then writes the resulting channel values back into the main Csound instance.
+If the companion file is found, Cabbage reads the `<CabbageARA>` section to discover which Csound channels the offline processor will write to. After the host grants sample access, Cabbage runs the `.ara.csd` offline, feeding the audio data in block by block. It then writes the resulting channel values back into the main Csound instance.
 
 In ARA, all plugin instances in a project share one ARA document model. That model can contain many audio sources (for example, across multiple tracks). To support this, Cabbage forwards analysis results as arrays in the main instrument: each source occupies one array index.
 
 ### The `<CabbageARA>` section
 
-Add a `<CabbageARA>` block to your `.ara.csd` file to declare the output channels your analysis script produces. The `<CabbageARA>` object supports:
+Add a `<CabbageARA>` block to your `.ara.csd` file to declare the output channels your offline processor produces. The `<CabbageARA>` object supports:
 
-- `channels` (required): array of channel definitions produced by the analysis pass
+- `channels` (required): array of channel definitions produced by the offline processor.
 - `testFile` (optional): local audio file path used by VS Code extension for standalone ARA testing.
 
 Each item in `channels` has two fields:
 
 | Field  | Values            | Description                                      |
 |--------|-------------------|--------------------------------------------------|
-| `id`   | any string        | The Csound channel name written by the analysis  |
+| `id`   | any string        | The Csound channel name written by the offline processor  |
 | `type` | `number`, `string`| The channel type; string values may contain JSON |
 
 Example including `testFile`:
@@ -54,7 +54,7 @@ Example including `testFile`:
 </CabbageARA>
 ```
 
-### Writing analysis results
+### Writing offline data
 
 Inside the `<CsInstruments>` instrument section of your `.ara.csd`, write values to the declared channels during performance:
 
@@ -94,7 +94,7 @@ endin
 
 📃 **Note:** The `ARA_ENDED` channel will be set to 1 after all samples have been processed. While you can write data continuously to named channels during processing, it is often more efficient to compute the data and write it once at the end of the performance.
 
-After the analysis pass completes, any declared channels are forwarded to the main Csound. They can be queried using `chnget` and `chnset`.
+After the offline processor pass completes, any declared channels are forwarded to the main Csound. They can be queried using `chnget` and `chnset`.
 
 In the main instrument, each declared channel is exposed as a array channel. Although 64 slots are allocated internally, the number of valid entries is given by `ARA_SOURCE_COUNT`.
 
@@ -108,7 +108,7 @@ Source metadata is also exposed as arrays using plural names:
 
 ### Reading results in the main instrument
 
-Once analysis is complete, read declared channels as arrays, then index with `ARA_CURRENT_SOURCE_INDEX`. 
+Once offline processing is complete, read declared channels as arrays, then index with `ARA_CURRENT_SOURCE_INDEX`. 
 
 ```csound
 count:i = chnget("ARA_SOURCE_COUNT")
@@ -157,7 +157,7 @@ Cabbage automatically sets the following read-only channels in the `.ara.csd` be
 | `ARA_SOURCE_SR`       | number | Sample rate                                         |
 | `ARA_SOURCE_CHANNELS` | number | Number of audio channels                            |
 | `ARA_SOURCE_DURATION` | number | Duration in seconds                                 |
-| `ARA_ENDED`           | number | Set to `1` on the final k-cycle of the analysis pass — use this to trigger any end-of-analysis writes |
+| `ARA_ENDED`           | number | Set to `1` on the final k-cycle of the offline processor pass — use this to trigger any end-of-performance writes |
 
 In the main instrument, Cabbage also provides:
 
@@ -175,6 +175,6 @@ In the main instrument, Cabbage also provides:
 
 ### Testing without a DAW (CabbageApp)
 
-During development, you can use the optional `testFile` attribute in `<CabbageARA>` (shown above) to test ARA analysis without an ARA-capable host.
+During development, you can use the optional `testFile` attribute in `<CabbageARA>` (shown above) to test ARA offline processors without an ARA-capable host.
 
-When CabbageApp detects a `.ara.csd` companion file with a `testFile` path it will automatically read the audio file (WAV, FLAC, Ogg, and MP3 are supported) and run the analysis pass, making it straightforward to develop and debug analysis scripts without leaving your normal Cabbage workflow.
+When the VS-Code extension detects a `.ara.csd` companion file with a `testFile` path it will automatically read the audio file (WAV, FLAC, Ogg, and MP3 are supported) and run the offline pass, making it straightforward to develop and debug offline processors without leaving your normal Cabbage workflow.
