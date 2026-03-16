@@ -1,7 +1,9 @@
 <Cabbage>
 {
-    "widgets": [
-        { "type": "form", "caption": "Label Example", "size": {"width": 500, "height": 500}, "pluginId": "def1" },
+    "pluginId"      : "def1",
+    "enableDevTools": true,
+    "widgets"       : [
+        { "type": "form", "caption": "Label Example", "size": {"width": 500, "height": 500} },
         {
             "type"       : "image",
             "channels"   : [

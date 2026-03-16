@@ -1,7 +1,9 @@
 <Cabbage>
 {
-    "widgets": [
-        { "type": "form", "caption": "Button Example", "size": {"width": 380, "height": 300}, "pluginId": "def1" },
+    "pluginId"      : "def1",
+    "enableDevTools": true,
+    "widgets"       : [
+        { "type": "form", "caption": "Button Example", "size": {"width": 380, "height": 300} },
         {
             "type"    : "button",
             "bounds"  : {"left": 16, "top": 12, "width": 117, "height": 30},

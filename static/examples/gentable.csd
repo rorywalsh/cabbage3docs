@@ -1,7 +1,9 @@
 <Cabbage>
 {
-    "widgets": [
-        { "type": "form", "caption": "Gentable Example", "size": {"width": 400, "height": 650}, "guiMode": "queue", "pluginId": "def1" },
+    "pluginId"      : "def1",
+    "enableDevTools": true,
+    "widgets"       : [
+        { "type": "form", "caption": "Gentable Example", "size": {"width": 400, "height": 650}, "guiMode": "queue" },
         { "type": "genTable", "bounds": {"left": 10, "top": 7, "width": 380, "height": 200}, "id": "gentable1", "tableNumber": 1 },
         {
             "type"    : "horizontalSlider",

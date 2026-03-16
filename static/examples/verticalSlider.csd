@@ -1,7 +1,9 @@
 <Cabbage>
 {
-    "widgets": [
-        { "type": "form", "caption": "Slider Example", "size": {"width": 520, "height": 480}, "guiMode": "queue", "pluginId": "def1" },
+    "pluginId"      : "def1",
+    "enableDevTools": true,
+    "widgets"       : [
+        { "type": "form", "caption": "Slider Example", "size": {"width": 520, "height": 480}, "guiMode": "queue" },
         {
             "type"    : "verticalSlider",
             "bounds"  : {"left": 20, "top": 20, "width": 100, "height": 200},

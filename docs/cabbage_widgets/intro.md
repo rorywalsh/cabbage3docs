@@ -18,13 +18,23 @@ A Cabbage UI is defined by a root JSON object and must contain a `widgets` array
 </Cabbage>
 ```
 
-Apart from the "widgets" array, the `<Cabbage>` block can also contain a "package" object:
+Apart from the "widgets" array, the `<Cabbage>` block can also contain top-level configuration properties:
+
+### Plugin ID
+
+```json
+"pluginId": "MyPl"
+```
+
+The unique identifier for the plugin. This is **required** for all plugins. If the ID is exactly 4 characters, it will be automatically prefixed with `com.cabbageaudio.` (e.g., `"MyPl"` becomes `com.cabbageaudio.MyPl`). If longer than 4 characters, it's assumed to be a complete reversed domain name (e.g., `"com.mycompany.myplugin"`).
+
+### Package Object
 
  ```json
 "package" : {
     "include": [ {"src": "sample", "dest": "samples"} ],
     "cabzOuputDir":""
-},
+}
 ```
 
 The package object is used to manage the resources required by your instruments when they are exported. The package accepts an array of `src/dest` pairs. The `src` value may be a relative or absolute path and can include file wildcards (for example, * or **).
@@ -33,7 +43,86 @@ The package object is used to manage the resources required by your instruments 
 "include": [ {"src": "/Users/me/cabbage3-recipes/samples/*.wav", "dest": "audioSamples"} ]
 ```
 
-This example copies all `.wav` files from the samples folder into an audioSamples folder located at the top level of the exported plugin’s resources directory. The `dest` directory is always the top level directory. If your `src` is a folder, and you leave out the `dest` dir, all the files from that folder will be placed in the top-level plugin resource directory. `cabzOutputDir` is the output location for encrypted resource, available only in the Cabbage pro add-on.
+This example copies all `.wav` files from the samples folder into an audioSamples folder located at the top level of the exported plugin's resources directory. The `dest` directory is always the top level directory. If your `src` is a folder, and you leave out the `dest` dir, all the files from that folder will be placed in the top-level plugin resource directory. `cabzOutputDir` is the output location for encrypted resource, available only in the Cabbage pro add-on.
+
+### Channel Configuration
+
+```json
+"channelConfig": {
+    "inputs": ["2"],
+    "outputs": ["2"]
+}
+```
+
+Defines the audio I/O bus configuration for the plugin. The `inputs` and `outputs` arrays specify the channel count for each bus. In this example, both input and output have a single stereo bus (2 channels each).
+
+For backward compatibility, you can also use the legacy string format:
+```json
+"channelConfig": "2-2"
+```
+
+See the [Multichannel Support](../using_cabbage/multichannel.md) documentation for detailed information.
+
+### Developer Tools
+
+```json
+"enableDevTools": true
+```
+
+When set to `true`, enables the browser developer tools in the plugin window (plugin mode only). Useful for debugging custom JavaScript interfaces.
+
+### Logger
+
+```json
+"logger": {
+    "enabled": true,
+    "file": "debug.log",
+    "replace": false
+}
+```
+
+Configures file-based logging for debugging (plugin mode only):
+- `enabled`: Whether to write debug logs to a file
+- `file`: Path to the log file (relative to the .csd file location, or absolute)
+- `replace`: If `true`, overwrites the existing log file on plugin initialization; if `false`, appends to it
+
+### Complete Example
+
+A complete Cabbage JSON structure with top-level configuration:
+
+```json
+<Cabbage>{
+    "pluginId": "MyPl",
+    "channelConfig": {
+        "inputs": ["2"],
+        "outputs": ["2"]
+    },
+    "widgets": [
+        {
+            "type": "form",
+            "caption": "My Plugin",
+            "size": {"width": 600, "height": 400}
+        },
+        {
+            "type": "rotarySlider",
+            "id": "mainGain",
+            "channels": [{
+                "id": "gain",
+                "range": {"min": 0, "max": 1, "value": 0.5}
+            }]
+        }
+    ],
+    "enableDevTools": false,
+    "logger": {
+        "enabled": false,
+        "file": "debug.log",
+        "replace": true
+    },
+    "package": {
+        "include": [ {"src": "samples", "dest": "samples"} ]
+    }
+}</Cabbage>
+```
 
 
 ## Widget Channels

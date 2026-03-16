@@ -1,20 +1,19 @@
-import Pluginid from "./properties/pluginId.mdx";
 import Caption from "./properties/caption.mdx";
-import ChannelConfig from "./properties/channelConfig.mdx";
-import EnableDevTools from "./properties/enableDevTools.mdx";
-import Logger from "./properties/logger.mdx";
 import Size from "./properties/size.mdx";
 import Id from "./properties/id.mdx";
 import Visible from "./properties/visible.mdx";
 import ZIndex from "./properties/zindex.mdx";
-import Package from "./properties/package.mdx"
 import CodeBlock from '@theme/CodeBlock';
 import widgetCode from '!!raw-loader!../../static/examples/checkbox.csd';
 import StyleForm from "./properties/form.style.mdx";
 
 # Form
 
-`form` creates the main application window. `pluginId` is the only required property, while `caption` will only be used when running an instrument as a standalone. The default values for size are 600x300. There can only be one form per instrument, and it has the unique channel name of `MainForm`.
+`form` creates the main application window. The default values for size are 600x300. There can only be one form per instrument, and it has the unique channel name of `MainForm`. The `caption` property will only be displayed when running an instrument as a standalone application.
+
+:::note
+Configuration properties like `pluginId`, `channelConfig`, `enableDevTools`, `logger`, and `package` have been moved to the top-level of the Cabbage JSON structure. See the [Widget Introduction](./intro.md) for more details.
+:::
 
 ## Properties (alphabetical)
 
@@ -24,22 +23,6 @@ Below is the full, alphabetical list of top-level widget properties for `form`.
 <a id="caption" class="anchor-target"></a>
 ### Caption
 <Caption />
-
-<a id="channelConfig" class="anchor-target"></a>
-### ChannelConfig
-<ChannelConfig />
-
-<a id="enableDevTools" class="anchor-target"></a>
-### EnableDevTools
-<EnableDevTools />
-
-<a id="logger" class="anchor-target"></a>
-### Logger
-<Logger />
-
-<a id="package" class="anchor-target"></a>
-### Package
-<Package />
 
 <a id="id" class="anchor-target"></a>
 ### Id

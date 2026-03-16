@@ -1,7 +1,9 @@
 <Cabbage>
 {
-    "widgets": [
-        { "type": "form", "caption": "Button Example", "size": {"width": 380, "height": 300}, "guiMode": "queue", "pluginId": "def1" },
+    "pluginId"      : "def1",
+    "enableDevTools": true,
+    "widgets"       : [
+        { "type": "form", "caption": "Button Example", "size": {"width": 380, "height": 300}, "guiMode": "queue" },
         {
             "type"    : "checkBox",
             "bounds"  : {"left": 10, "top": 16, "width": 126, "height": 18},
