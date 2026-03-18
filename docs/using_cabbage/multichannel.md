@@ -5,94 +5,64 @@ description: Managing multichannel setups
 
 While any instrument that processes more than one signal channel can be considered multichannel, the term is typically used for instruments that handle more than two channels.
 
-In a vanilla Csound instrument you would use `nchnls` and `nchnls_i` to declare the number of output and input channels respectively. In Cabbage, however, you should use the `channelConfig` object in the Cabbage JSON instead. The reason is that a plugin does not get to decide its own channel layout, that is ultimately up to the host DAW. All Cabbage can do is request a configuration and hope the host honours it. By declaring your layout through `channelConfig`, Cabbage can set `nchnls` and `nchnls_i` for you automatically and ensure the values stay consistent with what the host has actually granted.
+## Defining channel configuration
 
-📃 **Note:** If no `channelConfig` is provided, Cabbage falls back to whatever `nchnls` / `nchnls_i` values are present in the Csound header.
+In Cabbage 3, the number of input and output channels is controlled exclusively by the `channelConfig` property within the JSON header. If no `channelConfig` is defined, the plugin defaults to a standard stereo configuration (2 in, 2 out). 
 
-## Buses
+Cabbage dynamically overrides Csound’s internal channel settings to match the layout requested by the channelConfig or the host DAW. This ensures that Csound’s channel count always aligns perfectly with the DAW’s signal path or the hardware output when running in standalone mode. You can still query `nchnls` or `nchnls_i` within your orchestra code, but note they will given a value directly from the host.  
 
-An audio bus is a logical grouping of audio channels that allows for the routing and processing of multiple audio signals as a single unit. Buses enable plugins to handle mono, stereo, surround, or custom configurations and integrate cleanly with a DAW's mixing and routing workflows. Sidechaining, for example, is typically handled via a dedicated bus.
-
-Define bus configurations at the **top level** of the Cabbage JSON using the `channelConfig` property. It accepts an object with `inputs` and `outputs` arrays. Each element in the array is a string that uses dot notation to list the channel count of each bus — for example `"2.1"` means a stereo bus followed by a mono bus.
-
-### Stereo in, stereo out (simple effect)
+`channelConfig` is an array of named configurations. Each entry describes one layout that the host can choose from:
 
 ```json
-<Cabbage>{
-    "pluginId": "def1",
-    "channelConfig": {
-        "inputs": ["2"],
-        "outputs": ["2"]
-    },
-    "widgets": [
-        {
-            "type": "form",
-            "caption": "Effect",
-            "size": { "height": 300, "width": 580 }
-        }
-    ]
-}</Cabbage>
+"channelConfig": [
+    { "name": "Stereo",    "ins": "2",   "outs": "2" },
+    { "name": "Mono",      "ins": "1",   "outs": "1" }
+]
 ```
 
-- `"inputs": ["2"]` — one stereo input bus
-- `"outputs": ["2"]` — one stereo output bus
+The first entry is used on initial load. The host can switch between configurations at runtime (if it supports the CLAP audio ports config extension), and Cabbage will restart Csound with the correct channel count automatically.
 
-### Two stereo input buses (dual-bus input)
+📃 **Note:** `nchnls` and `nchnls_i` in the Csound `<CsInstruments>` block are ignored for routing purposes. Cabbage always sets Csound's channel count from `channelConfig`. You should still write `nchnls`/`nchnls_i` in your CSD if your Csound code depends on them internally, but they have no effect on what the host sees.
 
-Some workflows require two independent stereo inputs — for example, mixing two sources before processing. Use dot notation within the string to define multiple buses: `"2.2"` means two stereo buses.
+## Instruments with sidechains
+
+A sidechain is an auxiliary input bus that a plugin uses as a control signal rather than as audio to process directly. A typical sidechain effect has a stereo main input and a separate mono sidechain input. In Cabbage, multiple input buses are expressed using `+` to separate the channel count of each bus:
 
 ```json
-<Cabbage>{
-    "pluginId": "def1",
-    "channelConfig": {
-        "inputs": ["2.2"],
-        "outputs": ["2"]
-    },
-    "widgets": [
-        {
-            "type": "form",
-            "caption": "Dual Input Effect",
-            "size": { "height": 300, "width": 580 }
-        }
-    ]
-}</Cabbage>
+"channelConfig": [
+    { "name": "Sidechain", "ins": "2+1", "outs": "2" },
+    { "name": "Stereo",    "ins": "2",   "outs": "2" }
+]
 ```
 
-- `"inputs": ["2.2"]` — two stereo input buses (4 total input channels)
-- `"outputs": ["2"]` — one stereo output bus
+Here `"ins": "2+1"` means two buses on the input side: a stereo bus (2 channels) followed by a mono sidechain bus (1 channel). The same `+` notation works for outputs if you need multiple output buses.
 
-### Stereo + mono sidechain input
+In your Csound code the sidechain channels arrive after the main input channels, so for `"2+1"` inputs:
 
-For the sidechain example above, group the main stereo input into one bus and the sidechain into a separate mono bus. Use `"2.1"` — two buses: stereo + mono.
+```csound
+aL, aR     ins          ; main stereo input (channels 1 & 2)
+aSide      inch 3       ; sidechain input   (channel 3)
+```
+
+## Multiple configurations
+
+You can offer several configurations and let the host (or user) choose:
 
 ```json
-<Cabbage>{
-    "pluginId": "def1",
-    "channelConfig": {
-        "inputs": ["2.1"],
-        "outputs": ["2"]
-    },
-    "widgets": [
-        {
-            "type": "form",
-            "caption": "Sidechain Effect",
-            "size": { "height": 300, "width": 580 }
-        }
-    ]
-}</Cabbage>
+"channelConfig": [
+    { "name": "Stereo",          "ins": "2",   "outs": "2" },
+    { "name": "Mono",            "ins": "1",   "outs": "1" },
+    { "name": "Sidechain",       "ins": "2+1", "outs": "2" },
+    { "name": "Quad",            "ins": "4",   "outs": "4" }
+]
 ```
 
-- `"inputs": ["2.1"]` — stereo main bus + mono sidechain bus (3 total input channels)
-- `"outputs": ["2"]` — one stereo output bus
-
-Some hosts may still override the requested bus configuration. For example, dropping an instrument onto a mono track in Logic will cause Logic to change the configuration to mono. In this case Cabbage will overwrite `nchnls` and set it to 1. It is therefore recommended to guard your output code:
+When a host changes the active configuration, Cabbage detects the channel count change and reinitialises Csound with the new values. It is good practice to write defensive Csound code that handles different channel counts at runtime (failure to do so will result in undefined behaviour):
 
 ```csound
 if (nchnls == 1) then
-    outs (aLeft+aRight)/2
+    outs (aLeft + aRight) / 2
 else
     outs aLeft, aRight
 endif
 ```
-
-This prevents Csound from attempting to access a channel that the host has not made available.
