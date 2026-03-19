@@ -1,6 +1,6 @@
-# Reserved Channels
+# Reserved Csound Channels
 
-Reserved channels in Cabbage 3 are special string or numeric channels automatically populated by the Cabbage engine. Some provide system-specific directory paths, while others convey environmental or system information, such as window dimensions or plugin status. These channels give you a cross-platform way to access common system directories or runtime data without hardcoding values. Cabbage 3 works with absolute file paths, so be sure to derive all file paths from known locations where appropriate.
+Cabbage 3 will initialise a set of named Csound channels when it first loads. Some provide system-specific directory paths, while others convey environmental or system information, such as window dimensions or plugin status. These channels provide a cross-platform way to access common system directories or runtime data without hardcoding values. Cabbage 3 works with absolute file paths, so be sure to derive all file paths from known locations where appropriate.
 
 - [CSD_PATH](#csd_path)
 - [IS_A_PLUGIN](#is_a_plugin)
