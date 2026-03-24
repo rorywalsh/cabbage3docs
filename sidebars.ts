@@ -87,6 +87,8 @@ const sidebars: SidebarsConfig = {
         'cabbage_opcodes/cabbageGet',
         'cabbage_opcodes/cabbageGetFiles',
         'cabbage_opcodes/cabbageGetValue',
+        'cabbage_opcodes/cabbageGetWidgets',
+        'cabbage_opcodes/cabbageHasKey',
         'cabbage_opcodes/cabbageLoadState',
         'cabbage_opcodes/cabbageSaveState',
         'cabbage_opcodes/cabbageSendMessage',
