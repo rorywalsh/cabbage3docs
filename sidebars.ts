@@ -34,7 +34,7 @@ const sidebars: SidebarsConfig = {
         'using_cabbage/exporting_instruments',
         'using_cabbage/reserved_channels',
         'using_cabbage/media_files',
-        'using_cabbage/multichannel',
+        'using_cabbage/channels',
         'using_cabbage/commands',
         'using_cabbage/ara_support',
 

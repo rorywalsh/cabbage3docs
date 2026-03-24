@@ -2,6 +2,9 @@
 {
     "pluginId"      : "test",
     "enableDevTools": true,
+    "channelConfig": [
+        { "name": "Stereo",    "ins": "2",   "outs": "2" },
+    ],
     "widgets"       : [
         { "type": "form", "caption": "XyPad Test", "size": {"width": 400, "height": 400}, "guiMode": "queue" },
         {

@@ -48,20 +48,15 @@ This example copies all `.wav` files from the samples folder into an audioSample
 ### Channel Configuration
 
 ```json
-"channelConfig": {
-    "inputs": ["2"],
-    "outputs": ["2"]
-}
+"channelConfig": [
+    { "name": "Stereo",    "ins": "2",   "outs": "2" },
+    { "name": "Mono",      "ins": "1",   "outs": "1" }
+]
 ```
 
-Defines the audio I/O bus configuration for the plugin. The `inputs` and `outputs` arrays specify the channel count for each bus. In this example, both input and output have a single stereo bus (2 channels each).
+Defines the preferred audio I/O bus configuration for the plugin. In this example, the plugin indicates that both stereo and mono layouts are supported. 
 
-For backward compatibility, you can also use the legacy string format:
-```json
-"channelConfig": "2-2"
-```
-
-See the [Multichannel Support](../using_cabbage/multichannel.md) documentation for detailed information.
+See the [Audio Channel Configuration](../using_cabbage/channels.md) documentation for detailed information.
 
 ### Developer Tools
 

@@ -2,6 +2,9 @@
 {
     "pluginId"      : "def1",
     "enableDevTools": true,
+    "channelConfig": [
+        { "name": "Stereo",    "ins": "2",   "outs": "2" },
+    ],
     "widgets"       : [
         { "type": "form", "caption": "Gentable Example", "size": {"width": 400, "height": 650}, "guiMode": "queue" },
         {
