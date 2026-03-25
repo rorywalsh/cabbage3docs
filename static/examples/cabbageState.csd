@@ -27,84 +27,84 @@ be lost when working with the UI editor. -->
             }
         },
         {
-            "type"         : "rotarySlider",
-            "bounds"       : {"left": 9, "width": 60, "height": 48},
-            "label"        : {"text": "Harmonic 1"},
-            "style"        : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
-            "channels"     : [
+            "type"    : "rotarySlider",
+            "bounds"  : {"left": 9, "width": 60, "height": 48},
+            "label"   : {"text": "Harmonic 1"},
+            "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
+            "channels": [
                 { "id": "harmonic1", "range": {"max": 1000} }
             ],
-            "valueOnlySave": true
+            "fullSave": true
         },
         {
-            "type"         : "rotarySlider",
-            "bounds"       : {"left": 77, "width": 60, "height": 48},
-            "label"        : {"text": "Harmonic 2"},
-            "style"        : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
-            "channels"     : [
+            "type"    : "rotarySlider",
+            "bounds"  : {"left": 77, "width": 60, "height": 48},
+            "label"   : {"text": "Harmonic 2"},
+            "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
+            "channels": [
                 { "id": "harmonic2", "range": {"max": 1000} }
             ],
-            "valueOnlySave": true
+            "fullSave": true
         },
         {
-            "type"         : "rotarySlider",
-            "bounds"       : {"left": 145, "width": 60, "height": 48},
-            "label"        : {"text": "Harmonic 3"},
-            "style"        : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
-            "channels"     : [
+            "type"    : "rotarySlider",
+            "bounds"  : {"left": 145, "width": 60, "height": 48},
+            "label"   : {"text": "Harmonic 3"},
+            "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
+            "channels": [
                 { "id": "harmonic3", "range": {"max": 1000} }
             ],
-            "valueOnlySave": true
+            "fullSave": true
         },
         {
-            "type"         : "rotarySlider",
-            "bounds"       : {"left": 212, "width": 60, "height": 48},
-            "label"        : {"text": "Harmonic 4"},
-            "style"        : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
-            "channels"     : [
+            "type"    : "rotarySlider",
+            "bounds"  : {"left": 212, "width": 60, "height": 48},
+            "label"   : {"text": "Harmonic 4"},
+            "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
+            "channels": [
                 { "id": "harmonic4", "range": {"max": 1000} }
             ],
-            "valueOnlySave": true
+            "fullSave": true
         },
         {
-            "type"         : "rotarySlider",
-            "bounds"       : {"top": 68, "width": 60, "height": 48},
-            "label"        : {"text": "Harmonic 5"},
-            "style"        : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
-            "channels"     : [
+            "type"    : "rotarySlider",
+            "bounds"  : {"top": 68, "width": 60, "height": 48},
+            "label"   : {"text": "Harmonic 5"},
+            "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
+            "channels": [
                 { "id": "harmonic5", "range": {"max": 1000} }
             ],
-            "valueOnlySave": true
+            "fullSave": true
         },
         {
-            "type"         : "rotarySlider",
-            "bounds"       : {"left": 78, "top": 68, "width": 60, "height": 48},
-            "label"        : {"text": "Harmonic 6"},
-            "style"        : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
-            "channels"     : [
+            "type"    : "rotarySlider",
+            "bounds"  : {"left": 78, "top": 68, "width": 60, "height": 48},
+            "label"   : {"text": "Harmonic 6"},
+            "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
+            "channels": [
                 { "id": "harmonic6", "range": {"max": 1000} }
             ],
-            "valueOnlySave": true
+            "fullSave": true
         },
         {
-            "type"         : "rotarySlider",
-            "bounds"       : {"left": 146, "top": 68, "width": 60, "height": 48},
-            "label"        : {"text": "Harmonic 7"},
-            "style"        : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
-            "channels"     : [
+            "type"    : "rotarySlider",
+            "bounds"  : {"left": 146, "top": 68, "width": 60, "height": 48},
+            "label"   : {"text": "Harmonic 7"},
+            "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
+            "channels": [
                 { "id": "harmonic7", "range": {"max": 1000} }
             ],
-            "valueOnlySave": true
+            "fullSave": true
         },
         {
-            "type"         : "rotarySlider",
-            "bounds"       : {"left": 214, "top": 68, "width": 60, "height": 48},
-            "label"        : {"text": "Harmonic 8"},
-            "style"        : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
-            "channels"     : [
+            "type"    : "rotarySlider",
+            "bounds"  : {"left": 214, "top": 68, "width": 60, "height": 48},
+            "label"   : {"text": "Harmonic 8"},
+            "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
+            "channels": [
                 { "id": "harmonic8", "range": {"max": 1000} }
             ],
-            "valueOnlySave": true
+            "fullSave": true
         },
         {
             "type"    : "csoundOutput",
@@ -125,10 +125,10 @@ be lost when working with the UI editor. -->
             "type"       : "button",
             "bounds"     : {"top": 126, "width": 116, "height": 25},
             "channels"   : [
-                { "id": "saveAllState", "range": {"increment": 0.001} }
+                { "id": "saveState", "range": {"increment": 0.001} }
             ],
             "persistence": {"preset": false, "session": false},
-            "label"      : { "text": {"on": "Save All State", "off": "Save All State"} }
+            "label"      : { "text": {"on": "Save State", "off": "Save State"} }
         },
         {
             "type"       : "button",
@@ -172,6 +172,7 @@ nchnls = 2
 0dbfs = 1
 
 wavetable@global:i = ftgen(1, 0, 4096, 10, 1, .8, .6, .4, .2, 0.1, 0.01)
+callsToReportValues@global:i init 0
 
 /* Main signal generator. A bank of 8 oscillators */
 instr MainSignal
@@ -201,6 +202,7 @@ instr RandomiseValues
     for index in [1, 2, 3, 4, 5, 6, 7, 8] do
     cabbageSetValue(sprintf("harmonic%d", index), random:i(50, 1000))
     od
+    event_i("i", "ReportValues", 1, 0)
 endin
 
 /* Quickly randomise colors */
@@ -213,12 +215,12 @@ endin
 
 /* Dedicated instrument for handling presets */
 instr PresetManager
-    saveAllButtonValue:k, saveAllButtonTrig:k = cabbageGetValue:k("saveAllState")
+    saveAllButtonValue:k, saveAllButtonTrig:k = cabbageGetValue:k("saveState")
     saveSelectedButtonValue:k, saveSelectedButtonTrig:k = cabbageGetValue:k("saveSelectedState")
     loadButtonValue:k, loadButtonTrig:k = cabbageGetValue:k("loadState")
 
     if (saveAllButtonTrig == 1) then
-        event("i", "SaveAllState", 0, 0.1)
+        event("i", "SaveState", 0, 0.1)
     endif
 
     if (saveSelectedButtonTrig == 1) then
@@ -232,31 +234,33 @@ instr PresetManager
 endin
 
 /* Save all widget state for all widgets */
-instr SaveAllState
+instr SaveState
     filename:S = sprintf("%s/savedState.json", chnget:S("CSD_PATH"))
     cabbageSaveState(filename)
 endin
 
-/* Save all widgets, but only save the channel data for any widgets in the
-valueOnlyChannels array. This can dramatically reduce the size of the
-saved state file if you have a lot of widgets, */
+/* Save all widgets, but only save the full widget data for any widgets
+in the fullSaveChannels array. */
 instr SaveSelectedState
     filename:S = sprintf("%s/savedState.json", chnget:S("CSD_PATH"))
-    valueOnlyIndex:i init 0
-    valueOnlyChannels:S[] init 10
+    fullSaveIndex:i init 0
+    fullSaveChannels:S[] init 10
     channels:S[] = cabbageGetWidgets()
     prints("Number of widgets found: %d\n", lenarray(channels))
 
 
     for channel in channels do
-    // Make sure key exists first..
-    if(cabbageHasKey:i(channel, "valueOnlySave") == 1) && (cabbageGet:i(channel, "valueOnlySave") == 1) then
-        valueOnlyChannels[valueOnlyIndex] = channel
-        valueOnlyIndex += 1
+    // Make sure key exists first (Csound && does not short-circuit)
+    if(cabbageHasKey:i(channel, "fullSave") == 1) then
+        if(cabbageGet:i(channel, "fullSave") == 1) then
+            fullSaveChannels[fullSaveIndex] = channel
+            fullSaveIndex += 1
+        endif
     endif
     od
 
-    cabbageSaveState(filename, valueOnlyChannels)
+    prints("Number of channels with fullSave flag: %d\n", fullSaveIndex)
+    cabbageSaveState(filename, fullSaveChannels)
 endin
 
 /* Load state data from file */
@@ -264,9 +268,16 @@ instr LoadState
     prints("Loading state...\n")
     filename:S = sprintf("%s/savedState.json", chnget:S("CSD_PATH"))
     cabbageLoadState(filename)
+    event_i("i", "ReportValues", 1, 0)
 endin
 
-
+instr ReportValues
+    prints("Current values: %d\n", callsToReportValues)
+    callsToReportValues += 1
+    for index in [1, 2, 3, 4, 5, 6, 7, 8] do
+    prints("%f\n", cabbageGetValue(sprintf("harmonic%d", index)))
+    od
+endin
 </CsInstruments>
 <CsScore>
 ;causes Csound to run for about 7000 years...
