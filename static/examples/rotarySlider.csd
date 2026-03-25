@@ -2,9 +2,7 @@
 {
     "pluginId"      : "def1",
     "enableDevTools": true,
-    "channelConfig": [
-        { "name": "Stereo",    "ins": "2",   "outs": "2" },
-    ],
+    "channelConfig" : [ {"name": "Stereo", "ins": "2", "outs": "2"} ],
     "widgets"       : [
         { "type": "form", "caption": "Slider Example", "size": {"width": 560, "height": 360}, "guiMode": "queue" },
         {
@@ -13,7 +11,11 @@
             "label"   : {"text": "Harmonic 1"},
             "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
             "channels": [
-                { "id": "harmonic1", "event": "valueChanged", "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 0.001} }
+                {
+                    "id"   : "harmonic1",
+                    "event": "valueChanged",
+                    "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 0.001}
+                }
             ]
         },
         {
@@ -22,7 +24,11 @@
             "label"   : {"text": "Harmonic 2"},
             "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
             "channels": [
-                { "id": "harmonic2", "event": "valueChanged", "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 0.001} }
+                {
+                    "id"   : "harmonic2",
+                    "event": "valueChanged",
+                    "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 0.001}
+                }
             ]
         },
         {
@@ -31,7 +37,11 @@
             "label"   : {"text": "Harmonic 3"},
             "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
             "channels": [
-                { "id": "harmonic3", "event": "valueChanged", "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 0.001} }
+                {
+                    "id"   : "harmonic3",
+                    "event": "valueChanged",
+                    "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 0.001}
+                }
             ]
         },
         {
@@ -40,7 +50,11 @@
             "label"   : {"text": "Harmonic 4"},
             "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
             "channels": [
-                { "id": "harmonic4", "event": "valueChanged", "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 0.001} }
+                {
+                    "id"   : "harmonic4",
+                    "event": "valueChanged",
+                    "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 0.001}
+                }
             ]
         },
         {
@@ -49,7 +63,11 @@
             "label"   : {"text": "Harmonic 5"},
             "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
             "channels": [
-                { "id": "harmonic5", "event": "valueChanged", "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 0.001} }
+                {
+                    "id"   : "harmonic5",
+                    "event": "valueChanged",
+                    "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 0.001}
+                }
             ]
         },
         {
@@ -58,7 +76,11 @@
             "label"   : {"text": "Harmonic 6"},
             "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
             "channels": [
-                { "id": "harmonic6", "event": "valueChanged", "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 0.001} }
+                {
+                    "id"   : "harmonic6",
+                    "event": "valueChanged",
+                    "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 0.001}
+                }
             ]
         },
         {
@@ -67,7 +89,11 @@
             "label"   : {"text": "Harmonic 7"},
             "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
             "channels": [
-                { "id": "harmonic7", "event": "valueChanged", "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 0.001} }
+                {
+                    "id"   : "harmonic7",
+                    "event": "valueChanged",
+                    "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 0.001}
+                }
             ]
         },
         {
@@ -76,7 +102,11 @@
             "label"   : {"text": "Harmonic 8"},
             "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
             "channels": [
-                { "id": "harmonic8", "event": "valueChanged", "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 0.001} }
+                {
+                    "id"   : "harmonic8",
+                    "event": "valueChanged",
+                    "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 0.001}
+                }
             ]
         }
     ]

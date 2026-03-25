@@ -32,6 +32,7 @@ const sidebars: SidebarsConfig = {
         'using_cabbage/running_cabbage',
         'using_cabbage/working_with_instruments',
         'using_cabbage/exporting_instruments',
+        'using_cabbage/saving_and_loading_state',
         'using_cabbage/reserved_channels',
         'using_cabbage/media_files',
         'using_cabbage/channels',
