@@ -6,7 +6,9 @@ description: How to save and load widget state using presets
 import stateCode from '!!raw-loader!../../static/examples/cabbageState.csd';
 import CodeBlock from '@theme/CodeBlock';
 
-Cabbage provides a simple preset system that lets you save and restore the state of your widgets to JSON files. This is useful for building preset managers, A/B comparison tools, or any system that needs to recall a previous configuration. Note that this system is separate from the host DAW's preset management, and is purely for saving widget states within your Cabbage instrument.
+Cabbage provides a robust preset system that lets you save and restore the state of your widgets to JSON files. This is useful for building preset managers, A/B comparison tools, or any system that needs to recall a previous configuration. Note that this system is separate from the host DAW's preset management, and is purely for saving widget states within your Cabbage instrument. By default, only the channel data from each widget is saved, i.e, its channel ID and current value. The entire UI state can also be saved (see below), but is disabled by default to reduce the file size of presets. 
+
+📃 **Note:** The DAW state saving/loading will save the entire JSON tree, so any changes made to the widget's UI state will be reflected in the DAW's saved state.
 
 ## How it works
 
@@ -33,11 +35,11 @@ instr LoadState
 endin
 ```
 
-The `CSD_PATH` reserved channel gives you the directory where the `.csd` file lives, which is a convenient place to store presets alongside your instrument. Note this provide only one save file, which will be overwritten each time you save. To support multiple presets, generate unique filenames using string formatting (e.g., `preset_%d.json` with a preset number). See the extended example below for a complete implementation.
+The `CSD_PATH` reserved channel gives you the directory where the `.csd` file lives, which is a convenient place to store presets alongside your instrument. Note this provide only one save file, which will be overwritten each time you save. To support multiple presets, generate unique filenames using string formatting (e.g., `preset_%d.json` with a preset number). See the extended example below for a complete implementation of dynamic filenames.
 
 ## Triggering save/load from the UI
 
-Use buttons to trigger the save and load instruments. A long-running `PresetManager` instrument monitors the button channels and fires the appropriate instrument:
+Use buttons clicks or other such events to trigger the save and load instruments. An always on (`z` duration) `PresetManager` instrument can be used to monitor the button channels and trigger the appropriate instrument:
 
 ```csound
 instr PresetManager
@@ -54,11 +56,9 @@ instr PresetManager
 endin
 ```
 
-The `PresetManager` instrument should run for the lifetime of the plugin (use `z` duration in the score).
-
 ## Excluding widgets from presets
 
-Not every widget should be saved and restored as part of a preset. Buttons that trigger actions (like "Save" or "Load" themselves) should be excluded. Use the `persistence` property in your widget JSON to control this:
+Not every widget should be saved and restored as part of a preset. Buttons that trigger actions (like "Save" or "Load" themselves) should be excluded. If not, they can cause undefined behavior through feedback loops. Use the `persistence` property in your widget JSON to control this:
 
 ```json
 {
@@ -71,17 +71,15 @@ Not every widget should be saved and restored as part of a preset. Buttons that 
 
 Setting `"preset": false` means the widget's value will not be included in saved state files, and will not be overwritten when state is loaded. The `"session"` flag controls whether the value is saved/restored between plugin sessions by the host.
 
-## Selective saving with valueOnlySave
+## Saving a widget's full JSON data
 
-For instruments with many widgets, saving the full JSON state of every widget (colours, bounds, styles, etc.) can produce large files. If you only need to recall *values* for certain widgets, you can mark them with a custom `valueOnlySave` property and filter at save time.
-
-First, add the property to widgets whose values you want to save:
+Most widget needs only their current value saved and restored, which is what the default `cabbageSaveState` does. However, in some cases you may want to save the entire JSON state of a widget, including its UI properties (e.g., bounds, colours, styles). To do this, mark the widget with a user-defined custom property (e.g., `fullSave`) and filter at save time:
 
 ```json
 {
     "type": "rotarySlider",
     "channels": [{ "id": "harmonic1", "range": {"max": 1000} }],
-    "valueOnlySave": true
+    "fullSave": true
 }
 ```
 
@@ -90,40 +88,29 @@ Then build a filtered channel list using `cabbageGetWidgets` and `cabbageHasKey`
 ```csound
 instr SaveSelectedState
     filename:S = sprintf("%s/savedState.json", chnget:S("CSD_PATH"))
-    valueOnlyIndex:i init 0
-    valueOnlyChannels:S[] init 10
+    fullSaveIndex:i init 0
+    fullSaveChannels:S[] init 10
     channels:S[] = cabbageGetWidgets()
+    prints("Number of widgets found: %d\n", lenarray(channels))
+
 
     for channel in channels do
-        if (cabbageHasKey:i(channel, "valueOnlySave") == 1) && (cabbageGet:i(channel, "valueOnlySave") == 1) then
-            valueOnlyChannels[valueOnlyIndex] = channel
-            valueOnlyIndex += 1
+    // Make sure key exists first (Csound && does not short-circuit)
+    if(cabbageHasKey:i(channel, "fullSave") == 1) then
+        if(cabbageGet:i(channel, "fullSave") == 1) then
+            fullSaveChannels[fullSaveIndex] = channel
+            fullSaveIndex += 1
         endif
+    endif
     od
 
-    cabbageSaveState(filename, valueOnlyChannels)
+    prints("Number of channels with fullSave flag: %d\n", fullSaveIndex)
+    cabbageSaveState(filename, fullSaveChannels)
 endin
 ```
 
-When you pass a channel array as the second argument to `cabbageSaveState`, only those widgets will have their full state saved. All other widgets will have only their channel values recorded, significantly reducing file size.
+When you pass a channel array as the second argument to `cabbageSaveState`, the selected widgets will have their entire JSON data saved. When loading state, the opcode will check if the saved JSON contains full widget data for each channel. If it does, it will restore the entire widget state from the JSON. If not, it will fall back to restoring just the channel value. This allows you to mix and match widgets with different levels of saved state as needed.
 
-## Multiple presets
-
-To support multiple preset slots, use Csound string formatting to generate unique filenames:
-
-```csound
-instr SavePreset
-    presetNum:i = cabbageGetValue:i("presetSelector")
-    filename:S = sprintf("%s/preset_%d.json", chnget:S("CSD_PATH"), presetNum)
-    cabbageSaveState(filename)
-endin
-
-instr LoadPreset
-    presetNum:i = cabbageGetValue:i("presetSelector")
-    filename:S = sprintf("%s/preset_%d.json", chnget:S("CSD_PATH"), presetNum)
-    cabbageLoadState(filename)
-endin
-```
 
 ## Full example
 
