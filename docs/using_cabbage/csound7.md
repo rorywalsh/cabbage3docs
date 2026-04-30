@@ -3,7 +3,7 @@ title: Csound 7
 description: Csound 7 in Cabbage
 ---
 
-Cabbage 3 is built on Csound 7, the latest major release of the Csound audio programming language. Csound 7 is not a drop-in replacement for Csound 6 — it introduces breaking changes — but the improvements it brings make it a much stronger foundation for building audio plugins and instruments. This page highlights the Csound 7 features most relevant to Cabbage users.
+Cabbage 3 is built on Csound 7, the latest major release of the Csound audio programming language. The improvements it brings make it a much stronger foundation for building audio plugins and instruments. This page highlights the Csound 7 features most relevant to Cabbage users.
 
 ## Explicit Variable Types
 
