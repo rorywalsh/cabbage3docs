@@ -29,7 +29,6 @@ const sidebars: SidebarsConfig = {
       label: 'Using Cabbage 3',
       items: [
         'using_cabbage/overview',
-        'using_cabbage/csound7',
         'using_cabbage/running_cabbage',
         'using_cabbage/working_with_instruments',
         'using_cabbage/exporting_instruments',
@@ -39,6 +38,7 @@ const sidebars: SidebarsConfig = {
         'using_cabbage/channels',
         'using_cabbage/commands',
         'using_cabbage/ara_support',
+        'using_cabbage/csound7',
 
       ],
     },
