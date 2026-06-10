@@ -1,20 +1,26 @@
 ```json
 "channels": [
-                {
-                    "id":"channelName",
-                    "label": "Channel Name",
-                    "eventType": "valueChanged",
-                    "type": "number",
-                    "range": {"min":0, "max":100, "defaultValue":0, "skew":1, "increment":0.1}
-                }
-            ]
+    {
+        "id": "channelName",
+        "label": { "name": "Channel Name", "prefix": "", "suffix": "" },
+        "eventType": "valueChanged",
+        "type": "number",
+        "range": {"min":0, "max":100, "defaultValue":0, "skew":1, "increment":0.1}
+    }
+]
 ```
 
-In Cabbage 3, widgets use an array of channels instead of a single channel string. Each channel object includes an id that defines a unique channel name. Widgets in Cabbage 3 can have any number of channels attached to them. An optional `label` property provides a human-readable name that will be displayed in DAW parameter editors and automation lanes (if omitted, the `id` is used). An optional eventType property specifies the type of interaction. A range object can define the minimum, maximum, and default values, along with the skew and step increment. The `type` is set to `number` by default. Each widget sets its own type, `number` or `string`.
+In Cabbage 3, widgets use an array of channels instead of a single channel string. Each channel object includes an `id` that defines a unique channel name. Widgets in Cabbage 3 can have any number of channels attached to them. An optional `label` object controls how the parameter appears in DAW parameter editors and automation lanes; if omitted, the `id` is used. An optional `eventType` property specifies the type of interaction. A `range` object can define the minimum, maximum, and default values, along with the skew and step increment. The `type` is set to `number` by default. Each widget sets its own type, `number` or `string`.
 
-**Note on `label` property:**
+**Note on `label` object:**
 
-The `label` property allows you to separate the internal channel identifier from the display name shown in DAWs. This is useful when you want short, code-friendly channel IDs (e.g., `hrm1`, `hrm2`) while showing descriptive names in the DAW (e.g., `Harmonic 1`, `Harmonic 2`). Csound code continues to use the `id` for channel access via `cabbageGetValue` and `cabbageSetValue`.
+The `label` object separates the internal channel identifier from the display name shown in DAWs, and allows a prefix and suffix to be appended to the parameter's value string in the DAW. This is useful when you want short, code-friendly channel IDs (e.g., `hrm1`, `hrm2`) while showing descriptive names in the DAW (e.g., `Harmonic 1`, `Harmonic 2`). Csound code always uses the `id` for channel access via `cabbageGetValue` and `cabbageSetValue`.
+
+| Field | Description |
+| ------- | ------------------------------------------ |
+| `name` | Human-readable parameter name shown in the DAW (required if using `label`) |
+| `prefix` | String prepended to the value in the DAW's value display (optional) |
+| `suffix` | String appended to the value in the DAW's value display (optional) |
 
 ⚠️ **Important:** During runtime, range objects will be appended with the current value. You should never set this value explicilty as it will override any state recall.
 

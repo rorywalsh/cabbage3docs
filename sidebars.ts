@@ -38,6 +38,7 @@ const sidebars: SidebarsConfig = {
         'using_cabbage/channels',
         'using_cabbage/commands',
         'using_cabbage/ara_support',
+        'using_cabbage/csound7',
 
       ],
     },
