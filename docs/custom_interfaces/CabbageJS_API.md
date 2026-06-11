@@ -159,13 +159,12 @@ Handle incoming MIDI messages from the backend (callback function).
 
 ---
 
-#### `Cabbage.isReadyToLoad(vscode, additionalData)`
+#### `Cabbage.isReadyToLoad(vscode)`
 
-Signal that the UI is ready to load and initialize.
+Signal that the UI is ready to load and initialize. This must be called in order to notify the backend that the front has completed it's initial load.
 
 **Parameters:**
 - `vscode` (Object|null): VS Code API instance
-- `additionalData` (Object, optional): Additional initialization data
 
 ### Utility Functions
 
@@ -241,18 +240,14 @@ Request a resize of the plugin GUI window (plugin mode only).
 - Backend sends a `resizeResponse` message indicating acceptance and final dimensions
 
 
-### Private Functions
+#### `Cabbage.sendCustomCommand(command, vscode, data)`
 
-⚠️ **Important:** These functions are used internally and are not for general use.
-
-#### `Cabbage.sendCustomCommand(command, vscode, additionalData)`
-
-Send custom commands to the backend for specialized operations.
+Send a custom command to the backend for specialized operations.
 
 **Parameters:**
 - `command` (string): Command name
 - `vscode` (Object|null): VS Code API instance
-- `additionalData` (Object, optional): Additional data to send
+- `data` (Object, optional): Additional data to send
 
 **Example:**
 ```csound
@@ -260,6 +255,10 @@ Cabbage.sendCustomCommand('cabbageIsReadyToLoad', null);
 ```
 
 ---
+
+### Internal Functions
+
+⚠️ **Important:** These functions are used internally and are not for general use.
 
 #### `Cabbage.sendWidgetUpdate(widget, vscode)`
 
