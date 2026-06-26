@@ -12,7 +12,7 @@ kUpdate cabbageAraGetUpdate
 
 ## Description
 
-This opcode returns an integer counter that increments each time the shared ARA document model data is refreshed. Use it as a trigger to re-read source metadata or array data in the main instrument. A common pattern is to detect changes with `changed:k()` and launch a reader instrument on change.
+This opcode returns an integer counter that increments each time the shared ARA document model data is refreshed. Use it as a trigger to re-read source metadata using `cabbageAraGet`. A common pattern is to detect changes with `changed:k()` and launch a reader instrument on change.
 
 ## Example
 
@@ -26,8 +26,14 @@ instr 1
 endin
 
 instr ReadAraData
-  iCount cabbageAraGetSourceCount
-  iIndex cabbageAraGetCurrentSourceIndex
-  prints("Update detected. Sources: %d, Current: %d\n", iCount, iIndex)
+  iIdx  cabbageAraGet "currentIndex"
+  iCnt  cabbageAraGet "audioSourceCount"
+  SLast cabbageAraGet "lastEvent"
+  prints("Update [%s]: source %d of %d\n", SLast, iIdx, iCnt)
 endin
 ```
+
+## See Also
+
+- [cabbageAraGet](/cabbage3docs/docs/cabbage_opcodes/cabbageAraGet)
+- [cabbageAraGetSourceSamples](/cabbage3docs/docs/cabbage_opcodes/cabbageAraGetSourceSamples)

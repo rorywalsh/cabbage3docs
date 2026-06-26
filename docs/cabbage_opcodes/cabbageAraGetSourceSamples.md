@@ -12,7 +12,7 @@ iSamples[] cabbageAraGetSourceSamples iStart, iCount, iChan, iSourceIndex
 
 ### Initialization
 * *iChan* — zero-based channel index within the source
-* *iSourceIndex* — zero-based source index
+* *iSourceIndex* — zero-based source index (obtain from `cabbageAraGet "currentIndex"`)
 * *iStart* — first sample to read (array variants)
 * *iCount* — number of samples to read (array variants)
 
@@ -33,7 +33,7 @@ Sample positions outside the valid range return 0. Prints warnings if the source
 
 ```csound
 instr 1
-  iIndex cabbageAraGetCurrentSourceIndex
+  iIndex cabbageAraGet "currentIndex"
 
   ; Read first 100 samples from channel 0 as an array
   iSamples[] cabbageAraGetSourceSamples 0, 100, 0, iIndex
@@ -43,3 +43,8 @@ instr 1
   aOut cabbageAraGetSourceSamples aphase, 0, iIndex
 endin
 ```
+
+## See Also
+
+- [cabbageAraGet](/cabbage3docs/docs/cabbage_opcodes/cabbageAraGet)
+- [cabbageAraGetUpdate](/cabbage3docs/docs/cabbage_opcodes/cabbageAraGetUpdate)
