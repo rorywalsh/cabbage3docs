@@ -82,7 +82,7 @@ It is also quite simple to iterate over the global ARA pool manually by accessin
 
 ```csound
 instr ShowAllInfo
-    cabbageAraDump()
+    cabbageAraDump
     ; --- Top-level state ---
     idx:i      = cabbageAraGet("currentIndex")
     srcCnt:i   = cabbageAraGet("audioSourceCount")
@@ -96,7 +96,7 @@ instr ShowAllInfo
 
     ; --- Selection properties ---
     regCnt:i    = cabbageAraGet("playbackRegionCount")
-    selRegCnt:i = cabbageAraGet("selectedPlaybackRegionCount")
+    selRegCnt:i = cabbageAraGet("editorView.selectedPlaybackRegionCount")
     printfi("[Metrics] Source Count: %d  |  Region Count: %d  |  Selected: %d  |  Current Index: %d\n", 1, srcCnt, regCnt, selRegCnt, idx)
 
     ; --- Time Range Calculations ---
@@ -130,11 +130,11 @@ instr ShowAllInfo
     else
         activeSelIdx:i = 0
         while activeSelIdx < selRegCnt do
-            selRegName:S    = cabbageAraGet("playbackRegion.selectedRegionName", activeSelIdx)
-            selTimelineStart:i = cabbageAraGet("playbackRegion.selectedPlaybackStart", activeSelIdx)
-            selTimelineDur:i   = cabbageAraGet("playbackRegion.selectedPlaybackDuration", activeSelIdx)
-            selSrcStartSamp:i  = cabbageAraGet("playbackRegion.selectedRegionStartInSamples", activeSelIdx)
-            selSrcDurSamp:i    = cabbageAraGet("playbackRegion.selectedRegionDurationInSamples", activeSelIdx)
+            selRegName:S    = cabbageAraGet("editorView.selectedRegion.name", activeSelIdx)
+            selTimelineStart:i = cabbageAraGet("editorView.selectedPlayback.start", activeSelIdx)
+            selTimelineDur:i   = cabbageAraGet("editorView.selectedPlayback.duration", activeSelIdx)
+            selSrcStartSamp:i  = cabbageAraGet("editorView.selectedRegion.startInSamples", activeSelIdx)
+            selSrcDurSamp:i    = cabbageAraGet("editorView.selectedRegion.durationInSamples", activeSelIdx)
 
             printfi("[%d] '%s'\n", activeSelIdx + 1, activeSelIdx, selRegName)
             printfi("    Timeline Pos: %.3fs (Dur: %.3fs)\n", 1, selTimelineStart, selTimelineDur)

@@ -170,6 +170,35 @@ The `"lastEvent"` property will be `"notifySelection"` when the selection change
 
 ### Testing without a DAW (CabbageApp)
 
-During development, you can test ARA instruments without an ARA-capable host by using CabbageApp's standalone mode. When the VS Code extension launches a standalone ARA instrument, it will prompt you to select an audio file (WAV, FLAC, Ogg, or MP3). The audio is loaded directly and made available through the same ARA opcodes, making it straightforward to develop and debug without leaving your normal Cabbage workflow.
+During development, you can test ARA instruments without an ARA-capable host by using CabbageApp's standalone mode. There are two ways to provide audio files for testing:
+
+**VS Code extension prompt:** When the VS Code extension launches a standalone ARA instrument, it will prompt you to select an audio file (WAV, FLAC, Ogg, or MP3).
+
+**Widget JSON property:** You can pre-specify test files in the widget JSON so they load automatically without a prompt:
+
+```json
+{
+  "ara": {
+    "testFiles": ["guitar.wav", "drums.wav"]
+  }
+}
+```
+
+Relative paths are resolved from the CSD file's directory. The audio is loaded on a background thread and made available through the same ARA opcodes, making it straightforward to develop and debug without leaving your normal Cabbage workflow.
+
+### Current limitations
+
+The ARA implementation is still in its early stages. The following ARA entities are not yet fully exposed through the opcode API:
+
+| ARA Entity | Status | Notes |
+|---|---|---|
+| AudioSource | Supported | Name, channels, sample count, sample rate, duration, region crop |
+| PlaybackRegion | Supported | Name, track name, crop offset, arrangement position, source index |
+| EditorView selection | Supported | Selected region/track data, time range, hidden tracks |
+| MusicalContext | Not exposed | Callbacks fire events but properties (name, order index) are not stored |
+| RegionSequence | Partial | Track name captured via playback region, but standalone properties (order index) not exposed |
+| AudioModification | Not exposed | Used internally but not accessible through opcodes |
+
+This will be expanded in future versions as the ARA integration matures.
 
 See the [ARA Opcodes](/cabbage3docs/docs/cabbage_opcodes/cabbageAraGet) reference for the full list of available opcodes.
