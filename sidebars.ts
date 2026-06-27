@@ -82,7 +82,18 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Opcodes',
-      items: ['cabbage_opcodes/intro',
+      items: [
+        'cabbage_opcodes/intro',
+        {
+          type: 'category',
+          label: 'ARA Opcodes',
+          items: [
+            'cabbage_opcodes/cabbageAraGet',
+            'cabbage_opcodes/cabbageAraGetUpdate',
+            'cabbage_opcodes/cabbageAraGetSourceSamples',
+            'cabbage_opcodes/cabbageAraDump',
+          ],
+        },
         'cabbage_opcodes/cabbageCreate',
         'cabbage_opcodes/cabbageCreateFileName',
         'cabbage_opcodes/cabbageDump',
@@ -95,7 +106,8 @@ const sidebars: SidebarsConfig = {
         'cabbage_opcodes/cabbageSaveState',
         'cabbage_opcodes/cabbageSendMessage',
         'cabbage_opcodes/cabbageSet',
-        'cabbage_opcodes/cabbageSetValue'],
+        'cabbage_opcodes/cabbageSetValue'
+      ],
     },
     {
       type: 'html',

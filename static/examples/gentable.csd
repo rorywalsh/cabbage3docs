@@ -2,9 +2,7 @@
 {
     "pluginId"      : "def1",
     "enableDevTools": true,
-    "channelConfig": [
-        { "name": "Stereo",    "ins": "2",   "outs": "2" },
-    ],
+    "channelConfig" : [ {"name": "0 in 2 out", "ins": "0", "outs": "2"} ],
     "widgets"       : [
         { "type": "form", "caption": "Gentable Example", "size": {"width": 400, "height": 650}, "guiMode": "queue" },
         { "type": "genTable", "bounds": {"left": 10, "top": 7, "width": 380, "height": 200}, "id": "gentable1", "tableNumber": 1 },

@@ -2,9 +2,7 @@
 {
     "pluginId"      : "def2",
     "enableDevTools": true,
-    "channelConfig": [
-        { "name": "Stereo",    "ins": "2",   "outs": "2" },
-    ],
+    "channelConfig" : [ {"name": "0 in 2 out", "ins": "0", "outs": "2"} ],
     "widgets"       : [
         {
             "type"    : "form",

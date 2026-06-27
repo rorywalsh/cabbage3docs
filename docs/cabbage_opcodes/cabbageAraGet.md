@@ -68,9 +68,8 @@ These query the crop/edit state of a source within its audio modification. The v
 | `"audioSource.region.duration"` | number | source idx | Crop duration in seconds |
 | `"audioSource.region.durationInSamples"` | number | source idx | Crop duration in samples |
 
-:::note
-`audioSource.region.start`/`audioSource.region.duration` and `audioSource.region.startInSamples`/`audioSource.region.durationInSamples` represent the same crop offset in different units.
-:::
+📃 **Note:** `audioSource.region.start`/`audioSource.region.duration` and `audioSource.region.startInSamples`/`audioSource.region.durationInSamples` represent the same crop offset in different units.
+
 
 ## EditorView Properties
 
@@ -99,9 +98,8 @@ These query individual selected playback regions (clips on the timeline). Use a 
 | `"editorView.selectedPlayback.start"` | number | selection idx | Where the selected playback region sits on the host arrangement timeline (seconds) |
 | `"editorView.selectedPlayback.duration"` | number | selection idx | Duration of the selected playback region on the host arrangement timeline (seconds) |
 
-:::note
-Selection properties are indexed by position within the selection, not by source pool index. These are separate index spaces.
-:::
+📃 **Note:** Selection properties are indexed by position within the selection, not by source pool index. These are separate index spaces.
+
 
 ## Playback Regions
 
@@ -117,9 +115,9 @@ These query all playback regions (clips) in the document, not just the selected 
 | `"playbackRegion.duration"` | number | pr idx | Duration on the host arrangement timeline (seconds) |
 | `"playbackRegion.sourceIndex"` | number | pr idx | Source pool index for this playback region's source |
 
-:::note
+📃 **Note:** 
 Playback region index is separate from source pool index and selection index. The playback region array is updated via ARA lifecycle callbacks (`playbackRegionAddedToRegionSequence`, `playbackRegionRemovedFromRegionSequence`, `playbackRegionPropertiesUpdated`, `playbackRegionWillDestroy`).
-:::
+
 
 ## Examples
 

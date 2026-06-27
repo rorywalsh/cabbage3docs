@@ -7,7 +7,7 @@ description: Using ARA (Audio Random Access) with Cabbage 3
    
 In an ARA document, you'll find references to several key entities:
 
-* **Audio Sources (`AudioSource`):** Provide the low-level PCM data and properties for any audio asset loaded into a DAW session. >Note: AudioSource's have their own playbackRegions, don't confuse these with the higer level PlaybackRegions listed below. 
+* **Audio Sources (`AudioSource`):** Provide the low-level PCM data and properties for any audio asset loaded into a DAW session. 📃 **Note:** AudioSource's have their own playbackRegions, don't confuse these with the higer level PlaybackRegions listed below. 
 * **Playback Regions (`PlaybackRegion`):** Represent how an audio source is mapped onto the DAW timeline as a clip. It contains information about the region's duration, its start time on the DAW timeline, and its internal start time/offset relative to the raw audio file. Cropping the start or end of an audio clip in the DAW will modify this `PlaybackRegion` structure. Note that duplicating an audio source across multiple tracks will increase the number of regions, but not the number of audio sources. 
 * **Region Sequences (`RegionSequence`):** Represent a collection of playback regions grouped together, typically mapping to tracks, lanes, or channels in the host.
 * **View Selection (`ViewSelection`):** Provides real-time information about the host's current user selection, which can include specific playback regions, region sequences, and/or a distinct time range.
@@ -34,22 +34,20 @@ Use `cabbageAraGet` to query information about the available audio sources. Top-
 
 ```csound
 instr 1
-  iIdx   cabbageAraGet "currentIndex"
-  iCnt   cabbageAraGet "audioSourceCount"
-  SName  cabbageAraGet "audioSource.name", iIdx
-  iCh    cabbageAraGet "audioSource.channels", iIdx
-  iN     cabbageAraGet "audioSource.sampleCount", iIdx
-  iSr    cabbageAraGet "audioSource.sampleRate", iIdx
-  iDur   cabbageAraGet "audioSource.duration", iIdx
+  idx:i = cabbageAraGet("currentIndex")
+  count:i = cabbageAraGet("audioSourceCount")
+  name:S = cabbageAraGet("audioSource.name", idx)
+  channels:i = cabbageAraGet("audioSource.channels", idx)
+  numSamples:i = cabbageAraGet("audioSource.sampleCount", idx)
+  sampleRate:i = cabbageAraGet("audioSource.sampleRate", idx)
+  duration:i = cabbageAraGet("audioSource.duration", idx)
 
-  prints("Source '%s': %d ch, %d samples, %d Hz, %.2f sec\n",
-         SName, iCh, iN, iSr, iDur)
+  prints("Source '%s': %d ch, %d samples, %d Hz, %.2f sec\n", name, channels, numSamples, sampleRate, duration)
 endin
 ```
 
-:::note
-Property names use dot notation to express the data hierarchy. For example, `audioSource.region.start` queries the crop start position of the audio source. Properties ending in `InSamples` are in samples at the source's sample rate; without the suffix, they're in seconds.
-:::
+📃 **Note:** Property names use dot notation to express the data hierarchy. For example, `audioSource.region.start` queries the crop start position of the audio source. Properties ending in `InSamples` are in samples at the source's sample rate; without the suffix, they're in seconds.
+
 
 ### Reading audio data
 
@@ -57,15 +55,27 @@ Use `cabbageAraGetSourceSamples` to read raw PCM data from a source. It supports
 
 ```csound
 instr 1
-  iIdx  cabbageAraGet "currentIndex"
-  iN    cabbageAraGet "audioSource.sampleCount", iIdx
-  ; Read samples from channel 0 as a k-rate array
-  kSamples[] = cabbageAraGetSourceSamples(0, iN, 0, iIdx)
+    ; Query the pool index for this instance's source
+    idx:i = cabbageAraGet("currentIndex")
 
-  ; Or read sample-by-sample at audio rate
-  aPhase phasor sr / iN
-  sig:a = cabbageAraGetSourceSamples(aPhase, 0, iIdx)
-  out(sig, sig)
+    ; Query structural asset parameters via the consolidated opcode
+    name:S       = cabbageAraGet("audioSource.name", idx)
+    sampleRate:i = cabbageAraGet("audioSource.sampleRate", idx)
+    channels:i   = cabbageAraGet("audioSource.channels", idx)
+    updateCounter:k = cabbageAraGetUpdate()
+
+    ; Detect new ARA lifecycle events
+    if changed(updateCounter) == 1 then
+        ; Query region properties (crop position within source file)
+        regionStart:i = cabbageAraGet("audioSource.region.startInSamples", idx)
+        regionDuration:i = cabbageAraGet("audioSource.region.durationInSamples", idx)
+        printf("Asset: %s [SR: %d, Chans: %d]\n", updateCounter, name, sampleRate, channels)
+    endif
+
+    ; Read raw audio samples at audio-rate position
+    ; audioSignal:a = cabbageAraGetSourceSamples(position, 0, idx)
+    ; Apply normalization: gain:k = targetLevel / peak
+    ; normalizedSignal:a = audioSignal * gain
 endin
 ```
 
@@ -188,7 +198,7 @@ Relative paths are resolved from the CSD file's directory. The audio is loaded o
 
 ### Current limitations
 
-The ARA implementation is still in its early stages. The following ARA entities are not yet fully exposed through the opcode API:
+The ARA implementation is still in its early stages. The following table represents the current implementation status.
 
 | ARA Entity | Status | Notes |
 |---|---|---|

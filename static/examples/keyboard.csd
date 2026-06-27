@@ -2,9 +2,7 @@
 {
     "pluginId"      : "def1",
     "enableDevTools": true,
-    "channelConfig": [
-        { "name": "Stereo",    "ins": "0",   "outs": "2" },
-    ],
+    "channelConfig" : [ {"name": "0 in 2 out", "ins": "0", "outs": "2"} ],
     "widgets"       : [
         { "type": "form", "caption": "Combobox Example", "size": {"width": 580, "height": 500} },
         {

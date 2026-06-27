@@ -1,9 +1,7 @@
-<!--⚠️ Warning: Any custom formatting (indentation, spacing, or comments) may
-be lost when working with the UI editor. -->
 <Cabbage>
 {
     "pluginId"     : "def1",
-    "channelConfig": [ {"name": "Simple", "ins": "2", "outs": "2"} ],
+    "channelConfig": [ {"name": "0 in 2 out", "ins": "0", "outs": "2"} ],
     "widgets"      : [
         {
             "type"          : "form",
@@ -179,7 +177,7 @@ instr MainSignal
     // Assign all channel values to a freqs array
     freqs:k[] init 8
     for index in [k(1),k(2),k(3),k(4),k(5),k(6),k(7),k(8)] do
-    freqs[index-1] = cabbageGetValue:k(sprintfk("harmonic%d", index))
+        freqs[index-1] = cabbageGetValue:k(sprintfk("harmonic%d", index))
     od
 
     // Use new create/run opcode to create an array of oscillators and run them
@@ -200,7 +198,7 @@ endin
 instr RandomiseValues
     prints("Randomising values...\n")
     for index in [1, 2, 3, 4, 5, 6, 7, 8] do
-    cabbageSetValue(sprintf("harmonic%d", index), random:i(50, 1000))
+        cabbageSetValue(sprintf("harmonic%d", index), random:i(50, 1000))
     od
     event_i("i", "ReportValues", 1, 0)
 endin
@@ -209,7 +207,7 @@ endin
 instr RandomiseColors
     prints("Randomising colors...\n")
     for index in [1, 2, 3, 4, 5, 6, 7, 8] do
-    cabbageSet(sprintf("harmonic%d", index), "style.thumb.backgroundColor", sprintf("#%06x", random:i(0, 0xFFFFFF)))
+        cabbageSet(sprintf("harmonic%d", index), "style.thumb.backgroundColor", sprintf("#%06x", random:i(0, 0xFFFFFF)))
     od
 endin
 
@@ -250,13 +248,13 @@ instr SaveSelectedState
 
 
     for channel in channels do
-    // Make sure key exists first (Csound && does not short-circuit)
-    if(cabbageHasKey:i(channel, "fullSave") == 1) then
-        if(cabbageGet:i(channel, "fullSave") == 1) then
-            fullSaveChannels[fullSaveIndex] = channel
-            fullSaveIndex += 1
+        // Make sure key exists first (Csound && does not short-circuit)
+        if(cabbageHasKey:i(channel, "fullSave") == 1) then
+            if(cabbageGet:i(channel, "fullSave") == 1) then
+                fullSaveChannels[fullSaveIndex] = channel
+                fullSaveIndex += 1
+            endif
         endif
-    endif
     od
 
     prints("Number of channels with fullSave flag: %d\n", fullSaveIndex)
@@ -275,7 +273,7 @@ instr ReportValues
     prints("Current values: %d\n", callsToReportValues)
     callsToReportValues += 1
     for index in [1, 2, 3, 4, 5, 6, 7, 8] do
-    prints("%f\n", cabbageGetValue(sprintf("harmonic%d", index)))
+        prints("%f\n", cabbageGetValue(sprintf("harmonic%d", index)))
     od
 endin
 </CsInstruments>
