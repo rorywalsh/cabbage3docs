@@ -9,7 +9,9 @@ In an ARA document, you'll find references to several key entities:
 
 * **Audio Sources (`AudioSource`):** Provide the low-level PCM data and properties for any audio asset loaded into a DAW session. 📃 **Note:** AudioSource's have their own playbackRegions, don't confuse these with the higer level PlaybackRegions listed below. 
 * **Playback Regions (`PlaybackRegion`):** Represent how an audio source is mapped onto the DAW timeline as a clip. It contains information about the region's duration, its start time on the DAW timeline, and its internal start time/offset relative to the raw audio file. Cropping the start or end of an audio clip in the DAW will modify this `PlaybackRegion` structure. Note that duplicating an audio source across multiple tracks will increase the number of regions, but not the number of audio sources. 
-* **Region Sequences (`RegionSequence`):** Represent a collection of playback regions grouped together, typically mapping to tracks, lanes, or channels in the host.
+* **Region Sequences (`RegionSequence`):** Represent a collection of playback regions grouped together, typically mapping to tracks, lanes, or channels in the host. Each region sequence belongs to a musical context.
+* **Musical Contexts (`MusicalContext`):** Describe the rhythmic and harmonic structure of the music, including tempo, bar signatures, key signatures, and tuning.
+* **Audio Modifications (`AudioModification`):** Contain the edits applied to an audio source. Each modification belongs to an audio source and can contain multiple playback regions.
 * **View Selection (`ViewSelection`):** Provides real-time information about the host's current user selection, which can include specific playback regions, region sequences, and/or a distinct time range.
 
 
@@ -178,6 +180,70 @@ endin
 
 The `"lastEvent"` property will be `"notifySelection"` when the selection changes, or `"notifyHideRegionSequences"` when tracks are hidden or shown. Selection index is separate from source pool index — the first selected region is always index 0 regardless of which source it belongs to.
 
+### Musical contexts and region sequences
+
+Musical contexts describe the rhythmic and harmonic structure of the music. Region sequences represent tracks or lanes in the host. Use the `musicalContextCount` and `regionSequenceCount` properties to iterate over these entities:
+
+```csound
+instr 1
+  kTrig cabbageAraGetUpdate
+  if kTrig == 1 then
+    event "i", "ShowTracks", 0, 1
+  endif
+endin
+
+instr ShowTracks
+  ; Show musical contexts
+  iMcCnt cabbageAraGet "musicalContextCount"
+  prints("%d musical contexts:\n", iMcCnt)
+  idx = 0
+  while idx < iMcCnt do
+    SName cabbageAraGet "musicalContext.name", idx
+    iOrder cabbageAraGet "musicalContext.orderIndex", idx
+    iColR cabbageAraGet "musicalContext.color.r", idx
+    iColG cabbageAraGet "musicalContext.color.g", idx
+    iColB cabbageAraGet "musicalContext.color.b", idx
+    prints("  [%d] '%s' order=%d colour=(%.2f, %.2f, %.2f)\n",
+           idx, SName, iOrder, iColR, iColG, iColB)
+    idx += 1
+  od
+
+  ; Show region sequences (tracks)
+  iRsCnt cabbageAraGet "regionSequenceCount"
+  prints("%d region sequences:\n", iRsCnt)
+  idx = 0
+  while idx < iRsCnt do
+    SName cabbageAraGet "regionSequence.name", idx
+    iOrder cabbageAraGet "regionSequence.orderIndex", idx
+    iMcIdx cabbageAraGet "regionSequence.musicalContextIndex", idx
+    iColR cabbageAraGet "regionSequence.color.r", idx
+    iColG cabbageAraGet "regionSequence.color.g", idx
+    iColB cabbageAraGet "regionSequence.color.b", idx
+    prints("  [%d] '%s' order=%d context=#%d colour=(%.2f, %.2f, %.2f)\n",
+           idx, SName, iOrder, iMcIdx, iColR, iColG, iColB)
+    idx += 1
+  od
+endin
+```
+
+### Audio modifications
+
+Audio modifications represent edits applied to an audio source. Each modification has a name and a persistent ID used for archiving:
+
+```csound
+instr ShowModifications
+  iCnt cabbageAraGet "audioModificationCount"
+  prints("%d audio modifications:\n", iCnt)
+  idx = 0
+  while idx < iCnt do
+    SName cabbageAraGet "audioModification.name", idx
+    SId   cabbageAraGet "audioModification.persistentId", idx
+    prints("  [%d] '%s' id='%s'\n", idx, SName, SId)
+    idx += 1
+  od
+endin
+```
+
 ### Testing without a DAW (CabbageApp)
 
 During development, you can test ARA instruments without an ARA-capable host by using CabbageApp's standalone mode. There are two ways to provide audio files for testing:
@@ -203,12 +269,12 @@ The ARA implementation is still in its early stages. The following table represe
 | ARA Entity | Status | Notes |
 |---|---|---|
 | AudioSource | Supported | Name, channels, sample count, sample rate, duration, region crop |
-| PlaybackRegion | Supported | Name, track name, crop offset, arrangement position, source index |
+| PlaybackRegion | Supported | Name, track name, crop offset, arrangement position, source index, colour |
 | EditorView selection | Supported | Selected region/track data, time range, hidden tracks |
-| MusicalContext | Not exposed | Callbacks fire events but properties (name, order index) are not stored |
-| RegionSequence | Partial | Track name captured via playback region, but standalone properties (order index) not exposed |
-| AudioModification | Not exposed | Used internally but not accessible through opcodes |
+| MusicalContext | Supported | Name, order index, colour |
+| RegionSequence | Supported | Name, order index, parent musical context, colour |
+| AudioModification | Supported | Name, persistent ID |
 
-This will be expanded in future versions as the ARA integration matures.
+This will be expanded in future versions as the ARA integration matures. Musical context content (tempo map, bar signatures, key signatures, tuning, chords) will be added in a future release.
 
 See the [ARA Opcodes](/cabbage3docs/docs/cabbage_opcodes/cabbageAraGet) reference for the full list of available opcodes.

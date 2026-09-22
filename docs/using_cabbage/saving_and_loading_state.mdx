@@ -71,6 +71,10 @@ Not every widget should be saved and restored as part of a preset. Buttons that 
 
 Setting `"preset": false` means the widget's value will not be included in saved state files, and will not be overwritten when state is loaded. The `"session"` flag controls whether the value is saved/restored between plugin sessions by the host.
 
+## Custom UI state and string channels
+
+The same session mechanism persists arbitrary text for custom interfaces: declare a channel with `"type": "string"` (e.g. on a hidden widget), push JSON into it with `sendControlData()`, and read it back from the launch dumps. String state round-trips through session and preset saves with no files involved. See [Persisting Custom UI State](../custom_interfaces/persisting_ui_state) for the full pattern.
+
 ## Saving a widget's full JSON data
 
 Most widget needs only their current value saved and restored, which is what the default `cabbageSaveState` does. However, in some cases you may want to save the entire JSON state of a widget, including its UI properties (e.g., bounds, colours, styles). To do this, mark the widget with a user-defined custom property (e.g., `fullSave`) and filter at save time:

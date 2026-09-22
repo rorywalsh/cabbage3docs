@@ -1,5 +1,13 @@
 ```json
-"channelType": "number"
+"channels": [{ "id": "myChannel", "type": "string" }]
 ```
 
-ChannelType specifies the data type for widget channels. Can be "number" for numeric values or "string" for text values.
+Each entry in a widget's `channels` array accepts a `type` key specifying the channel's data type. Can be `"number"` (the default) for numeric values or `"string"` for text values.
+
+String channels are first-class state in the backend:
+
+- Values sent from the UI with `sendControlData()` are stored on the channel (and into the matching Csound string channel, readable with the string variant of `cabbageGetValue`).
+- String values are included in session and preset saves, and re-pushed to the UI in the launch widget dumps — which makes string channels the mechanism for persisting custom interface state across UI reloads. See [Persisting Custom UI State](/docs/custom_interfaces/persisting_ui_state).
+- String channels are excluded from DAW automation (automation requires numeric channels).
+
+📃 **Note:** The operative key is the per-channel `type` inside `channels[]`, not a widget-level property.

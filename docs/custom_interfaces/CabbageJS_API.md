@@ -99,11 +99,15 @@ Send widget value changes to the Cabbage backend. This is the primary API for us
 - Automatically routes based on channel automatable status
 - Thread-safe: Asynchronous, doesn't block audio thread
 - Values sent in natural ranges, backend handles normalization
+- **String values**: on a non-automatable channel, a string value is stored as the channel's `stringValue` (and into the matching Csound string channel). String state is included in session/preset saves and re-pushed in the launch dumps — see [Persisting Custom UI State](./persisting_ui_state). The channel must be declared with `"type": "string"`, e.g. `"channels": [{ "id": "myState", "type": "string" }]`.
 
 **Examples:**
 ```csound
 // Basic usage
 Cabbage.sendControlData({ channel: "frequency", value: 1000 }, null);
+
+// String state (persists across UI reloads via session save)
+Cabbage.sendControlData({ channel: "myState", value: JSON.stringify(myState) }, null);
 
 // With gesture for DAW automation recording
 Cabbage.sendControlData({ channel: "volume", value: 0.8, gesture: "begin" }, null);

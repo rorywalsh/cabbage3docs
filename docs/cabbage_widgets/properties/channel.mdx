@@ -10,9 +10,18 @@
 ]
 ```
 
-In Cabbage 3, widgets use an array of channels instead of a single channel string. Each channel object includes an `id` that defines a unique channel name. Widgets in Cabbage 3 can have any number of channels attached to them. An optional `label` object controls how the parameter appears in DAW parameter editors and automation lanes; if omitted, the `id` is used. An optional `eventType` property specifies the type of interaction. A `range` object can define the minimum, maximum, and default values, along with the skew and step increment. The `type` is set to `number` by default. Each widget sets its own type, `number` or `string`.
+In Cabbage 3, widgets use an array of channels instead of a single channel string. Each channel object includes an `id` that defines a unique channel name. Widgets in Cabbage 3 can have any number of channels attached to them. An optional `label` object controls how the parameter appears in DAW parameter editors and automation lanes; if omitted, the `id` is used. An optional `eventType` property specifies the type of interaction. A `range` object can define the minimum, maximum, and default values, along with the skew and step increment. The `type` is set to `number` by default. Each widget sets its own type, `number` or `string`. A `"string"` channel carries text (readable with the string variant of `cabbageGetValue`), persists through session saves, and is excluded from DAW automation — see [Persisting Custom UI State](/docs/custom_interfaces/persisting_ui_state).
 
-**Note on `label` object:**
+> ⚠️ **Two different `label`s:** the `label` object inside `channels[]` only sets the name shown in DAW parameter lists and automation lanes — it never changes any on-screen text. The text a widget displays on screen is set with the widget's top-level `Label` property (see below):
+>
+> ```json
+> "label": {"text": "Cutoff"},
+> "channels": [{"id": "cutoff", "label": {"name": "Filter Cutoff"}}]
+> ```
+>
+> Csound code always uses the channel `id`, never either label.
+
+#### Channel label — DAW display name
 
 The `label` object separates the internal channel identifier from the display name shown in DAWs, and allows a prefix and suffix to be appended to the parameter's value string in the DAW. This is useful when you want short, code-friendly channel IDs (e.g., `hrm1`, `hrm2`) while showing descriptive names in the DAW (e.g., `Harmonic 1`, `Harmonic 2`). Csound code always uses the `id` for channel access via `cabbageGetValue` and `cabbageSetValue`.
 

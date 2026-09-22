@@ -43,6 +43,9 @@ These are queried without an index:
 | `"lastEvent"` | string | Name of the most recent ARA lifecycle callback (see table below) |
 | `"audioSourceCount"` | number | Total number of audio sources in the document. Sources will never be duplicated. |
 | `"playbackRegionCount"` | number | Total number of playback regions (clips) in the document. A single source can account for multiple clips. |
+| `"musicalContextCount"` | number | Total number of musical contexts in the document |
+| `"regionSequenceCount"` | number | Total number of region sequences (tracks) in the document |
+| `"audioModificationCount"` | number | Total number of audio modifications in the document |
 | `"editorView.selectedPlaybackRegionCount"` | number | Number of playback regions (clips) in the current selection |
 
 ## Audio Source Properties
@@ -101,6 +104,50 @@ These query individual selected playback regions (clips on the timeline). Use a 
 📃 **Note:** Selection properties are indexed by position within the selection, not by source pool index. These are separate index spaces.
 
 
+## Musical Context Properties
+
+A musical context describes the rhythmic and harmonic structure of the music. Each document can contain multiple musical contexts. Use the musical context index:
+
+| Property | Type | Index | Description |
+|---|---|---|---|
+| `"musicalContextCount"` | number | none | Total number of musical contexts in the document |
+| `"musicalContext.name"` | string | mc idx | Display name of the musical context (may be empty) |
+| `"musicalContext.orderIndex"` | number | mc idx | Sort order index within the document |
+| `"musicalContext.color.r"` | number | mc idx | Red channel (0.0–1.0) |
+| `"musicalContext.color.g"` | number | mc idx | Green channel (0.0–1.0) |
+| `"musicalContext.color.b"` | number | mc idx | Blue channel (0.0–1.0) |
+
+📃 **Note:** Colour values are returned as `0.0` if the host does not provide a colour for the musical context.
+
+
+## Region Sequence Properties
+
+A region sequence represents a track or lane in the host, containing playback regions. Each region sequence belongs to a musical context. Use the region sequence index:
+
+| Property | Type | Index | Description |
+|---|---|---|---|
+| `"regionSequenceCount"` | number | none | Total number of region sequences (tracks) in the document |
+| `"regionSequence.name"` | string | rs idx | Display name of the region sequence (may be empty) |
+| `"regionSequence.orderIndex"` | number | rs idx | Sort order index within its musical context |
+| `"regionSequence.musicalContextIndex"` | number | rs idx | Index of the parent musical context |
+| `"regionSequence.color.r"` | number | rs idx | Red channel (0.0–1.0) |
+| `"regionSequence.color.g"` | number | rs idx | Green channel (0.0–1.0) |
+| `"regionSequence.color.b"` | number | rs idx | Blue channel (0.0–1.0) |
+
+📃 **Note:** Region sequence index is separate from playback region index and source pool index. The track name is also available via `playbackRegion.sequenceName` for convenience.
+
+
+## Audio Modification Properties
+
+An audio modification represents a set of edits applied to an audio source. Each modification belongs to an audio source and can contain multiple playback regions. Use the modification index:
+
+| Property | Type | Index | Description |
+|---|---|---|---|
+| `"audioModificationCount"` | number | none | Total number of audio modifications in the document |
+| `"audioModification.name"` | string | mod idx | Display name of the modification (may be empty) |
+| `"audioModification.persistentId"` | string | mod idx | Persistent ID used for archiving/restoring state |
+
+
 ## Playback Regions
 
 These query all playback regions (clips) in the document, not just the selected ones. Use the playback region index (0-based, in the order they were added to the document):
@@ -114,8 +161,11 @@ These query all playback regions (clips) in the document, not just the selected 
 | `"playbackRegion.start"` | number | pr idx | Arrangement position on the host timeline (seconds) |
 | `"playbackRegion.duration"` | number | pr idx | Duration on the host arrangement timeline (seconds) |
 | `"playbackRegion.sourceIndex"` | number | pr idx | Source pool index for this playback region's source |
+| `"playbackRegion.color.r"` | number | pr idx | Red channel (0.0–1.0) |
+| `"playbackRegion.color.g"` | number | pr idx | Green channel (0.0–1.0) |
+| `"playbackRegion.color.b"` | number | pr idx | Blue channel (0.0–1.0) |
 
-📃 **Note:** 
+📃 **Note:**
 Playback region index is separate from source pool index and selection index. The playback region array is updated via ARA lifecycle callbacks (`playbackRegionAddedToRegionSequence`, `playbackRegionRemovedFromRegionSequence`, `playbackRegionPropertiesUpdated`, `playbackRegionWillDestroy`).
 
 
@@ -213,8 +263,70 @@ instr ShowAllClips
     iDur   cabbageAraGet "playbackRegion.durationInSamples", idx
     iPbStart cabbageAraGet "playbackRegion.start", idx
     iPbDur   cabbageAraGet "playbackRegion.duration", idx
-    prints("  [%d] '%s' on '%s': src=%d dur=%d pb=%.3f-%.3f\n",
-           idx, SName, STrack, iStart, iDur, iPbStart, iPbStart+iPbDur)
+    iSrcIdx  cabbageAraGet "playbackRegion.sourceIndex", idx
+    iColR   cabbageAraGet "playbackRegion.color.r", idx
+    iColG   cabbageAraGet "playbackRegion.color.g", idx
+    iColB   cabbageAraGet "playbackRegion.color.b", idx
+    prints("  [%d] '%s' on '%s': src#%d pb=%.3f-%.3f\n",
+           idx, SName, STrack, iSrcIdx, iPbStart, iPbStart+iPbDur)
+    prints("        colour: (%.2f, %.2f, %.2f)\n", iColR, iColG, iColB)
+    idx += 1
+  od
+endin
+```
+
+### Iterating musical contexts
+
+```csound
+instr ShowMusicalContexts
+  iCnt cabbageAraGet "musicalContextCount"
+  prints("%d musical contexts:\n", iCnt)
+  idx = 0
+  while idx < iCnt do
+    SName cabbageAraGet "musicalContext.name", idx
+    iOrder cabbageAraGet "musicalContext.orderIndex", idx
+    iColR cabbageAraGet "musicalContext.color.r", idx
+    iColG cabbageAraGet "musicalContext.color.g", idx
+    iColB cabbageAraGet "musicalContext.color.b", idx
+    prints("  [%d] '%s' order=%d colour=(%.2f, %.2f, %.2f)\n",
+           idx, SName, iOrder, iColR, iColG, iColB)
+    idx += 1
+  od
+endin
+```
+
+### Iterating region sequences (tracks)
+
+```csound
+instr ShowRegionSequences
+  iCnt cabbageAraGet "regionSequenceCount"
+  prints("%d region sequences:\n", iCnt)
+  idx = 0
+  while idx < iCnt do
+    SName cabbageAraGet "regionSequence.name", idx
+    iOrder cabbageAraGet "regionSequence.orderIndex", idx
+    iMcIdx cabbageAraGet "regionSequence.musicalContextIndex", idx
+    iColR cabbageAraGet "regionSequence.color.r", idx
+    iColG cabbageAraGet "regionSequence.color.g", idx
+    iColB cabbageAraGet "regionSequence.color.b", idx
+    prints("  [%d] '%s' order=%d context=#%d colour=(%.2f, %.2f, %.2f)\n",
+           idx, SName, iOrder, iMcIdx, iColR, iColG, iColB)
+    idx += 1
+  od
+endin
+```
+
+### Iterating audio modifications
+
+```csound
+instr ShowAudioModifications
+  iCnt cabbageAraGet "audioModificationCount"
+  prints("%d audio modifications:\n", iCnt)
+  idx = 0
+  while idx < iCnt do
+    SName cabbageAraGet "audioModification.name", idx
+    SId   cabbageAraGet "audioModification.persistentId", idx
+    prints("  [%d] '%s' id='%s'\n", idx, SName, SId)
     idx += 1
   od
 endin

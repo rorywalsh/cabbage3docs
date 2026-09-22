@@ -1,117 +1,78 @@
----
-title: cabbageAraDump
-description: Print the entire ARA state to the Csound output for diagnostics
----
+<Cabbage>
+{
+    "widgets": [
+        {
+            "type"    : "form",
+            "id"      : "MainForm",
+            "caption" : "ARA Analyser",
+            "size"    : {"width": 864, "height": 600},
+            "pluginId": "def1",
+            "style"   : {"backgroundColor": "#2b2b41"},
+            "package" : {
+                "include": [ {"dest": "TrackAnalyser.ara.csd", "src": "TrackAnalyser.ara.csd"} ]
+            },
+            "channels": [ {"id": "formChannel"} ]
+        },
+        {
+            "type"    : "rotarySlider",
+            "bounds"  : {"left": 20, "top": 60, "width": 120, "height": 80},
+            "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
+            "channels": [
+                {
+                    "id"   : "wetdry",
+                    "label": "Wet/Dry",
+                    "event": "valueChanged",
+                    "range": {"min": 0, "max": 1, "defaultValue": 0, "skew": 1, "increment": 0.001}
+                }
+            ]
+        },
+        {
+            "type"    : "rotarySlider",
+            "bounds"  : {"left": 20, "top": 160, "width": 120, "height": 80},
+            "style"   : { "label": {"fontColor": "#dddddd"}, "valueText": {"fontSize": 12} },
+            "channels": [
+                {
+                    "id"   : "feedback",
+                    "label": "Feedback",
+                    "event": "valueChanged",
+                    "range": {"min": 0, "max": 1, "defaultValue": 0.5, "skew": 1, "increment": 0.001}
+                }
+            ]
+        },
+        {
+            "type"    : "csoundOutput",
+            "bounds"  : {"left": 160, "top": 57, "width": 650, "height": 529},
+            "channels": [
+                { "id": "csoundOutput2", "range": {"increment": 0.001} }
+            ]
+        }
+    ]
+}
 
-# cabbageAraDump
+</Cabbage>
+<CsoundSynthesizer>
+<CsOptions>
+-n -d -m0d
+</CsOptions>
+<CsInstruments>
+ksmps = 1
+nchnls = 2
+0dbfs  = 1
 
-Prints a formatted dump of the entire ARA data pool to the Csound output. Useful for debugging and understanding the state of the ARA document model. Supports two output modes: detailed property dump and ASCII timeline view.
-
-## Synopsis
-
-```csound
-cabbageAraDump()                             ; i-rate: dump once on init
-cabbageAraDump(kTrig)                        ; k-rate: dump on trigger
-```
-
-## Description
-
-`cabbageAraDump` is a diagnostic opcode that prints the complete ARA state to the Csound output window.
-
-**Parameters:**
-
-| Parameter | Description |
-|-----------|-------------|
-| `kTrig` | Trigger signal. Dumps when transitions from zero to nonzero (k-rate only). |
-
-The **i-rate** version dumps once when the instrument initializes.
-
-The **k-rate** version dumps each time the trigger transitions from zero to nonzero.
-
-The output includes:
-
-- **Status**: Last ARA event, update counter
-- **Metrics**: Source count, playback region count, musical context count, region sequence count, audio modification count, selected region count, current source index
-- **Time Range**: Host arrangement timeline position
-- **Musical Contexts**: All musical contexts with name, order, and colour
-- **Region Sequences**: All region sequences (tracks) with name, order, parent context, and colour
-- **Playback Regions**: All clips in the document with their arrangement position, source crop, and colour
-- **Selected Regions**: Currently selected clips with timeline position and source crop
-- **Audio Modifications**: All audio modifications with name and persistent ID
-- **Sources**: All audio sources with channels, sample rate, duration, and region crop
-
-## Example
-
-```csound
-; Dump once at init
+; This instrument listens for ARA updates and when it detects one
+; it triggers instrument 99 to process the audio data. No point
+; in trying to procedss anything until an event is received from the host,
+; as there will be no audio data to process.
 instr 1
-  cabbageAraDump
+    updated:k = cabbageAraGetUpdate()
+    ;cabbageAraDump(changed:k(updated))
+    if changed:k(updated) == 1 then
+        event "i", "ShowAllInfo", 0, 1, updated
+    endif
 endin
 
-; Dump on each ARA update
-instr 2
-  kTrig cabbageAraGetUpdate
-  cabbageAraDump kTrig
-endin
-```
-
-## Output Format
-
-```
-=========================================
-ARA STATE DUMP
-=========================================
-[Status]  Last Event:   notifySelection
-[Status]  Update:       5
-[Metrics] Sources: 2  |  Regions: 5  |  Contexts: 1  |  Sequences: 3  |  Modifications: 2  |  Selected: 2  |  Hidden: 0  |  Current Index: 0
-[Time]    Host Range: 1.000 to 3.500 (2.500s)
-
------------- MUSICAL CONTEXTS -----------
-[1] 'Default Context'
-    Order:  1
-    Colour: (0.20, 0.40, 0.80)
-
------------- REGION SEQUENCES -----------
-[1] 'Lead Guitar'
-    Order:     1
-    Context:   #1
-    Colour:    (0.90, 0.20, 0.20)
-[2] 'Rhythm Guitar'
-    Order:     2
-    Context:   #1
-    Colour:    (0.20, 0.80, 0.20)
-
------------- PLAYBACK REGIONS -----------
-[1] 'guitar.wav'
-    Start:    1.000s
-    Duration: 2.500s
-    Source Crop: Start=44100 samples, Dur=110250 samples
-    Colour:   (0.90, 0.20, 0.20)
-
------------- SELECTED REGIONS ------------
-[1] 'guitar.wav'
-    Timeline Pos: 1.000s (Dur: 2.500s)
-    Source Crop:  Start=44100 samples, Dur=110250 samples (2.500s)
-
------------- AUDIO MODIFICATIONS ---------
-[1] 'guitar.wav'
-    Persistent ID: 'com.example.mod1'
-
------------- SOURCES ---------------------
-[1] 'guitar.wav'
-    Channels:    2
-    Sample Rate: 44100 Hz
-    Sample Count: 176400
-    Duration:    4.000s
-    Region:      Start=44100 (1.000s), Duration=110250 (2.500s)
-=========================================
-```
-
-It is also quite simple to iterate over the global ARA pool manually by accessing the individual ARA properties:
-
-```csound
 instr ShowAllInfo
-    cabbageAraDump
+    cabbageAraDump()
     ; --- Top-level state ---
     idx:i      = cabbageAraGet("currentIndex")
     srcCnt:i   = cabbageAraGet("audioSourceCount")
@@ -128,7 +89,7 @@ instr ShowAllInfo
     mcCnt:i     = cabbageAraGet("musicalContextCount")
     rsCnt:i     = cabbageAraGet("regionSequenceCount")
     modCnt:i    = cabbageAraGet("audioModificationCount")
-    selRegCnt:i = cabbageAraGet("editorView.selectedPlaybackRegionCount")
+    selRegCnt:i = cabbageAraGet("selectedPlaybackRegionCount")
     printfi("[Metrics] Sources: %d  |  Regions: %d  |  Contexts: %d  |  Sequences: %d  |  Modifications: %d  |  Selected: %d  |  Current Index: %d\n", 1, srcCnt, regCnt, mcCnt, rsCnt, modCnt, selRegCnt, idx)
 
     ; --- Time Range Calculations ---
@@ -203,18 +164,18 @@ instr ShowAllInfo
     endif
     printfi("\n", 1)
 
-    ; --- Selected Regions Loop ---
+    ; --- Selected Regions Loop (New Section) ---
     printfi("------------ SELECTED REGIONS -----------\n", 1)
     if selRegCnt == 0 then
         printfi("    [None]\n", 1)
     else
         activeSelIdx:i = 0
         while activeSelIdx < selRegCnt do
-            selRegName:S    = cabbageAraGet("editorView.selectedRegion.name", activeSelIdx)
-            selTimelineStart:i = cabbageAraGet("editorView.selectedPlayback.start", activeSelIdx)
-            selTimelineDur:i   = cabbageAraGet("editorView.selectedPlayback.duration", activeSelIdx)
-            selSrcStartSamp:i  = cabbageAraGet("editorView.selectedRegion.startInSamples", activeSelIdx)
-            selSrcDurSamp:i    = cabbageAraGet("editorView.selectedRegion.durationInSamples", activeSelIdx)
+            selRegName:S    = cabbageAraGet("playbackRegion.selectedRegionName", activeSelIdx)
+            selTimelineStart:i = cabbageAraGet("playbackRegion.selectedPlaybackStart", activeSelIdx)
+            selTimelineDur:i   = cabbageAraGet("playbackRegion.selectedPlaybackDuration", activeSelIdx)
+            selSrcStartSamp:i  = cabbageAraGet("playbackRegion.selectedRegionStartInSamples", activeSelIdx)
+            selSrcDurSamp:i    = cabbageAraGet("playbackRegion.selectedRegionDurationInSamples", activeSelIdx)
 
             printfi("[%d] '%s'\n", activeSelIdx + 1, activeSelIdx, selRegName)
             printfi("    Timeline Pos: %.3fs (Dur: %.3fs)\n", 1, selTimelineStart, selTimelineDur)
@@ -268,9 +229,10 @@ instr ShowAllInfo
     printfi("=========================================\n", 1)
 
 endin
-```
 
-## See Also
 
-- [cabbageAraGet](/cabbage3docs/docs/cabbage_opcodes/cabbageAraGet)
-- [cabbageAraGetUpdate](/cabbage3docs/docs/cabbage_opcodes/cabbageAraGetUpdate)
+</CsInstruments>
+<CsScore>
+i 1 0 z   ; run for the lifetime of the plugin
+</CsScore>
+</CsoundSynthesizer>
