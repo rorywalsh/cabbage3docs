@@ -13,7 +13,7 @@ Unlike [Custom Widgets](./customWidgets), this approach does not use Cabbage's b
 
 ## Getting Started
 
-The quickest way to start a custom interface project is the **Export Vanilla Plugin** command in the Command Palette. This exports a working plugin binary and creates a ready-to-use resource folder alongside it containing:
+The quickest way to start a custom interface project is the **Create Vanilla VST3 Effect/Synth Project (Custom UI)** command in the Command Palette. This scaffolds a working plugin binary and creates a ready-to-use resource folder alongside it containing:
 
 - A `cabbage/` folder with `cabbage.js` and supporting files
 - A starter `index.html` wired up to the Cabbage JS API (can be removed in using a build tool to generate a user-defined index.html)
