@@ -148,17 +148,21 @@ Once open, type "Cabbage" to filter extension commands.
 
 **Commands:**
 
-- **Create a new Cabbage Effect file** (`cabbage.createNewCabbageEffect`)
-  - Creates a new .csd file with a basic effect template
+Starter `.csd` files (built-in Cabbage widgets):
 
-- **Create a new Cabbage Synth file** (`cabbage.createNewCabbageSynth`)
-  - Creates a new .csd file with a basic synthesizer template
+- **Create Effect File (Cabbage UI)** (`cabbage.createNewCabbageEffect`)
+  - Creates a single .csd file with a basic effect template using Cabbage widgets. Export it later to VST3/AU/CLAP
 
-- **Create Vanilla VST3 Effect** (`cabbage.createVanillaVST3Effect`)
-  - Creates a new project with custom HTML/CSS/JS frontend for a VST3 effect
+- **Create Synth File (Cabbage UI)** (`cabbage.createNewCabbageSynth`)
+  - Creates a single .csd file with a basic synthesizer template using Cabbage widgets. Export it later to VST3/AU/CLAP
 
-- **Create Vanilla VST3 Synth** (`cabbage.createVanillaVST3Synth`)
-  - Creates a new project with custom HTML/CSS/JS frontend for a VST3 synth
+Custom-UI plugin projects (no Cabbage widgets, full `.vst3` bundle + resources):
+
+- **Create Vanilla VST3 Effect Project (Custom UI)** (`cabbage.createVanillaVST3Effect`)
+  - Scaffolds a complete VST3 effect project with custom HTML/CSS/JS frontend and all bundled resources
+
+- **Create Vanilla VST3 Synth Project (Custom UI)** (`cabbage.createVanillaVST3Synth`)
+  - Scaffolds a complete VST3 synth project with custom HTML/CSS/JS frontend and all bundled resources
 
  
 <br/>
